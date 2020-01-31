@@ -55,4 +55,13 @@
   (testing "Negating a tuple"
     (let [a (->Tuple 1 -2 3 -4)]
       (is (= (negate a)
-             (->Tuple -1 2 -3 4))))))
+             (->Tuple -1 2 -3 4)))))
+  (testing "Multiplying"
+    (testing "a tuple by a scalar"
+      (let [a (->Tuple 1 -2 3 -4)]
+        (is (= (product a 3.5)
+               (->Tuple 3.5 -7.0 10.5 -14.0)))))
+    (testing "a tuple by a fraction"
+      (let [a (->Tuple 1 -2 3 -4)]
+        (is (= (product a 0.5)
+               (->Tuple 0.5 -1.0 1.5 -2.0)))))))
