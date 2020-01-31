@@ -35,4 +35,9 @@
     (let [p1 (point 3 2 1)
           p2 (point 5 6 7)]
       (is (= (subtract p1 p2)
-             (vector' -2 -4 -6))))))
+             (vector' -2 -4 -6)))))
+  (testing "Subtracting a vector from a point"
+    (let [p (point 3 2 1)
+          v (vector' 5 6 7)]
+      (is (= (subtract p v)
+             (point -2 -4 -6))))))
