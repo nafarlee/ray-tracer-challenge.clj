@@ -33,3 +33,6 @@
            (- (:y p1) (:y p2))
            (- (:z p1) (:z p2))
            (- (:w p1) (:w p2))))
+
+(defn negate [t]
+  (subtract (vector' 0 0 0) t))
