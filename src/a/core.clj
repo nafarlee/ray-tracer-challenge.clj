@@ -22,17 +22,17 @@
   (and (instance? Tuple x)
        (zero? (:w x))))
 
-(defn add [p1 p2]
-  (->Tuple (+ (:x p1) (:x p2))
-           (+ (:y p1) (:y p2))
-           (+ (:z p1) (:z p2))
-           (+ (:w p1) (:w p2))))
+(defn add [t1 t2]
+  (->Tuple (+ (:x t1) (:x t2))
+           (+ (:y t1) (:y t2))
+           (+ (:z t1) (:z t2))
+           (+ (:w t1) (:w t2))))
 
-(defn subtract [p1 p2]
-  (->Tuple (- (:x p1) (:x p2))
-           (- (:y p1) (:y p2))
-           (- (:z p1) (:z p2))
-           (- (:w p1) (:w p2))))
+(defn subtract [t1 t2]
+  (->Tuple (- (:x t1) (:x t2))
+           (- (:y t1) (:y t2))
+           (- (:z t1) (:z t2))
+           (- (:w t1) (:w t2))))
 
 (defn negate [t]
   (subtract (vector' 0 0 0) t))
