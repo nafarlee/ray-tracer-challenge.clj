@@ -48,3 +48,8 @@
            (/ (:y t) x)
            (/ (:z t) x)
            (/ (:w t) x)))
+
+(defn magnitude [v]
+  (Math/sqrt (+ (Math/pow (:x v) 2)
+                (Math/pow (:y v) 2)
+                (Math/pow (:z v) 2))))
