@@ -36,3 +36,9 @@
 
 (defn negate [t]
   (subtract (vector' 0 0 0) t))
+
+(defn product [t x]
+  (->Tuple (* (:x t) x)
+           (* (:y t) x)
+           (* (:z t) x)
+           (* (:w t) x)))
