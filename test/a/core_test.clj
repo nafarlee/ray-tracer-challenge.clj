@@ -64,4 +64,8 @@
     (testing "a tuple by a fraction"
       (let [a (->Tuple 1 -2 3 -4)]
         (is (= (product a 0.5)
-               (->Tuple 0.5 -1.0 1.5 -2.0)))))))
+               (->Tuple 0.5 -1.0 1.5 -2.0))))))
+  (testing "Dividing a tuple by a scalar"
+    (let [a (->Tuple 1.0 -2.0 3.0 -4.0)]
+      (is (= (divide a 2)
+             (->Tuple 0.5 -1.0 1.5 -2.0))))))
