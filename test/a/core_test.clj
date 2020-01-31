@@ -25,4 +25,9 @@
       (is (= a (->Tuple 4 -4 3 1)))))
   (testing "vector creates tuples with w=0"
     (let [a (vector' 4 -4 3)]
-      (is (= a (->Tuple 4 -4 3 0))))))
+      (is (= a (->Tuple 4 -4 3 0)))))
+  (testing "Adding two tuples"
+    (let [a1 (->Tuple 3 -2 5 1)
+          a2 (->Tuple -2 3 1 0)]
+      (is (= (add a1 a2)
+             (->Tuple 1 1 6 1))))))
