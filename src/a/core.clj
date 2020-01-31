@@ -42,3 +42,9 @@
            (* (:y t) x)
            (* (:z t) x)
            (* (:w t) x)))
+
+(defn divide [t x]
+  (->Tuple (/ (:x t) x)
+           (/ (:y t) x)
+           (/ (:z t) x)
+           (/ (:w t) x)))
