@@ -41,9 +41,9 @@
       (let [p (point 3 2 1)
             v (vector' 5 6 7)]
         (is (= (subtract p v)
-               (point -2 -4 -6))))))
+               (point -2 -4 -6)))))
     (testing "two vectors"
       (let [v1 (vector' 3 2 1)
             v2 (vector' 5 6 7)]
         (is (= (subtract v1 v2)
-               (vector' -2 -4 -6))))))
+               (vector' -2 -4 -6)))))))
