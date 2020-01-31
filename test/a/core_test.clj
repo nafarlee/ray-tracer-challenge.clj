@@ -46,4 +46,9 @@
       (let [v1 (vector' 3 2 1)
             v2 (vector' 5 6 7)]
         (is (= (subtract v1 v2)
-               (vector' -2 -4 -6)))))))
+               (vector' -2 -4 -6)))))
+    (testing "a vector from the zero vector"
+      (let [zero (vector' 0 0 0)
+            v (vector' 1 -2 3)]
+        (is (= (subtract zero v)
+               (vector' -1 2 -3)))))))
