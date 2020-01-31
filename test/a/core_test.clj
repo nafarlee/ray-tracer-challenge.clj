@@ -51,4 +51,8 @@
       (let [zero (vector' 0 0 0)
             v (vector' 1 -2 3)]
         (is (= (subtract zero v)
-               (vector' -1 2 -3)))))))
+               (vector' -1 2 -3))))))
+  (testing "Negating a tuple"
+    (let [a (->Tuple 1 -2 3 -4)]
+      (is (= (negate a)
+             (->Tuple -1 2 -3 4))))))
