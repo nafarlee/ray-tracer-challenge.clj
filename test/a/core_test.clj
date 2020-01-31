@@ -19,5 +19,10 @@
         (is (= (:z t) 3.1))
         (is (= (:w t) 0.0))
         (is (not (point? t))
-        (is (vector'? t)))))
-    ))
+        (is (vector'? t))))))
+  (testing "point creates tuples with w=1"
+    (let [t (point 4 -4 3)]
+      (is (= t (->Tuple 4 -4 3 1)))))
+  (testing "vector creates tuples with w=0"
+    (let [t (vector' 4 -4 3)]
+      (is (= t (->Tuple 4 -4 3 0))))))
