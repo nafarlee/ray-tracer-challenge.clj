@@ -68,4 +68,25 @@
   (testing "Dividing a tuple by a scalar"
     (let [a (->Tuple 1.0 -2.0 3.0 -4.0)]
       (is (= (divide a 2)
-             (->Tuple 0.5 -1.0 1.5 -2.0))))))
+             (->Tuple 0.5 -1.0 1.5 -2.0)))))
+  (testing "Computing the magnitude of vector"
+    (testing "(1, 0, 0)"
+      (let [v (vector' 1 0 0)]
+        (is (= (magnitude v)
+               1.0))))
+    (testing "(0, 1, 0)"
+      (let [v (vector' 0 1 0)]
+        (is (= (magnitude v)
+               1.0))))
+    (testing "(0, 0, 1)"
+      (let [v (vector' 0 0 1)]
+        (is (= (magnitude v)
+               1.0))))
+    (testing "(1, 2, 3)"
+      (let [v (vector' 1 2 3)]
+        (is (= (magnitude v)
+               (Math/sqrt 14)))))
+    (testing "(-1, -2, -3)"
+      (let [v (vector' -1 -2 -3)]
+        (is (= (magnitude v)
+               (Math/sqrt 14)))))))
