@@ -89,4 +89,20 @@
     (testing "(-1, -2, -3)"
       (let [v (vector' -1 -2 -3)]
         (is (= (magnitude v)
-               (Math/sqrt 14)))))))
+               (Math/sqrt 14))))))
+  (testing "Normalizing"
+    (testing "(4, 0, 0) gives (1, 0, 0)"
+      (let [v (vector' 4 0 0)]
+        (is (= (normalize v)
+               (vector' 1.0 0.0 0.0)))))
+    (testing "(1, 2, 3)"
+      (let [v (vector' 1 2 3)]
+        (is (= (normalize v)
+               (vector' (/ 1 (Math/sqrt 14))
+                        (/ 2 (Math/sqrt 14))
+                        (/ 3 (Math/sqrt 14))))))))
+  (testing "The magnitude of a normalized vector"
+    (let [v (vector' 1 2 3)
+          norm (normalize v)]
+      (is (= (magnitude norm)
+             1.0)))))
