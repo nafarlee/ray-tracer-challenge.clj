@@ -105,4 +105,9 @@
     (let [v (vector' 1 2 3)
           norm (normalize v)]
       (is (= (magnitude norm)
-             1.0)))))
+             1.0))))
+  (testing "The dot product of two tuples"
+    (let [a (vector' 1 2 3)
+          b (vector' 2 3 4)]
+      (is (= (dot a b)
+             20)))))
