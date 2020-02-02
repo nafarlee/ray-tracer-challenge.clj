@@ -53,3 +53,9 @@
   (Math/sqrt (+ (Math/pow (:x v) 2)
                 (Math/pow (:y v) 2)
                 (Math/pow (:z v) 2))))
+
+(defn normalize [v]
+  (let [m (magnitude v)]
+    (vector' (/ (:x v) m)
+             (/ (:y v) m)
+             (/ (:z v) m))))
