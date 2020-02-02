@@ -59,3 +59,9 @@
     (vector' (/ (:x v) m)
              (/ (:y v) m)
              (/ (:z v) m))))
+
+(defn dot [a b]
+  (+ (* (:x a) (:x b))
+     (* (:y a) (:y b))
+     (* (:z a) (:z b))
+     (* (:w a) (:w b))))
