@@ -43,11 +43,12 @@
            (* (:z t) x)
            (* (:w t) x)))
 
-(defn divide [t x]
-  (->Tuple (/ (:x t) x)
-           (/ (:y t) x)
-           (/ (:z t) x)
-           (/ (:w t) x)))
+(defn divide
+  [{x :x y :y z :z w :w} i]
+  (->Tuple (/ x i)
+           (/ y i)
+           (/ z i)
+           (/ w i)))
 
 (defn magnitude [v]
   (Math/sqrt (+ (Math/pow (:x v) 2)
