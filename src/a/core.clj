@@ -44,12 +44,7 @@
 
 (def product (partial element-wise *))
 
-(defn divide
-  [{x :x y :y z :z w :w} i]
-  (->Tuple (/ x i)
-           (/ y i)
-           (/ z i)
-           (/ w i)))
+(def divide (partial element-wise /))
 
 (defn magnitude [v]
   (Math/sqrt (+ (Math/pow (:x v) 2)
