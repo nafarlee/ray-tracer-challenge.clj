@@ -18,9 +18,9 @@
 (defn vector' [x y z]
   (->Tuple x y z 0))
 
-(defn vector'? [x]
-  (and (instance? Tuple x)
-       (zero? (:w x))))
+(defn vector'? [{w :w :as t}]
+  (and (instance? Tuple t)
+       (zero? w)))
 
 (defn- across
   [f {ax :x ay :y az :z aw :w} {bx :x by :y bz :z bw :w}]
