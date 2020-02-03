@@ -35,6 +35,13 @@
 
 (def negate (partial subtract (vector' 0 0 0)))
 
+(defn element-wise
+  [f {x :x y :y z :z w :w} i]
+  (->Tuple (f x i)
+           (f y i)
+           (f z i)
+           (f w i)))
+
 (defn product
   [{x :x y :y z :z w :w} i]
   (->Tuple (* x i)
