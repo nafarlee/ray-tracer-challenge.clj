@@ -22,18 +22,14 @@
   (and (instance? Tuple x)
        (zero? (:w x))))
 
-(defn add [t1 t2]
-  (->Tuple (+ (:x t1) (:x t2))
-           (+ (:y t1) (:y t2))
-           (+ (:z t1) (:z t2))
-           (+ (:w t1) (:w t2))))
-
 (defn- across
   [f {ax :x ay :y az :z aw :w} {bx :x by :y bz :z bw :w}]
   (->Tuple (f ax bx)
            (f ay by)
            (f az bz)
            (f aw bw)))
+
+(def add (partial across +))
 
 (def subtract (partial across -))
 
