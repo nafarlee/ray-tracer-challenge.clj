@@ -110,4 +110,11 @@
     (let [a (vector' 1 2 3)
           b (vector' 2 3 4)]
       (is (= (dot a b)
-             20)))))
+             20))))
+  (testing "The cross product of two vectors"
+    (let [a (vector' 1 2 3)
+          b (vector' 2 3 4)]
+      (is (= (cross a b)
+             (vector' -1 2 -1)))
+      (is (= (cross b a)
+             (vector' 1 -2 1))))))
