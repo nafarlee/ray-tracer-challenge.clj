@@ -28,19 +28,14 @@
            (+ (:z t1) (:z t2))
            (+ (:w t1) (:w t2))))
 
-(defn subtract
-  [{ax :x ay :y az :z aw :w} {bx :x by :y bz :z bw :w}]
-  (->Tuple (- ax bx)
-           (- ay by)
-           (- az bz)
-           (- aw bw)))
-
 (defn- across
   [f {ax :x ay :y az :z aw :w} {bx :x by :y bz :z bw :w}]
   (->Tuple (f ax bx)
            (f ay by)
            (f az bz)
            (f aw bw)))
+
+(def subtract (partial across -))
 
 (defn negate [t]
   (subtract (vector' 0 0 0) t))
