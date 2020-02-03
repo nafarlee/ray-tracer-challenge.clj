@@ -37,11 +37,12 @@
 (defn negate [t]
   (subtract (vector' 0 0 0) t))
 
-(defn product [t x]
-  (->Tuple (* (:x t) x)
-           (* (:y t) x)
-           (* (:z t) x)
-           (* (:w t) x)))
+(defn product
+  [{x :x y :y z :z w :w} i]
+  (->Tuple (* x i)
+           (* y i)
+           (* z i)
+           (* w i)))
 
 (defn divide
   [{x :x y :y z :z w :w} i]
