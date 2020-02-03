@@ -42,12 +42,7 @@
            (f z i)
            (f w i)))
 
-(defn product
-  [{x :x y :y z :z w :w} i]
-  (->Tuple (* x i)
-           (* y i)
-           (* z i)
-           (* w i)))
+(def product (partial element-wise *))
 
 (defn divide
   [{x :x y :y z :z w :w} i]
