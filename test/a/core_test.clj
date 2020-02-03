@@ -6,18 +6,18 @@
   (testing "A tuple with"
     (testing "w=1.0 is a point"
       (let [a (->Tuple 4.3 -4.2 3.1 1.0)]
-        (is (= (:x a) 4.3))
-        (is (= (:y a) -4.2))
-        (is (= (:z a) 3.1))
-        (is (= (:w a) 1.0))
+        (is (== (:x a) 4.3))
+        (is (== (:y a) -4.2))
+        (is (== (:z a) 3.1))
+        (is (== (:w a) 1.0))
         (is (point? a))
         (is (not (vector'? a)))))
     (testing "w=0.0 is a vector"
       (let [a (->Tuple 4.3 -4.2 3.1 0.0)]
-        (is (= (:x a) 4.3))
-        (is (= (:y a) -4.2))
-        (is (= (:z a) 3.1))
-        (is (= (:w a) 0.0))
+        (is (== (:x a) 4.3))
+        (is (== (:y a) -4.2))
+        (is (== (:z a) 3.1))
+        (is (== (:w a) 0.0))
         (is (not (point? a))
         (is (vector'? a))))))
   (testing "point creates tuples with w=1"
@@ -72,24 +72,24 @@
   (testing "Computing the magnitude of vector"
     (testing "(1, 0, 0)"
       (let [v (vector' 1 0 0)]
-        (is (= (magnitude v)
-               1.0))))
+        (is (== (magnitude v)
+                1.0))))
     (testing "(0, 1, 0)"
       (let [v (vector' 0 1 0)]
-        (is (= (magnitude v)
-               1.0))))
+        (is (== (magnitude v)
+                1.0))))
     (testing "(0, 0, 1)"
       (let [v (vector' 0 0 1)]
-        (is (= (magnitude v)
-               1.0))))
+        (is (== (magnitude v)
+                1.0))))
     (testing "(1, 2, 3)"
       (let [v (vector' 1 2 3)]
-        (is (= (magnitude v)
-               (Math/sqrt 14)))))
+        (is (== (magnitude v)
+                (Math/sqrt 14)))))
     (testing "(-1, -2, -3)"
       (let [v (vector' -1 -2 -3)]
-        (is (= (magnitude v)
-               (Math/sqrt 14))))))
+        (is (== (magnitude v)
+                (Math/sqrt 14))))))
   (testing "Normalizing"
     (testing "(4, 0, 0) gives (1, 0, 0)"
       (let [v (vector' 4 0 0)]
@@ -104,13 +104,13 @@
   (testing "The magnitude of a normalized vector"
     (let [v (vector' 1 2 3)
           norm (normalize v)]
-      (is (= (magnitude norm)
-             1.0))))
+      (is (== (magnitude norm)
+              1.0))))
   (testing "The dot product of two tuples"
     (let [a (vector' 1 2 3)
           b (vector' 2 3 4)]
-      (is (= (dot a b)
-             20))))
+      (is (== (dot a b)
+              20))))
   (testing "The cross product of two vectors"
     (let [a (vector' 1 2 3)
           b (vector' 2 3 4)]
