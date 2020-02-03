@@ -35,6 +35,13 @@
            (- az bz)
            (- aw bw)))
 
+(defn- across
+  [f {ax :x ay :y az :z aw :w} {bx :x by :y bz :z bw :w}]
+  (->Tuple (f ax bx)
+           (f ay by)
+           (f az bz)
+           (f aw bw)))
+
 (defn negate [t]
   (subtract (vector' 0 0 0) t))
 
