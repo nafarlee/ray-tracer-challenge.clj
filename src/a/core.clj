@@ -33,8 +33,7 @@
 
 (def subtract (partial across -))
 
-(defn negate [t]
-  (subtract (vector' 0 0 0) t))
+(def negate (partial subtract (vector' 0 0 0)))
 
 (defn product
   [{x :x y :y z :z w :w} i]
