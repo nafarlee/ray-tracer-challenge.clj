@@ -28,11 +28,12 @@
            (+ (:z t1) (:z t2))
            (+ (:w t1) (:w t2))))
 
-(defn subtract [t1 t2]
-  (->Tuple (- (:x t1) (:x t2))
-           (- (:y t1) (:y t2))
-           (- (:z t1) (:z t2))
-           (- (:w t1) (:w t2))))
+(defn subtract
+  [{ax :x ay :y az :z aw :w} {bx :x by :y bz :z bw :w}]
+  (->Tuple (- ax bx)
+           (- ay by)
+           (- az bz)
+           (- aw bw)))
 
 (defn negate [t]
   (subtract (vector' 0 0 0) t))
