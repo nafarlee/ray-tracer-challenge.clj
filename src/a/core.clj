@@ -65,3 +65,12 @@
      (* (:y a) (:y b))
      (* (:z a) (:z b))
      (* (:w a) (:w b))))
+
+(defn cross
+  [{ax :x ay :y az :z} {bx :x by :y bz :z}]
+  (vector' (- (* ay bz)
+              (* az by))
+           (- (* az bx)
+              (* ax bz))
+           (- (* ax by)
+              (* ay bx))))
