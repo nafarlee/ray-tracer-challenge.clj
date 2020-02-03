@@ -60,11 +60,12 @@
              (/ (:y v) m)
              (/ (:z v) m))))
 
-(defn dot [a b]
-  (+ (* (:x a) (:x b))
-     (* (:y a) (:y b))
-     (* (:z a) (:z b))
-     (* (:w a) (:w b))))
+(defn dot
+  [{ax :x ay :y az :z aw :w} {bx :x by :y bz :z bw :w}]
+  (+ (* ax bx)
+     (* ay by)
+     (* az bz)
+     (* aw bw)))
 
 (defn cross
   [{ax :x ay :y az :z} {bx :x by :y bz :z}]
