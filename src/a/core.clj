@@ -54,11 +54,12 @@
                 (Math/pow (:y v) 2)
                 (Math/pow (:z v) 2))))
 
-(defn normalize [v]
+(defn normalize
+  [{x :x y :y z :z :as v}]
   (let [m (magnitude v)]
-    (vector' (/ (:x v) m)
-             (/ (:y v) m)
-             (/ (:z v) m))))
+    (vector' (/ x m)
+             (/ y m)
+             (/ z m))))
 
 (defn dot
   [{ax :x ay :y az :z aw :w} {bx :x by :y bz :z bw :w}]
