@@ -58,12 +58,10 @@
              (/ y m)
              (/ z m))))
 
-(defn dot
-  [{ax :x ay :y az :z aw :w} {bx :x by :y bz :z bw :w}]
-  (+ (* ax bx)
-     (* ay by)
-     (* az bz)
-     (* aw bw)))
+(defn dot [a b]
+  (->> (across * a b)
+       vals
+       (apply +)))
 
 (defn cross
   [{ax :x ay :y az :z} {bx :x by :y bz :z}]
