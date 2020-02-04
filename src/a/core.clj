@@ -71,3 +71,5 @@
               (* ax bz))
            (- (* ax by)
               (* ay bx))))
+
+(defrecord Projectile [position velocity])
