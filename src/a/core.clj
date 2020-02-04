@@ -73,3 +73,5 @@
               (* ay bx))))
 
 (defrecord Projectile [position velocity])
+
+(defrecord Environment [gravity wind])
