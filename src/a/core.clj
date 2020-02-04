@@ -1,10 +1,6 @@
 (ns a.core
+  (:require [clojure.pprint :refer (pprint)])
   (:gen-class))
-
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (println "Hello, World!"))
 
 (defrecord Tuple [x y z w])
 
@@ -81,3 +77,18 @@
   (let [position (add p v)
         velocity (reduce add [v g w])]
     (->Projectile position velocity)))
+
+(defn -main
+  "I don't do a whole lot ... yet."
+  [& args]
+  (let [gravity (vector' 0 -0.1 0)
+        wind (vector' -0.01 0 0)
+        environment (->Environment gravity wind)
+        position (point 0 1 0)
+        velocity (vector' 1 1 0)
+        initial (->Projectile position velocity)
+        f (partial tick environment)]
+    (->> initial
+         (iterate f)
+         (take-while (comp (partial <= 0) :y :position))
+         pprint)))
