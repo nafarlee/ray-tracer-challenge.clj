@@ -75,3 +75,9 @@
 (defrecord Projectile [position velocity])
 
 (defrecord Environment [gravity wind])
+
+(defn tick
+  [{g :gravity w :wind} {p :position v :velocity}]
+  (let [position (add p v)
+        velocity (reduce add [v g w])]
+    (->Projectile position velocity)))
