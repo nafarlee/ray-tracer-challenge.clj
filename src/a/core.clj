@@ -2,6 +2,10 @@
   (:require [clojure.pprint :refer (pprint)])
   (:gen-class))
 
+(defn map-values
+  [f m]
+  (into {} (for [[k v] m] [k (f v)])))
+
 (defrecord Tuple [x y z w])
 
 (defn point [x y z]
