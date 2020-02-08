@@ -9,7 +9,7 @@
 
 (defn point? [{w :w :as t}]
   (and (instance? Tuple t)
-       (= 1.0 w)))
+       (== 1.0 w)))
 
 (defn vector' [x y z]
   (->Tuple x y z 0))
