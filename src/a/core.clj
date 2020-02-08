@@ -18,16 +18,9 @@
   (and (instance? Tuple t)
        (zero? w)))
 
-(defn- across
-  [f {ax :x ay :y az :z aw :w} {bx :x by :y bz :z bw :w}]
-  (->Tuple (f ax bx)
-           (f ay by)
-           (f az bz)
-           (f aw bw)))
+(def add (partial merge-with +))
 
-(def add (partial across +))
-
-(def subtract (partial across -))
+(def subtract (partial merge-with -))
 
 (def negate (partial subtract (vector' 0 0 0)))
 
@@ -55,7 +48,7 @@
              (/ z m))))
 
 (defn dot [a b]
-  (->> (across * a b)
+  (->> (merge-with * a b)
        vals
        (apply +)))
 
