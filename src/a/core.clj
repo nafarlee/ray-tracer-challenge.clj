@@ -22,6 +22,8 @@
   (and (instance? Tuple t)
        (zero? w)))
 
+(defrecord Color [red green blue])
+
 (def add (partial merge-with +))
 
 (def subtract (partial merge-with -))
