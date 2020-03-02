@@ -2,11 +2,22 @@
   (:require [clojure.pprint :refer (pprint)])
   (:gen-class))
 
+(defprotocol Multiply (multiply [this scalar]))
+
 (defn map-values
   [f m]
   (into {} (for [[k v] m] [k (f v)])))
 
-(defrecord Tuple [x y z w])
+(defn element-wise
+  [from-map f m i]
+  (->> m
+       (map-values #(f % i))
+       from-map))
+
+(defrecord Tuple [x y z w]
+  Multiply
+  (multiply [this scalar]
+    (element-wise map->Tuple * this scalar)))
 
 (defn point [x y z]
   (->Tuple x y z 1))
@@ -22,21 +33,16 @@
   (and (instance? Tuple t)
        (zero? w)))
 
-(defrecord Color [red green blue])
+(defrecord Color [red green blue]
+  Multiply
+  (multiply [this scalar]
+    (element-wise map->Color * this scalar)))
 
 (def add (partial merge-with +))
 
 (def subtract (partial merge-with -))
 
 (def negate (partial subtract (vector' 0 0 0)))
-
-(defn element-wise
-  [from-map f m i]
-  (->> m
-       (map-values #(f % i))
-       from-map))
-
-(def product (partial element-wise map->Tuple *))
 
 (def divide (partial element-wise map->Tuple /))
 
