@@ -117,4 +117,9 @@
       (is (= (cross a b)
              (vector' -1 2 -1)))
       (is (= (cross b a)
-             (vector' 1 -2 1))))))
+             (vector' 1 -2 1)))))
+  (testing "Colors are (red, green, blue) tuples"
+    (let [{:keys [red green blue]} (->Color -0.5 0.4 1.7)]
+      (is (== red -0.5))
+          (is (== green 0.4))
+          (is (== blue 1.7)))))
