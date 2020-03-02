@@ -31,14 +31,14 @@
 (def negate (partial subtract (vector' 0 0 0)))
 
 (defn element-wise
-  [f m i]
+  [from-map f m i]
   (->> m
        (map-values #(f % i))
-       map->Tuple))
+       from-map))
 
-(def product (partial element-wise *))
+(def product (partial element-wise map->Tuple *))
 
-(def divide (partial element-wise /))
+(def divide (partial element-wise map->Tuple /))
 
 (defn magnitude [v]
   (Math/sqrt (+ (Math/pow (:x v) 2)
