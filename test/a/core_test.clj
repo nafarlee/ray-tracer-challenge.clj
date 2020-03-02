@@ -122,4 +122,18 @@
     (let [{:keys [red green blue]} (->Color -0.5 0.4 1.7)]
       (is (== red -0.5))
           (is (== green 0.4))
-          (is (== blue 1.7)))))
+          (is (== blue 1.7))))
+  (testing "Adding colors"
+    (let [c1 (->Color 0.9 0.6 0.75)
+          c2 (->Color 0.7 0.1 0.25)]
+      (is (= (add c1 c2)
+             (->Color 1.6 0.7 1.0)))))
+  (testing "Subtracting colors"
+    (let [c1 (->Color 0.9 0.6 0.75)
+          c2 (->Color 0.7 0.1 0.25)]
+      (is (= (subtract c1 c2)
+             (->Color 0.2 0.5 0.5)))))
+  (testing "Multiplying a color by scalar"
+    (let [c (->Color 0.2 0.3 0.4)]
+      (is (= (->Color 0.4 0.6 0.8)
+             (product c 2))))))
