@@ -4,6 +4,8 @@
 
 (defprotocol Multiply (multiply [this scalar]))
 
+(defprotocol Divide (divide [this scalar]))
+
 (defn map-values
   [f m]
   (into {} (for [[k v] m] [k (f v)])))
@@ -17,7 +19,10 @@
 (defrecord Tuple [x y z w]
   Multiply
   (multiply [this scalar]
-    (element-wise map->Tuple * this scalar)))
+    (element-wise map->Tuple * this scalar))
+  Divide
+  (divide [this scalar]
+    (element-wise map->Tuple / this scalar)))
 
 (defn point [x y z]
   (->Tuple x y z 1))
@@ -36,15 +41,16 @@
 (defrecord Color [red green blue]
   Multiply
   (multiply [this scalar]
-    (element-wise map->Color * this scalar)))
+    (element-wise map->Color * this scalar))
+  Divide
+  (divide [this scalar]
+    (element-wise map->Color / this scalar)))
 
 (def add (partial merge-with +))
 
 (def subtract (partial merge-with -))
 
 (def negate (partial subtract (vector' 0 0 0)))
-
-(def divide (partial element-wise map->Tuple /))
 
 (defn magnitude [v]
   (Math/sqrt (+ (Math/pow (:x v) 2)
