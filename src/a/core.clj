@@ -1,5 +1,6 @@
 (ns a.core
-  (:require [clojure.pprint :refer (pprint)])
+  (:require
+   [clojure.pprint :refer [pprint]])
   (:gen-class))
 
 (defprotocol Multiply (multiply [this scalar]))
