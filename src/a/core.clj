@@ -6,6 +6,8 @@
 
 (defprotocol Divide (divide [this scalar]))
 
+(defprotocol Equals (eq [this that]))
+
 (def EPSILON 0.00001)
 
 (defn float=
