@@ -96,6 +96,8 @@
 
 (def hadamard (partial merge-with *))
 
+(defrecord Canvas [pixels width height])
+
 (defrecord Projectile [position velocity])
 
 (defrecord Environment [gravity wind])
