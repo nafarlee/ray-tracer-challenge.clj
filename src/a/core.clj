@@ -6,8 +6,6 @@
 
 (defprotocol Divide (divide [this scalar]))
 
-(defprotocol Equals (eq [this that]))
-
 (def EPSILON 0.00001)
 
 (defn float=
@@ -29,13 +27,12 @@
 
 (def zip (partial map vector))
 
+(defn eq
+  [a b]
+  (every? (partial apply float=)
+          (zip (vals a) (vals b))))
+
 (defrecord Tuple [x y z w]
-  Equals
-  (eq [{ax :x ay :y az :z aw :w} {bx :x by :y bz :z bw :w}]
-    (and (float= ax bx)
-         (float= ay by)
-         (float= az bz)
-         (float= aw bw)))
   Multiply
   (multiply [this scalar]
     (element-wise map->Tuple * this scalar))
@@ -58,11 +55,6 @@
        (zero? w)))
 
 (defrecord Color [red green blue]
-  Equals
-  (eq [{ar :red ag :green ab :blue} {br :red bg :green bb :blue}]
-    (and (float= ar br)
-         (float= ag bg)
-         (float= ab bb)))
   Multiply
   (multiply [this scalar]
     (element-wise map->Color * this scalar))
