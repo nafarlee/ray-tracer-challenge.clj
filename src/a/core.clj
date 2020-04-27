@@ -74,11 +74,11 @@
                 (Math/pow (:z v) 2))))
 
 (defn normalize
-  [{x :x y :y z :z :as v}]
+  [v]
   (let [m (magnitude v)]
-    (vector' (/ x m)
-             (/ y m)
-             (/ z m))))
+    (->> ((juxt :x :y :z) v)
+         (map #(/ % m))
+         (apply vector'))))
 
 (defn dot [a b]
   (->> (merge-with * a b)
