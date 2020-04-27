@@ -94,6 +94,8 @@
            (- (* ax by)
               (* ay bx))))
 
+(def hadamard (partial merge-with *))
+
 (defrecord Projectile [position velocity])
 
 (defrecord Environment [gravity wind])
