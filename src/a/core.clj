@@ -27,6 +27,8 @@
        (map-values #(f % i))
        from-map))
 
+(def zip (partial map vector))
+
 (defrecord Tuple [x y z w]
   Equals
   (eq [{ax :x ay :y az :z aw :w} {bx :x by :y bz :z bw :w}]
