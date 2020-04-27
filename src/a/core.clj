@@ -56,6 +56,11 @@
        (zero? w)))
 
 (defrecord Color [red green blue]
+  Equals
+  (eq [{ar :red ag :green ab :blue} {br :red bg :green bb :blue}]
+    (and (float= ar br)
+         (float= ag bg)
+         (float= ab bb)))
   Multiply
   (multiply [this scalar]
     (element-wise map->Color * this scalar))
