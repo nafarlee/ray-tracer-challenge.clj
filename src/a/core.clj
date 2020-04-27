@@ -8,6 +8,13 @@
 
 (def EPSILON 0.00001)
 
+(defn float=
+  [a b]
+  (->> a
+       (- b)
+       Math/abs
+       (> EPSILON)))
+
 (defn map-values
   [f m]
   (into {} (for [[k v] m] [k (f v)])))
