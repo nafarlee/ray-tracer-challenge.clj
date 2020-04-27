@@ -14,11 +14,13 @@
                    multiply
                    negate
                    normalize
+                   pixel-at
                    point
                    point?
                    subtract
                    vector'
-                   vector'?]]))
+                   vector'?
+                   write-pixel]]))
 
 (deftest a-test
   (testing "A tuple with w=1.0 is a point"
@@ -188,4 +190,12 @@
       (is (== (:width c) 10))
       (is (== (:height c) 20))
       (is (every? (partial eq (->Color 0 0 0))
-                  (:pixels c))))))
+                  (:pixels c)))))
+
+  (testing "Writing pixels to a canvas"
+    (let [c (canvas 10 20)
+          red (->Color 1 0 0)]
+      (is (eq red
+              (-> c
+                  (write-pixel 2 3 red)
+                  (pixel-at 2 3)))))))
