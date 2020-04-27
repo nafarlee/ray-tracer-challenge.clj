@@ -4,6 +4,7 @@
    [a.core :refer [->Color
                    ->Tuple
                    add
+                   canvas
                    cross
                    divide
                    dot
@@ -180,4 +181,11 @@
     (let [c1 (->Color 1 0.2 0.4)
           c2 (->Color 0.9 1 0.1)]
       (is (eq (hadamard c1 c2)
-              (->Color 0.9 0.2 0.04))))))
+              (->Color 0.9 0.2 0.04)))))
+
+  (testing "Creating a canvas"
+    (let [c (canvas 10 20)]
+      (is (== (:width c) 10))
+      (is (== (:height c) 20))
+      (is (every? (partial eq (->Color 0 0 0))
+                  (:pixels c))))))
