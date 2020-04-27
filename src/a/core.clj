@@ -105,6 +105,12 @@
       vec
       (->Canvas w h)))
 
+(defn write-pixel
+  [{w :width h :height ps :pixels} x y color]
+    (-> ps
+        (assoc (+ x (* y w)) color)
+        (->Canvas w h)))
+
 (defrecord Projectile [position velocity])
 
 (defrecord Environment [gravity wind])
