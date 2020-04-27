@@ -111,6 +111,10 @@
         (assoc (+ x (* y w)) color)
         (->Canvas w h)))
 
+(defn pixel-at
+  [{w :width ps :pixels} x y]
+  (nth ps (+ x (* y w))))
+
 (defrecord Projectile [position velocity])
 
 (defrecord Environment [gravity wind])
