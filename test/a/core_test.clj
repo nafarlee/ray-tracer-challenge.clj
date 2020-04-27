@@ -1,6 +1,22 @@
 (ns a.core-test
-  (:require [clojure.test :refer :all]
-            [a.core :refer :all]))
+  (:require
+   [clojure.test :refer [deftest is testing]]
+   [a.core :refer [->Color
+                   ->Tuple
+                   add
+                   cross
+                   divide
+                   dot
+                   eq
+                   magnitude
+                   multiply
+                   negate
+                   normalize
+                   point
+                   point?
+                   subtract
+                   vector'
+                   vector'?]]))
 
 (deftest a-test
   (testing "A tuple with w=1.0 is a point"
