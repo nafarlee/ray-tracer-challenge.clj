@@ -98,6 +98,13 @@
 
 (defrecord Canvas [pixels width height])
 
+(defn canvas
+  [w h]
+  (-> (* w h)
+      (repeat (->Color 0 0 0))
+      vec
+      (->Canvas w h)))
+
 (defrecord Projectile [position velocity])
 
 (defrecord Environment [gravity wind])
