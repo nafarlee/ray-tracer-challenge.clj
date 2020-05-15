@@ -1,7 +1,7 @@
-(ns a.core-test
+(ns ray.core-test
   (:require
    [clojure.test :refer [deftest is testing]]
-   [a.core :as ray]))
+   [ray.core :as ray]))
 
 (deftest a-test
   (testing "A tuple with w=1.0 is a point"

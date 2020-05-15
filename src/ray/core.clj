@@ -1,4 +1,4 @@
-(ns a.core
+(ns ray.core
   (:require
    [clojure.pprint :refer [pprint]])
   (:gen-class))
