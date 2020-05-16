@@ -34,10 +34,10 @@
   (every? (partial apply float=)
           (zip (vals a) (vals b))))
 
-(s/def ::x number?)
-(s/def ::y number?)
-(s/def ::z number?)
-(s/def ::w number?)
+(s/def ::x float?)
+(s/def ::y float?)
+(s/def ::z float?)
+(s/def ::w #{1.0 0.0})
 (s/def ::tuple (s/keys :req [::x ::y ::z ::w]))
 (defn tuple
   [x y z w]
