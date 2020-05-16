@@ -5,36 +5,36 @@
 
 (deftest a-test
   (testing "A tuple with w=1.0 is a point"
-    (let [a (ray/->Tuple 4.3 -4.2 3.1 1.0)]
-      (is (== (:x a) 4.3))
-      (is (== (:y a) -4.2))
-      (is (== (:z a) 3.1))
-      (is (== (:w a) 1.0))
+    (let [a (ray/tuple 4.3 -4.2 3.1 1.0)]
+      (is (== (::ray/x a) 4.3))
+      (is (== (::ray/y a) -4.2))
+      (is (== (::ray/z a) 3.1))
+      (is (== (::ray/w a) 1.0))
       (is (ray/point? a))
       (is (not (ray/vector'? a)))))
 
   (testing "A tuple with w=0.0 is a vector"
-    (let [a (ray/->Tuple 4.3 -4.2 3.1 0.0)]
-      (is (== (:x a) 4.3))
-      (is (== (:y a) -4.2))
-      (is (== (:z a) 3.1))
-      (is (== (:w a) 0.0))
+    (let [a (ray/tuple 4.3 -4.2 3.1 0.0)]
+      (is (== (::ray/x a) 4.3))
+      (is (== (::ray/y a) -4.2))
+      (is (== (::ray/z a) 3.1))
+      (is (== (::ray/w a) 0.0))
       (is (not (ray/point? a))
       (is (ray/vector'? a)))))
 
   (testing "point creates tuples with w=1"
     (let [a (ray/point 4 -4 3)]
-      (is (ray/eq a (ray/->Tuple 4 -4 3 1)))))
+      (is (ray/eq a (ray/tuple 4 -4 3 1)))))
 
   (testing "vector creates tuples with w=0"
     (let [a (ray/vector' 4 -4 3)]
-      (is (ray/eq a (ray/->Tuple 4 -4 3 0)))))
+      (is (ray/eq a (ray/tuple 4 -4 3 0)))))
 
   (testing "Adding two tuples"
-    (let [a1 (ray/->Tuple 3 -2 5 1)
-          a2 (ray/->Tuple -2 3 1 0)]
+    (let [a1 (ray/tuple 3 -2 5 1)
+          a2 (ray/tuple -2 3 1 0)]
       (is (ray/eq (ray/add a1 a2)
-                  (ray/->Tuple 1 1 6 1)))))
+                  (ray/tuple 1 1 6 1)))))
 
   (testing "Subtracting two points"
     (let [p1 (ray/point 3 2 1)
@@ -61,24 +61,24 @@
                   (ray/vector' -1 2 -3)))))
 
   (testing "Negating a tuple"
-    (let [a (ray/->Tuple 1 -2 3 -4)]
+    (let [a (ray/tuple 1 -2 3 -4)]
       (is (ray/eq (ray/negate a)
-                  (ray/->Tuple -1 2 -3 4)))))
+                  (ray/tuple -1 2 -3 4)))))
 
   (testing "Multiplying a tuple by a scalar"
-    (let [a (ray/->Tuple 1 -2 3 -4)]
+    (let [a (ray/tuple 1 -2 3 -4)]
       (is (ray/eq (ray/multiply a 3.5)
-                  (ray/->Tuple 3.5 -7.0 10.5 -14.0)))))
+                  (ray/tuple 3.5 -7.0 10.5 -14.0)))))
 
   (testing "Multiplying a tuple by a fraction"
-    (let [a (ray/->Tuple 1 -2 3 -4)]
+    (let [a (ray/tuple 1 -2 3 -4)]
       (is (ray/eq (ray/multiply a 0.5)
-                  (ray/->Tuple 0.5 -1.0 1.5 -2.0)))))
+                  (ray/tuple 0.5 -1.0 1.5 -2.0)))))
 
   (testing "Dividing a tuple by a scalar"
-    (let [a (ray/->Tuple 1.0 -2.0 3.0 -4.0)]
+    (let [a (ray/tuple 1.0 -2.0 3.0 -4.0)]
       (is (ray/eq (ray/divide a 2)
-                  (ray/->Tuple 0.5 -1.0 1.5 -2.0)))))
+                  (ray/tuple 0.5 -1.0 1.5 -2.0)))))
 
   (testing "Computing the magnitude of vector (1, 0, 0)"
     (let [v (ray/vector' 1 0 0)]

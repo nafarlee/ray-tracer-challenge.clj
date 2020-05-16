@@ -1,5 +1,6 @@
 (ns ray.core
   (:require
+   [clojure.spec.alpha :as s]
    [clojure.pprint :refer [pprint]])
   (:gen-class))
 
@@ -33,26 +34,37 @@
   (every? (partial apply float=)
           (zip (vals a) (vals b))))
 
-(defrecord Tuple [x y z w]
-  Multiply
-  (multiply [this scalar]
-    (element-wise map->Tuple * this scalar))
-  Divide
-  (divide [this scalar]
-    (element-wise map->Tuple / this scalar)))
+(s/def ::x number?)
+(s/def ::y number?)
+(s/def ::z number?)
+(s/def ::w number?)
+(s/def ::tuple (s/keys :req [::x ::y ::z ::w]))
+(defn tuple
+  [x y z w]
+  {::x x, ::y y, ::z z, ::w w})
+
+(def tuple? (partial s/valid? ::tuple))
+
+(defn multiply
+  [t x]
+  (element-wise identity * t x))
+
+(defn divide
+  [t x]
+  (element-wise identity / t x))
 
 (defn point [x y z]
-  (->Tuple x y z 1))
+  (tuple x y z 1))
 
-(defn point? [{w :w :as t}]
-  (and (instance? Tuple t)
+(defn point? [{w ::w :as t}]
+  (and (tuple? t)
        (== 1.0 w)))
 
 (defn vector' [x y z]
-  (->Tuple x y z 0))
+  (tuple x y z 0))
 
-(defn vector'? [{w :w :as t}]
-  (and (instance? Tuple t)
+(defn vector'? [{w ::w :as t}]
+  (and (tuple? t)
        (zero? w)))
 
 (defrecord Color [red green blue]
@@ -70,14 +82,14 @@
 (def negate (partial subtract (vector' 0 0 0)))
 
 (defn magnitude [v]
-  (Math/sqrt (+ (Math/pow (:x v) 2)
-                (Math/pow (:y v) 2)
-                (Math/pow (:z v) 2))))
+  (Math/sqrt (+ (Math/pow (::x v) 2)
+                (Math/pow (::y v) 2)
+                (Math/pow (::z v) 2))))
 
 (defn normalize
   [v]
   (let [m (magnitude v)]
-    (->> ((juxt :x :y :z) v)
+    (->> ((juxt ::x ::y ::z) v)
          (map #(/ % m))
          (apply vector'))))
 
@@ -87,7 +99,7 @@
        (apply +)))
 
 (defn cross
-  [{ax :x ay :y az :z} {bx :x by :y bz :z}]
+  [{ax ::x ay ::y az ::z} {bx ::x by ::y bz ::z}]
   (vector' (- (* ay bz)
               (* az by))
            (- (* az bx)
@@ -138,5 +150,5 @@
         f (partial tick environment)]
     (->> initial
          (iterate f)
-         (take-while (comp (partial <= 0) :y :position))
+         (take-while (comp (partial <= 0) ::y :position))
          pprint)))
