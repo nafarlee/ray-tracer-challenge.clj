@@ -75,10 +75,12 @@
   [x]
   (Math/pow x 2))
 
-(defn magnitude [v]
-  (Math/sqrt (+ (Math/pow (::x v) 2)
-                (Math/pow (::y v) 2)
-                (Math/pow (::z v) 2))))
+(defn magnitude
+  [v]
+  (->> ((juxt ::x ::y ::z) v)
+       (map square)
+       (apply +)
+       Math/sqrt))
 
 (defn normalize
   [v]
