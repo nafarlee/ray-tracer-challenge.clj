@@ -71,6 +71,10 @@
 
 (def negate (partial subtract (vector' 0 0 0)))
 
+(defn square
+  [x]
+  (Math/pow x 2))
+
 (defn magnitude [v]
   (Math/sqrt (+ (Math/pow (::x v) 2)
                 (Math/pow (::y v) 2)
