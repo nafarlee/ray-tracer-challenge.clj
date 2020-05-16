@@ -67,13 +67,13 @@
   (and (tuple? t)
        (zero? w)))
 
-(defrecord Color [red green blue]
-  Multiply
-  (multiply [this scalar]
-    (element-wise map->Color * this scalar))
-  Divide
-  (divide [this scalar]
-    (element-wise map->Color / this scalar)))
+(s/def ::red float?)
+(s/def ::green float?)
+(s/def ::blue float?)
+(s/def ::color (s/keys :req [::red ::green ::blue]))
+(defn color
+  [red green blue]
+  {::red red, ::green green, ::blue blue})
 
 (def add (partial merge-with +))
 
@@ -114,7 +114,7 @@
 (defn canvas
   [w h]
   (-> (* w h)
-      (repeat (->Color 0 0 0))
+      (repeat (color 0 0 0))
       vec
       (->Canvas w h)))
 
