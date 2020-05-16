@@ -4,10 +4,6 @@
    [clojure.pprint :refer [pprint]])
   (:gen-class))
 
-(defprotocol Multiply (multiply [this scalar]))
-
-(defprotocol Divide (divide [this scalar]))
-
 (def EPSILON 0.00001)
 
 (defn float=
