@@ -21,12 +21,6 @@
   [f m]
   (into {} (for [[k v] m] [k (f v)])))
 
-(defn element-wise
-  [from-map f m i]
-  (->> m
-       (map-values #(f % i))
-       from-map))
-
 (def zip (partial map vector))
 
 (defn eq
@@ -47,11 +41,11 @@
 
 (defn multiply
   [t x]
-  (element-wise identity * t x))
+  (map-values (partial * x) t))
 
 (defn divide
   [t x]
-  (element-wise identity / t x))
+  (map-values #(/ % x) t))
 
 (defn point [x y z]
   (tuple x y z 1))
