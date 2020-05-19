@@ -43,17 +43,21 @@
   [t x]
   (map-values #(/ % x) t))
 
-(defn point [x y z]
+(defn point
+  [x y z]
   (tuple x y z 1))
 
-(defn point? [{w ::w :as t}]
+(defn point?
+  [{w ::w :as t}]
   (and (tuple? t)
        (== 1.0 w)))
 
-(defn vector' [x y z]
+(defn vector'
+  [x y z]
   (tuple x y z 0))
 
-(defn vector'? [{w ::w :as t}]
+(defn vector'?
+  [{w ::w :as t}]
   (and (tuple? t)
        (zero? w)))
 
@@ -89,7 +93,8 @@
          (map #(/ % m))
          (apply vector'))))
 
-(defn dot [a b]
+(defn dot
+  [a b]
   (->> (merge-with * a b)
        vals
        (apply +)))
