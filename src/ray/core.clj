@@ -77,7 +77,7 @@
 
 (defn magnitude
   [v]
-  (->> ((juxt ::x ::y ::z) v)
+  (->> (vals v)
        (map square)
        (apply +)
        Math/sqrt))
