@@ -179,4 +179,10 @@
       (is (ray/eq red
                   (-> c
                       (ray/write-pixel 2 3 red)
-                      (ray/pixel-at 2 3)))))))
+                      (ray/pixel-at 2 3))))))
+
+  (testing "Constructing the PPM header"
+    (let [c (ray/canvas 5 3)
+          ppm (canvas->ppm c)]
+      (is (= ppm
+             "PPM\n5 3\n255")))))
