@@ -128,28 +128,3 @@
 (defn pixel-at
   [{w :width ps :pixels} x y]
   (nth ps (+ x (* y w))))
-
-(defrecord Projectile [position velocity])
-
-(defrecord Environment [gravity wind])
-
-(defn tick
-  [{g :gravity w :wind} {p :position v :velocity}]
-  (let [position (add p v)
-        velocity (reduce add [v g w])]
-    (->Projectile position velocity)))
-
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (let [gravity (vector' 0 -0.1 0)
-        wind (vector' -0.01 0 0)
-        environment (->Environment gravity wind)
-        position (point 0 1 0)
-        velocity (vector' 1 1 0)
-        initial (->Projectile position velocity)
-        f (partial tick environment)]
-    (->> initial
-         (iterate f)
-         (take-while (comp (partial <= 0) ::y :position))
-         pprint)))
