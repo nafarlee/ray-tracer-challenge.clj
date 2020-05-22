@@ -110,21 +110,28 @@
 
 (def hadamard (partial merge-with *))
 
-(defrecord Canvas [pixels width height])
+(s/def ::pixels vector?)
+(s/def ::width (s/and pos? integer?))
+(s/def ::height (s/and pos? integer?))
+(s/def ::canvas (s/keys :req [::pixels ::width ::height]))
+
+(defn ->canvas
+  [p w h]
+  {::pixels p, ::width w, ::height h})
 
 (defn canvas
   [w h]
   (-> (* w h)
       (repeat (color 0 0 0))
       vec
-      (->Canvas w h)))
+      (->canvas w h)))
 
 (defn write-pixel
-  [{w :width h :height ps :pixels} x y color]
+  [{w ::width h ::height ps ::pixels} x y color]
     (-> ps
         (assoc (+ x (* y w)) color)
-        (->Canvas w h)))
+        (->canvas w h)))
 
 (defn pixel-at
-  [{w :width ps :pixels} x y]
+  [{w ::width ps ::pixels} x y]
   (nth ps (+ x (* y w))))

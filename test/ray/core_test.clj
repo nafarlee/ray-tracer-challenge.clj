@@ -168,10 +168,10 @@
 
   (testing "Creating a canvas"
     (let [c (ray/canvas 10 20)]
-      (is (== (:width c) 10))
-      (is (== (:height c) 20))
+      (is (== (::ray/width c) 10))
+      (is (== (::ray/height c) 20))
       (is (every? (partial ray/eq (ray/color 0 0 0))
-                  (:pixels c)))))
+                  (::ray/pixels c)))))
 
   (testing "Writing pixels to a canvas"
     (let [c (ray/canvas 10 20)
