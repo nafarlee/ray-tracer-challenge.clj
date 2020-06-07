@@ -151,3 +151,15 @@
 (defn pixel-at
   [{w ::width ps ::pixels} x y]
   (nth ps (+ x (* y w))))
+
+(defn ppm-header
+  [c]
+  (-> "
+      P3
+      %s %s
+      255
+      "
+      $
+      (format (::width c) (::height c))))
+
+(def canvas->ppm ppm-header)
