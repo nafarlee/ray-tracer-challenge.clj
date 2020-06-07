@@ -183,8 +183,9 @@
 
   (testing "Constructing the PPM header"
     (let [c (ray/canvas 5 3)
-          ppm (canvas->ppm c)]
-      (is (= ppm ($ "
+          ppm (canvas->ppm c)
+          header (->> ppm (split-lines) (take 3) str)]
+      (is (= header ($ "
                     PPM
                     5 3
                     255
