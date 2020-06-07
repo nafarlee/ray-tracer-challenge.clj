@@ -1,5 +1,6 @@
 (ns ray.core
   (:require
+   [clojure.string :as st]
    [clojure.spec.alpha :as s]
    [clojure.pprint :refer [pprint]])
   (:gen-class))
@@ -23,6 +24,21 @@
   [a b]
   (every? (partial apply float=)
           (zip (vals a) (vals b))))
+
+(defn- shortest-indent
+  [string]
+  (->> string
+       st/trim
+       (re-seq #"\n\s*")
+       (sort-by count)
+       first))
+
+(defn $
+  [string]
+  (as-> string a
+        (shortest-indent a)
+        (st/replace string a "\n")
+        (st/trim a)))
 
 (s/def ::x float?)
 (s/def ::y float?)
