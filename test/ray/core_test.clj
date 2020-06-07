@@ -1,5 +1,6 @@
 (ns ray.core-test
   (:require
+   [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
    [ray.core :as ray]))
 
@@ -183,10 +184,10 @@
 
   (testing "Constructing the PPM header"
     (let [c (ray/canvas 5 3)
-          ppm (canvas->ppm c)
-          header (->> ppm (split-lines) (take 3) str)]
-      (is (= header ($ "
-                    PPM
-                    5 3
-                    255
-                    "))))))
+          ppm (ray/canvas->ppm c)
+          header (->> ppm (st/split-lines) (take 3) (st/join "\n"))]
+      (is (= header (ray/$ "
+                           P3
+                           5 3
+                           255
+                           "))))))
