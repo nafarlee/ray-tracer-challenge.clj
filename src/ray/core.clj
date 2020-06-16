@@ -1,8 +1,7 @@
 (ns ray.core
   (:require
    [clojure.string :as st]
-   [clojure.spec.alpha :as s]
-   [clojure.pprint :refer [pprint]])
+   [clojure.spec.alpha :as s])
   (:gen-class))
 
 (def EPSILON 0.00001)
