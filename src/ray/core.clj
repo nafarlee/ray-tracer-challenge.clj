@@ -151,6 +151,12 @@
   [{w ::width ps ::pixels} x y]
   (nth ps (+ x (* y w))))
 
+(defn clamp
+  [x low high]
+  (-> x
+      (max low)
+      (min high)))
+
 (defn ppm-header
   [c]
   (-> "
