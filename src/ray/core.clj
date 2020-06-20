@@ -179,4 +179,13 @@
       $
       (format (::width c) (::height c))))
 
-(def canvas->ppm ppm-header)
+(defn canvas->ppm
+  [c]
+  (let [header (ppm-header c)
+        body (->> c
+                  ::pixels
+                  (mapcat (juxt ::red ::green ::blue))
+                  (map (partial * 255))
+                  (map (partial clamp 0 255))
+                  (str-wrap 70))]
+    (format "%s\n%s" header body)))
