@@ -159,13 +159,15 @@
 
 (defn str-wrap
   [max-length xs]
-  (reverse (reduce (fn [[s & ss] a]
-                     (let [potential (str s " " a)]
-                       (if (> (count potential) max-length)
-                         (cons (str a) (cons s ss))
-                         (cons potential ss))))
-                   (take 1 xs)
-                   (rest xs))))
+  (->> (reduce (fn [[s & lines] a]
+                 (let [potential (str s " " a)]
+                   (if (> (count potential) max-length)
+                     (cons (str a) (cons s lines))
+                     (cons potential lines))))
+               (take 1 xs)
+               (rest xs))
+       reverse
+       (st/join "\n")))
 
 (defn ppm-header
   [c]
