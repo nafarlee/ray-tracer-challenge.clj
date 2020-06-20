@@ -190,4 +190,24 @@
                            P3
                            5 3
                            255
-                           "))))))
+                           ")))))
+
+  (testing "Constructing the PPM pixel data"
+    (let [c (ray/canvas 5 3)
+          c1 (ray/color 1.5 0 0)
+          c2 (ray/color 0 0.5 0)
+          c3 (ray/color -0.5 0 1)]
+      (is (= (as-> c %
+                 (ray/write-pixel % 0 0 c1)
+                 (ray/write-pixel % 2 1 c2)
+                 (ray/write-pixel % 4 2 c3)
+                 (ray/canvas->ppm %)
+                 (st/split-lines %)
+                 (drop 3 %)
+                 (take 3 %)
+                 (st/join "\n" %))
+             (ray/$ "
+                    255 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                    0 0 0 0 0 0 0 128 0 0 0 0 0 0 0
+                    0 0 0 0 0 0 0 0 0 0 0 0 0 0 255
+                    "))))))
