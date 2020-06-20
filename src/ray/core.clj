@@ -157,6 +157,16 @@
       (max low)
       (min high)))
 
+(defn str-wrap
+  [xs max-length]
+  (reverse (reduce (fn [[s & ss] a]
+                     (let [potential (str s " " a)]
+                       (if (> (count potential) max-length)
+                         (cons (str a) (cons s ss))
+                         (cons potential ss))))
+                   (take 1 xs)
+                   (rest xs))))
+
 (defn ppm-header
   [c]
   (-> "
