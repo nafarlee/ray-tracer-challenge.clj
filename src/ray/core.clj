@@ -152,13 +152,13 @@
   (nth ps (+ x (* y w))))
 
 (defn clamp
-  [x low high]
+  [low high x]
   (-> x
       (max low)
       (min high)))
 
 (defn str-wrap
-  [xs max-length]
+  [max-length xs]
   (reverse (reduce (fn [[s & ss] a]
                      (let [potential (str s " " a)]
                        (if (> (count potential) max-length)
