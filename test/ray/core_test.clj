@@ -210,4 +210,23 @@
                     255 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                     0 0 0 0 0 0 0 128 0 0 0 0 0 0 0
                     0 0 0 0 0 0 0 0 0 0 0 0 0 0 255
+                    ")))))
+
+  (testing "Splitting long lines in PPM files"
+    (let [c (ray/canvas 10 2)
+          color (ray/color 1 0.8 0.6)]
+      (is (= (as-> c $
+                   (reduce (fn [can [x y]] (ray/write-pixel can x y color))
+                           $
+                           (for [x (range 10), y (range 2)] [x y]))
+                   (ray/canvas->ppm $)
+                   (st/split-lines $)
+                   (drop 3 $)
+                   (take 4 $)
+                   (st/join "\n" $))
+             (ray/$ "
+                    255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204
+                    153 255 204 153 255 204 153 255 204 153 255 204 153
+                    255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204
+                    153 255 204 153 255 204 153 255 204 153 255 204 153
                     "))))))
