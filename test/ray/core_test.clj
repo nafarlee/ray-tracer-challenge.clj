@@ -229,4 +229,9 @@
                     153 255 204 153 255 204 153 255 204 153 255 204 153
                     255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204
                     153 255 204 153 255 204 153 255 204 153 255 204 153
-                    "))))))
+                    ")))))
+
+    (testing "PPM files are terminated by a newline character"
+      (let [c (ray/canvas 5 3)]
+        (is (st/ends-with? (ray/canvas->ppm c)
+                           "\n")))))
