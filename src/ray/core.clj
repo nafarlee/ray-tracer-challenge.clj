@@ -6,34 +6,29 @@
 
 (def EPSILON 0.00001)
 
-(defn float=
-  [a b]
+(defn float= [a b]
   (->> a
        (- b)
        Math/abs
        (> EPSILON)))
 
-(defn map-values
-  [f m]
+(defn map-values [f m]
   (into {} (for [[k v] m] [k (f v)])))
 
 (def zip (partial map vector))
 
-(defn eq
-  [a b]
+(defn eq [a b]
   (every? (partial apply float=)
           (zip (vals a) (vals b))))
 
-(defn- shortest-indent
-  [string]
+(defn- shortest-indent [string]
   (->> string
        st/trim
        (re-seq #"\n\s*")
        (sort-by count)
        first))
 
-(defn $
-  [string]
+(defn $ [string]
   (as-> string a
         (shortest-indent a)
         (st/replace string a "\n")
@@ -44,35 +39,28 @@
 (s/def ::z float?)
 (s/def ::w #{1.0 0.0})
 (s/def ::tuple (s/keys :req [::x ::y ::z ::w]))
-(defn tuple
-  [x y z w]
+(defn tuple [x y z w]
   {::x x, ::y y, ::z z, ::w w})
 
 (def tuple? (partial s/valid? ::tuple))
 
-(defn multiply
-  [t x]
+(defn multiply [t x]
   (map-values (partial * x) t))
 
-(defn divide
-  [t x]
+(defn divide [t x]
   (map-values #(/ % x) t))
 
-(defn point
-  [x y z]
+(defn point [x y z]
   (tuple x y z 1))
 
-(defn point?
-  [{w ::w :as t}]
+(defn point?  [{w ::w :as t}]
   (and (tuple? t)
        (== 1.0 w)))
 
-(defn vector'
-  [x y z]
+(defn vector' [x y z]
   (tuple x y z 0))
 
-(defn vector'?
-  [{w ::w :as t}]
+(defn vector'?  [{w ::w :as t}]
   (and (tuple? t)
        (zero? w)))
 
@@ -80,8 +68,7 @@
 (s/def ::green float?)
 (s/def ::blue float?)
 (s/def ::color (s/keys :req [::red ::green ::blue]))
-(defn color
-  [red green blue]
+(defn color [red green blue]
   {::red red, ::green green, ::blue blue})
 
 (def add (partial merge-with +))
@@ -90,32 +77,27 @@
 
 (def negate (partial subtract (vector' 0 0 0)))
 
-(defn square
-  [x]
+(defn square [x]
   (Math/pow x 2))
 
-(defn magnitude
-  [v]
+(defn magnitude [v]
   (->> (vals v)
        (map square)
        (apply +)
        Math/sqrt))
 
-(defn normalize
-  [v]
+(defn normalize [v]
   (let [m (magnitude v)]
     (->> ((juxt ::x ::y ::z) v)
          (map #(/ % m))
          (apply vector'))))
 
-(defn dot
-  [a b]
+(defn dot [a b]
   (->> (merge-with * a b)
        vals
        (apply +)))
 
-(defn cross
-  [{ax ::x ay ::y az ::z} {bx ::x by ::y bz ::z}]
+(defn cross [{ax ::x ay ::y az ::z} {bx ::x by ::y bz ::z}]
   (vector' (- (* ay bz)
               (* az by))
            (- (* az bx)
@@ -130,35 +112,29 @@
 (s/def ::height (s/and pos? integer?))
 (s/def ::canvas (s/keys :req [::pixels ::width ::height]))
 
-(defn ->canvas
-  [p w h]
+(defn ->canvas [p w h]
   {::pixels p, ::width w, ::height h})
 
-(defn canvas
-  [w h]
+(defn canvas [w h]
   (-> (* w h)
       (repeat (color 0 0 0))
       vec
       (->canvas w h)))
 
-(defn write-pixel
-  [{w ::width h ::height ps ::pixels} x y color]
+(defn write-pixel [{w ::width h ::height ps ::pixels} x y color]
     (-> ps
         (assoc (+ x (* y w)) color)
         (->canvas w h)))
 
-(defn pixel-at
-  [{w ::width ps ::pixels} x y]
+(defn pixel-at [{w ::width ps ::pixels} x y]
   (nth ps (+ x (* y w))))
 
-(defn clamp
-  [low high x]
+(defn clamp [low high x]
   (-> x
       (max low)
       (min high)))
 
-(defn str-wrap
-  [max-length xs]
+(defn str-wrap [max-length xs]
   (->> (reduce (fn [[s & lines] a]
                  (let [potential (str s " " a)]
                    (if (> (count potential) max-length)
@@ -169,8 +145,7 @@
        reverse
        (st/join "\n")))
 
-(defn ppm-header
-  [c]
+(defn ppm-header [c]
   (-> "
       P3
       %s %s
@@ -179,8 +154,7 @@
       $
       (format (::width c) (::height c))))
 
-(defn ppm-body
-  [c]
+(defn ppm-body [c]
   (->> c
        ::pixels
        (partition (::width c))
@@ -193,6 +167,5 @@
                   (str-wrap 70)))
        (st/join "\n")))
 
-(defn canvas->ppm
-  [c]
+(defn canvas->ppm [c]
   (format "%s\n%s" (ppm-header c) (ppm-body c)))
