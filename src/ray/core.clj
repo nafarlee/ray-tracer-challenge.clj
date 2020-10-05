@@ -179,18 +179,20 @@
       $
       (format (::width c) (::height c))))
 
+(defn ppm-body
+  [c]
+  (->> c
+       ::pixels
+       (partition (::width c))
+       (map #(->> %
+                  (mapcat (juxt ::red ::green ::blue))
+                  (map (partial * 255))
+                  (map (partial clamp 0 255))
+                  (map double)
+                  (map (fn [x] (Math/round x)))
+                  (str-wrap 70)))
+       (st/join "\n")))
+
 (defn canvas->ppm
   [c]
-  (let [header (ppm-header c)
-        body (->> c
-                  ::pixels
-                  (partition (::width c))
-                  (map #(->> %
-                             (mapcat (juxt ::red ::green ::blue))
-                             (map (partial * 255))
-                             (map (partial clamp 0 255))
-                             (map double)
-                             (map (fn [x] (Math/round x)))
-                             (str-wrap 70)))
-                  (st/join "\n"))]
-    (format "%s\n%s" header body)))
+  (format "%s\n%s" (ppm-header c) (ppm-body c)))
