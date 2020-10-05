@@ -168,4 +168,4 @@
        (st/join "\n")))
 
 (defn canvas->ppm [c]
-  (format "%s\n%s" (ppm-header c) (ppm-body c)))
+  (format "%s\n%s\n" (ppm-header c) (ppm-body c)))
