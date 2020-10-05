@@ -184,8 +184,13 @@
   (let [header (ppm-header c)
         body (->> c
                   ::pixels
-                  (mapcat (juxt ::red ::green ::blue))
-                  (map (partial * 255))
-                  (map (partial clamp 0 255))
-                  (str-wrap 70))]
+                  (partition (::width c))
+                  (map #(->> %
+                             (mapcat (juxt ::red ::green ::blue))
+                             (map (partial * 255))
+                             (map (partial clamp 0 255))
+                             (map double)
+                             (map (fn [x] (Math/round x)))
+                             (str-wrap 70)))
+                  (st/join "\n"))]
     (format "%s\n%s" header body)))
