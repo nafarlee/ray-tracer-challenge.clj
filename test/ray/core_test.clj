@@ -2,6 +2,7 @@
   (:require
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
+   [ray.matrix :as matrix]
    [ray.tuple :as rt]
    [ray.color :as rc]
    [ray.canvas :as rcan]
@@ -238,4 +239,17 @@
   (testing "PPM files are terminated by a newline character"
     (let [c (rcan/canvas 5 3)]
       (is (st/ends-with? (rp/canvas->ppm c)
-                         "\n")))))
+                         "\n"))))
+
+  (testing "Constructing and inspecting a 4x4 matrix"
+    (let [M [[1    2    3    4]
+             [5.5  6.5  7.5  8.5]
+             [9    10   11   12]
+             [13.5 14.5 15.5 16.5]]]
+      (is (== 1 (matrix/at M 0 0)))
+      (is (== 4 (matrix/at M 0 3)))
+      (is (== 5.5 (matrix/at M 1 0)))
+      (is (== 7.5 (matrix/at M 1 2)))
+      (is (== 11 (matrix/at M 2 2)))
+      (is (== 13.5 (matrix/at M 3 0)))
+      (is (== 15.5 (matrix/at M 3 2))))))
