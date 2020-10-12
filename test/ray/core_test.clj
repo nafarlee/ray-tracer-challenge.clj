@@ -260,4 +260,12 @@
       (is (== -3 (matrix/at M 0 0)))
       (is (== 5 (matrix/at M 0 1)))
       (is (== 1 (matrix/at M 1 0)))
-      (is (== -2 (matrix/at M 1 1))))))
+      (is (== -2 (matrix/at M 1 1)))))
+
+  (testing "A 3x3 matrix ought to be representable"
+    (let [M [[-3   5  0]
+             [ 1  -2 -7]
+             [ 0   1  1]]]
+      (is (== -3 (matrix/at M 0 0)))
+      (is (== -2 (matrix/at M 1 1)))
+      (is (== 1 (matrix/at M 2 2))))))
