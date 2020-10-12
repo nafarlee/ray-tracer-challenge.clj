@@ -1,8 +1,7 @@
 (ns ray.tuple
   (:require
     [clojure.spec.alpha :as s]
-    [ray.math :refer [float= square]]
-    ))
+    [ray.math :refer [float= square]]))
 
 (defn map-values [f m]
   (into {} (for [[k v] m] [k (f v)])))
