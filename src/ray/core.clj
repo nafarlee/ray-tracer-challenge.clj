@@ -19,9 +19,9 @@
           (rt/add p v)
           (reduce rt/add [v gravity wind])
           (rcan/write-pixel c
-                       (->> p ::rt/x int)
-                       (->> p ::rt/y (- (::rcan/height c)) int)
-                       white))
+                            (->> p ::rt/x int)
+                            (->> p ::rt/y (- (::rcan/height c)) int)
+                            white))
         (spit "output.ppm" (rp/canvas->ppm c))))))
 
 (def -main chapter-2)
