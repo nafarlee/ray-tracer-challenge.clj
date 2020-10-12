@@ -169,3 +169,23 @@
 
 (defn canvas->ppm [c]
   (format "%s\n%s\n" (ppm-header c) (ppm-body c)))
+
+(defn chapter-2 []
+  (let [position (point 0 1 0)
+        velocity (multiply (normalize (vector' 1 1.8 0)) 11.25)
+        gravity (vector' 0 -0.1 0)
+        wind (vector' -0.01 0 0)
+        c (canvas 900 550)
+        white (color 255 255 255)]
+    (loop [p position, v velocity, c c]
+      (if (every? #(<= 0 %) [(::x p) (::y p)])
+        (recur
+          (add p v)
+          (reduce add [v gravity wind])
+          (write-pixel c
+                       (->> p ::x int)
+                       (->> p ::y (- (::height c)) int)
+                       white))
+        (spit "output.ppm" (canvas->ppm c))))))
+
+(def -main chapter-2)
