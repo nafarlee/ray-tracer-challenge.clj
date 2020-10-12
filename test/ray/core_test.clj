@@ -268,4 +268,15 @@
              [ 0   1  1]]]
       (is (== -3 (matrix/at M 0 0)))
       (is (== -2 (matrix/at M 1 1)))
-      (is (== 1 (matrix/at M 2 2))))))
+      (is (== 1 (matrix/at M 2 2)))))
+
+  (testing "Matrix equality with identical matrices"
+    (let [A [[1 2 3 4]
+             [5 6 7 8]
+             [9 8 7 6]
+             [5 4 3 2]]
+          B [[1 2 3 4]
+             [5 6 7 8]
+             [9 8 7 6]
+             [5 4 3 2]]]
+      (is (= A B)))))
