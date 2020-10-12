@@ -1,13 +1,15 @@
 (ns ray.core-test
   (:require
    [clojure.string :as st]
-   [clojure.test :refer [is testing]]
+   [clojure.test :refer [deftest is testing]]
    [ray.matrix :as matrix]
    [ray.tuple :as rt]
    [ray.color :as rc]
    [ray.canvas :as rcan]
    [ray.ppm :as rp]
    [ray.string :as rs]))
+
+(deftest ray-tracer-challenge-tests
 
 (testing "A tuple with w=1.0 is a point"
   (let [a (rt/tuple 4.3 -4.2 3.1 1.0)]
@@ -290,3 +292,5 @@
            [8 7 6 5]
            [4 3 2 1]]]
     (is (not= A B))))
+
+)
