@@ -235,7 +235,7 @@
                    153 255 204 153 255 204 153 255 204 153 255 204 153
                    ")))))
 
-    (testing "PPM files are terminated by a newline character"
-      (let [c (rcan/canvas 5 3)]
-        (is (st/ends-with? (rp/canvas->ppm c)
-                           "\n")))))
+  (testing "PPM files are terminated by a newline character"
+    (let [c (rcan/canvas 5 3)]
+      (is (st/ends-with? (rp/canvas->ppm c)
+                         "\n")))))
