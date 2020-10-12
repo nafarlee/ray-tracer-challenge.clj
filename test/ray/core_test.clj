@@ -252,4 +252,12 @@
       (is (== 7.5 (matrix/at M 1 2)))
       (is (== 11 (matrix/at M 2 2)))
       (is (== 13.5 (matrix/at M 3 0)))
-      (is (== 15.5 (matrix/at M 3 2))))))
+      (is (== 15.5 (matrix/at M 3 2)))))
+
+  (testing "A 2x2 matrix ought to be representable"
+    (let [M [[-3 5]
+             [1 -2]]]
+      (is (== -3 (matrix/at M 0 0)))
+      (is (== 5 (matrix/at M 0 1)))
+      (is (== 1 (matrix/at M 1 0)))
+      (is (== -2 (matrix/at M 1 1))))))
