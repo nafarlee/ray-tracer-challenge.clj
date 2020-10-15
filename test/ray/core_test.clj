@@ -330,4 +330,11 @@
            [4 8 16 32]]]
     (is (= (matrix/multiply A matrix/id) A))))
 
+(testing "Multiplying the identity matrix by a tuple"
+  (let [a [[1]
+           [2]
+           [3]
+           [4]]]
+    (is (= (matrix/multiply matrix/id a) a))))
+
 )
