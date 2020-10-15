@@ -25,3 +25,8 @@
          (dot r c))
        (partition (count a))
        (mapv vec)))
+
+(def id [[1 0 0 0]
+         [0 1 0 0]
+         [0 0 1 0]
+         [0 0 0 1]])
