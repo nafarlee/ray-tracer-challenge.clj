@@ -323,4 +323,11 @@
             [1]]]
     (is (= (matrix/multiply A b) Ab))))
 
+(testing "Multiplying a matrix by the identity matrix"
+  (let [A [[0 1 2  4]
+           [1 2 4  8]
+           [2 4 8  16]
+           [4 8 16 32]]]
+    (is (= (matrix/multiply A matrix/id) A))))
+
 )
