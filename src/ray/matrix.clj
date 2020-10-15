@@ -23,7 +23,7 @@
   (->> (for [r (rows a)
              c (columns b)]
          (dot r c))
-       (partition (count a))
+       (partition (count (first b)))
        (mapv vec)))
 
 (def id [[1 0 0 0]
