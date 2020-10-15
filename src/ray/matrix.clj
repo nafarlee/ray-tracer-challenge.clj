@@ -10,3 +10,5 @@
 
 (defn column [m c]
   (map #(nth % c) m))
+
+(def rows identity)
