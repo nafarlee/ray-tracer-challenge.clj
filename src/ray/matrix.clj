@@ -4,3 +4,6 @@
   (-> m
       (nth x)
       (nth y)))
+
+(defn row [m r]
+  (nth m r))
