@@ -7,3 +7,6 @@
 
 (defn row [m r]
   (nth m r))
+
+(defn column [m c]
+  (map #(nth % c) m))
