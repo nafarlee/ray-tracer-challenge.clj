@@ -308,4 +308,19 @@
             [16 26 46  42]]]
     (is (= (matrix/multiply A B) AB))))
 
+(testing "A matrix multiplied by a tuple"
+  (let [A [[1 2 3 4]
+           [2 4 4 2]
+           [8 6 4 1]
+           [0 0 0 1]]
+        b [[1]
+           [2]
+           [3]
+           [1]]
+        Ab [[18]
+            [24]
+            [33]
+            [1]]]
+    (is (= (matrix/multiply A b) Ab))))
+
 )
