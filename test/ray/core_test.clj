@@ -351,4 +351,9 @@
   (let [A (matrix/transpose matrix/id)]
     (is (= A matrix/id))))
 
+(testing "Calculating the determinant of a 2x2 matrix"
+  (let [A [[1 5]
+           [-3 2]]]
+    (is (= (matrix/determinant A) 17))))
+
 )
