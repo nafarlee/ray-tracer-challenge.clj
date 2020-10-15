@@ -15,3 +15,6 @@
 
 (defn columns [m]
   (apply mapv vector m))
+
+(defn dot [r c]
+  (apply + (mapv * r c)))
