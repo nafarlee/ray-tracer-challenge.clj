@@ -12,3 +12,6 @@
   (map #(nth % c) m))
 
 (def rows identity)
+
+(defn columns [m]
+  (apply mapv vector m))
