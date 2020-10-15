@@ -18,3 +18,10 @@
 
 (defn dot [r c]
   (apply + (mapv * r c)))
+
+(defn multiply [a b]
+  (->> (for [r (rows a)
+             c (columns b)]
+         (dot r c))
+       (partition (count a))
+       (mapv vec)))
