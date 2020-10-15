@@ -347,4 +347,8 @@
                                  [3 0 5 5]
                                  [0 8 3 8]]))))
 
+(testing "Transposing the identity matrix"
+  (let [A (matrix/transpose matrix/id)]
+    (is (= A matrix/id))))
+
 )
