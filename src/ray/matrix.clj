@@ -26,6 +26,8 @@
        (partition (count (first b)))
        (mapv vec)))
 
+(def transpose columns)
+
 (def id [[1 0 0 0]
          [0 1 0 0]
          [0 0 1 0]
