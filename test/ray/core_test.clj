@@ -416,4 +416,12 @@
     (is (= -2120 (matrix/determinant A)))
     (is (matrix/invertible? A))))
 
+(testing "Testing a noninvertible matrix for invertibility"
+  (let [A [[-4  2 -2 -3]
+           [ 9  6  2  6]
+           [ 0 -5  1 -5]
+           [ 0  0  0  0]]]
+    (is (zero? (matrix/determinant A)))
+    (is (not (matrix/invertible? A)))))
+
 )
