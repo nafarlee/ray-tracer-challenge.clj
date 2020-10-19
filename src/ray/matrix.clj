@@ -33,6 +33,9 @@
          [0 0 1 0]
          [0 0 0 1]])
 
+(defn size [m]
+  [(count m) (count (first m))])
+
 (defn determinant [[[a b]
                     [c d]]]
   (- (* a d) (* b c)))
