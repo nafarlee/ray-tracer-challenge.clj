@@ -36,3 +36,8 @@
 (defn determinant [[[a b]
                     [c d]]]
   (- (* a d) (* b c)))
+
+(defn submatrix [m r c]
+  (->> m
+       (keep-indexed #(if (== r %1) nil %2))
+       (mapv (partial keep-indexed #(if (== c %1) nil %2)))))
