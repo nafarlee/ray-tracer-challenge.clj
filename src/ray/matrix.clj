@@ -70,3 +70,10 @@
        determinant
        zero?
        not))
+
+(defn mmap [m f]
+  (->> (for [r (->> m size first range)
+             c (->> m size second range)]
+         (f (at m r c) r c))
+       (partition (count (first m)))
+       (mapv vec)))
