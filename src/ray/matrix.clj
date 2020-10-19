@@ -41,3 +41,8 @@
   (->> m
        (keep-indexed #(if (== r %1) nil %2))
        (mapv (partial keep-indexed #(if (== c %1) nil %2)))))
+
+(defn minor [m r c]
+  (-> m
+      (submatrix r c)
+      determinant))
