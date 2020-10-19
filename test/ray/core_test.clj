@@ -467,4 +467,17 @@
                           (->> x double (format "%.5f") Double.))
                         (matrix/inverse A))))))
 
+(testing "Multiplying a product by its inverse"
+  (let [A [[ 3 -9  7  3]
+           [ 3 -8  2 -9]
+           [-4  4  4  1]
+           [-6  5 -1  1]]
+        B [[8  2 2 2]
+           [3 -1 7 0]
+           [7  0 5 4]
+           [6 -2 0 5]]
+        C (matrix/multiply A B)]
+    (is (= (matrix/multiply C (matrix/inverse B))
+           A))))
+
 )
