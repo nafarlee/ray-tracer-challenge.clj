@@ -64,3 +64,9 @@
         (if (odd? (+ r c))
           (unchecked-negate $)
           $)))
+
+(defn invertible? [m]
+  (->> m
+       determinant
+       zero?
+       not))
