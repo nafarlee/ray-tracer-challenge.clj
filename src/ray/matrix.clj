@@ -71,7 +71,7 @@
        zero?
        not))
 
-(defn fmap [m f]
+(defn fmap [f m]
   (->> (for [r (->> m size first range)
              c (->> m size second range)]
          (f (at m r c) r c))
