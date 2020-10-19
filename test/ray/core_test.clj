@@ -388,4 +388,13 @@
     (is (= 25 (matrix/minor A 1 0)))
     (is (= -25 (matrix/cofactor A 1 0)))))
 
+(testing "Calculating the determinant of a 3x3 matrix"
+  (let [A [[ 1 2  6]
+           [-5 8 -4]
+           [ 2 6  4]]]
+    (is (= 56 (matrix/cofactor A 0 0)))
+    (is (= 12 (matrix/cofactor A 0 1)))
+    (is (= -46 (matrix/cofactor A 0 2)))
+    (is (= -196 (matrix/determinant A)))))
+
 )
