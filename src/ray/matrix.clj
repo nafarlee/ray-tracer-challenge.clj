@@ -46,3 +46,10 @@
   (-> m
       (submatrix r c)
       determinant))
+
+(defn cofactor [m r c]
+  (as-> m $
+        (minor $ r c)
+        (if (odd? (+ r c))
+          (unchecked-negate $)
+          $)))
