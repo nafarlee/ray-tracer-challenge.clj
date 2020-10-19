@@ -356,4 +356,11 @@
            [-3 2]]]
     (is (= (matrix/determinant A) 17))))
 
+(testing "A submatrix of a 3x3 matrix is a 2x2 matrix"
+  (let [A [[ 1 5  8]
+           [-3 2  7]
+           [ 0 6 -3]]]
+    (is (= (matrix/submatrix A 0 2) [[-3 2]
+                                     [ 0 6]]))))
+
 )
