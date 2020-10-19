@@ -379,4 +379,13 @@
         B (matrix/submatrix A 1 0)]
     (is (= 25 (matrix/minor A 1 0) (matrix/determinant B)))))
 
+(testing "Calculating a cofactor of a 3x3 matrix"
+  (let [A [[3  5  0]
+           [2 -1 -7]
+           [6 -1  5]]]
+    (is (= -12 (matrix/minor A 0 0)))
+    (is (= -12 (matrix/cofactor A 0 0)))
+    (is (= 25 (matrix/minor A 1 0)))
+    (is (= -25 (matrix/cofactor A 1 0)))))
+
 )
