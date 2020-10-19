@@ -36,8 +36,8 @@
 (defn size [m]
   [(count m) (count (first m))])
 
-(defn determinant [[[a b]
-                    [c d]]]
+(defn determinant2 [[[a b]
+                     [c d]]]
   (- (* a d) (* b c)))
 
 (defn submatrix [m r c]
