@@ -397,4 +397,15 @@
     (is (= -46 (matrix/cofactor A 0 2)))
     (is (= -196 (matrix/determinant A)))))
 
+(testing "Calculating the determinant of a 4x4 matrix"
+  (let [A [[-2 -8  3  5]
+           [-3  1  7  3]
+           [ 1  2 -9  6]
+           [-6  7  7 -9]]]
+    (is (= 690 (matrix/cofactor A 0 0)))
+    (is (= 447 (matrix/cofactor A 0 1)))
+    (is (= 210 (matrix/cofactor A 0 2)))
+    (is (= 51 (matrix/cofactor A 0 3)))
+    (is (= -4071 (matrix/determinant A)))))
+
 )
