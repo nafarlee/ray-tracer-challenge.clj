@@ -372,4 +372,11 @@
                                      [-8  8 6]
                                      [-7 -1 1]]))))
 
+(testing "Calculating a minor of a 3x3 matrix"
+  (let [A [[3  5  0]
+           [2 -1 -7]
+           [6 -1  5]]
+        B (matrix/submatrix A 1 0)]
+    (is (= 25 (matrix/minor A 1 0) (matrix/determinant B)))))
+
 )
