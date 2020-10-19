@@ -45,6 +45,14 @@
        (keep-indexed #(if (== r %1) nil %2))
        (mapv (partial keep-indexed #(if (== c %1) nil %2)))))
 
+(declare cofactor)
+(defn determinant [m]
+  (if (= [2 2] (size m))
+    (determinant2 m)
+    (apply + (for [r [0]
+                   c (->> m first count range)]
+               (* (at m r c) (cofactor m r c))))))
+
 (defn minor [m r c]
   (-> m
       (submatrix r c)
