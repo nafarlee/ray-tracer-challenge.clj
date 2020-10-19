@@ -408,4 +408,12 @@
     (is (= 51 (matrix/cofactor A 0 3)))
     (is (= -4071 (matrix/determinant A)))))
 
+(testing "Testing an invertible matrix for invertibility"
+  (let [A [[6  4 4  4]
+           [5  5 7  6]
+           [4 -9 3 -7]
+           [9  1 7 -6]]]
+    (is (= -2120 (matrix/determinant A)))
+    (is (matrix/invertible? A))))
+
 )
