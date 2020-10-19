@@ -77,3 +77,8 @@
          (f (at m r c) r c))
        (partition (count (first m)))
        (mapv vec)))
+
+(defn inverse [m]
+  (let [det (determinant m)]
+    (when (not (zero? det))
+      (fmap (fn [_ r c] (/ (cofactor m c r) det)) m))))
