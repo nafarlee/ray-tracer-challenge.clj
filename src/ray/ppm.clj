@@ -32,7 +32,7 @@
        ::rcan/pixels
        (partition (::rcan/width c))
        (map #(->> %
-                  (mapcat (juxt ::rc/red ::rc/green ::rc/blue))
+                  flatten
                   (map (partial * 255))
                   (map (partial clamp 0 255))
                   (map double)
