@@ -24,11 +24,14 @@
     (is (not (rt/vector'? a)))))
 
 (testing "A tuple with w=0.0 is a vector"
-  (let [a (rt/tuple 4.3 -4.2 3.1 0.0)]
-    (is (== (::rt/x a) 4.3))
-    (is (== (::rt/y a) -4.2))
-    (is (== (::rt/z a) 3.1))
-    (is (== (::rt/w a) 0.0))
+  (let [[[x]
+         [y]
+         [z]
+         [w] :as a] (rt/tuple 4.3 -4.2 3.1 0.0)]
+    (is (== x 4.3))
+    (is (== y -4.2))
+    (is (== z 3.1))
+    (is (== w 0.0))
     (is (not (rt/point? a))
     (is (rt/vector'? a)))))
 
