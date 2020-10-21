@@ -1,6 +1,7 @@
 (ns ray.tuple
   (:require
     [clojure.spec.alpha :as s]
+    [ray.matrix :as m]
     [ray.math :refer [float= square]]))
 
 (defn map-values [f m]
@@ -21,7 +22,7 @@
 (def tuple? (partial s/valid? ::tuple))
 
 (defn multiply [t x]
-  (map-values (partial * x) t))
+  (m/fmap (fn [e _ _] (* e x)) t))
 
 (defn divide [t x]
   (map-values #(/ % x) t))
