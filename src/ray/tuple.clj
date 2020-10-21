@@ -79,5 +79,6 @@
        (apply +)))
 
 (defn eq [a b]
-  (every? (partial apply float=)
-          (zip (vals a) (vals b))))
+  (->> (pointwise float= a b)
+       flatten
+       (every? identity)))
