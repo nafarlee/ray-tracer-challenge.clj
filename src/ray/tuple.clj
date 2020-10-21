@@ -62,8 +62,8 @@
      (m/fmap (fn [e _ _] (/ e m)) v)))
 
 (defn dot [a b]
-  (->> (merge-with * a b)
-       vals
+  (->> (pointwise * a b)
+       flatten
        (apply +)))
 
 (defn cross [{ax ::x ay ::y az ::z} {bx ::x by ::y bz ::z}]
