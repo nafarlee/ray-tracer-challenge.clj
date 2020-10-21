@@ -25,7 +25,7 @@
   (m/fmap (fn [e _ _] (* e x)) t))
 
 (defn divide [t x]
-  (map-values #(/ % x) t))
+  (m/fmap (fn [e _ _] (/ e x)) t))
 
 (defn point [x y z]
   (tuple x y z 1))
