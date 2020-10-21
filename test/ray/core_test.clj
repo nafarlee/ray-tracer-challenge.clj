@@ -151,7 +151,9 @@
                 (rt/vector' 1 -2 1)))))
 
 (testing "Colors are (red, green, blue) tuples"
-  (let [{:keys [::rc/red ::rc/green ::rc/blue]} (rc/color -0.5 0.4 1.7)]
+  (let [[[red]
+         [green]
+         [blue]] (rc/color -0.5 0.4 1.7)]
     (is (== red -0.5))
     (is (== green 0.4))
     (is (== blue 1.7))))
