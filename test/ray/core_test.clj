@@ -321,14 +321,8 @@
            [2 4 4 2]
            [8 6 4 1]
            [0 0 0 1]]
-        b [[1]
-           [2]
-           [3]
-           [1]]
-        Ab [[18]
-            [24]
-            [33]
-            [1]]]
+        b (rt/point 1.0 2.0 3.0)
+        Ab (rt/point 18.0 24.0 33.0)]
     (is (= (matrix/multiply A b) Ab))))
 
 (testing "Multiplying a matrix by the identity matrix"
@@ -339,10 +333,7 @@
     (is (= (matrix/multiply A matrix/id) A))))
 
 (testing "Multiplying the identity matrix by a tuple"
-  (let [a [[1]
-           [2]
-           [3]
-           [4]]]
+  (let [a (rt/tuple 1 2 3 4)]
     (is (= (matrix/multiply matrix/id a) a))))
 
 (testing "Transposing a matrix"
