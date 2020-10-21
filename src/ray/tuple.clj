@@ -44,7 +44,7 @@
 (defn pointwise [f a b]
   (mapv #(mapv f %1 %2) a b))
 
-(def add (partial merge-with +))
+(def add (partial pointwise +))
 
 (def subtract (partial merge-with -))
 
