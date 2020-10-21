@@ -37,7 +37,7 @@
 (defn vector' [x y z]
   (tuple x y z 0.0))
 
-(defn vector'?  [{w ::w :as t}]
+(defn vector'?  [[_ _ _ [w] :as t]]
   (and (tuple? t)
        (zero? w)))
 
