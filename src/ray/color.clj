@@ -2,9 +2,10 @@
   (:require
     [clojure.spec.alpha :as s]))
 
-(s/def ::red float?)
-(s/def ::green float?)
-(s/def ::blue float?)
-(s/def ::color (s/keys :req [::red ::green ::blue]))
+(s/def ::color (s/tuple (s/tuple float?)
+                        (s/tuple float?)
+                        (s/tuple float?)))
 (defn color [red green blue]
-  {::red red, ::green green, ::blue blue})
+  [[red]
+   [green]
+   [blue]])
