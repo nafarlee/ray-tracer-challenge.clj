@@ -28,7 +28,7 @@
   (m/fmap (fn [e _ _] (/ e x)) t))
 
 (defn point [x y z]
-  (tuple x y z 1))
+  (tuple x y z 1.0))
 
 (defn point?  [{w ::w :as t}]
   (and (tuple? t)
