@@ -61,11 +61,6 @@
   (let [m (magnitude v)]
      (m/fmap (fn [e _ _] (/ e m)) v)))
 
-(defn dot [a b]
-  (->> (pointwise * a b)
-       flatten
-       (apply +)))
-
 (defn cross [[[ax]
               [ay]
               [az]]
@@ -80,6 +75,11 @@
               (* ay bx))))
 
 (def hadamard (partial pointwise *))
+
+(defn dot [a b]
+  (->> (hadamard a b)
+       flatten
+       (apply +)))
 
 (defn eq [a b]
   (every? (partial apply float=)
