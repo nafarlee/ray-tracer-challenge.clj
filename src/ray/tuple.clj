@@ -30,7 +30,7 @@
 (defn point [x y z]
   (tuple x y z 1.0))
 
-(defn point?  [{w ::w :as t}]
+(defn point?  [[_ _ _ [w] :as t]]
   (and (tuple? t)
        (== 1.0 w)))
 
