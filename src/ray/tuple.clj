@@ -66,7 +66,12 @@
        flatten
        (apply +)))
 
-(defn cross [{ax ::x ay ::y az ::z} {bx ::x by ::y bz ::z}]
+(defn cross [[[ax]
+              [ay]
+              [az]]
+             [[bx]
+              [by]
+              [bz]]]
   (vector' (- (* ay bz)
               (* az by))
            (- (* az bx)
