@@ -51,8 +51,9 @@
 (def negate (partial subtract (vector' 0 0 0)))
 
 (defn magnitude [v]
-  (->> (vals v)
-       (map square)
+  (->> v
+       flatten
+       (mapv square)
        (apply +)
        Math/sqrt))
 
