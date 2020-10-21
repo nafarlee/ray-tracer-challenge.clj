@@ -59,9 +59,7 @@
 
 (defn normalize [v]
   (let [m (magnitude v)]
-    (->> ((juxt ::x ::y ::z) v)
-         (map #(/ % m))
-         (apply vector'))))
+     (m/fmap (fn [e _ _] (/ e m)) v)))
 
 (defn dot [a b]
   (->> (merge-with * a b)
