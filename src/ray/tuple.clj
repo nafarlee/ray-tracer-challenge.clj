@@ -4,9 +4,6 @@
     [ray.matrix :as m]
     [ray.math :refer [float= square]]))
 
-(defn map-values [f m]
-  (into {} (for [[k v] m] [k (f v)])))
-
 (def zip (partial map vector))
 
 (s/def ::tuple (s/tuple (s/tuple float?)
