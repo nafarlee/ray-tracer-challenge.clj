@@ -79,7 +79,7 @@
            (- (* ax by)
               (* ay bx))))
 
-(def hadamard (partial merge-with *))
+(def hadamard (partial pointwise *))
 
 (defn eq [a b]
   (every? (partial apply float=)
