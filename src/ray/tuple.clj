@@ -8,13 +8,15 @@
 
 (def zip (partial map vector))
 
-(s/def ::x float?)
-(s/def ::y float?)
-(s/def ::z float?)
-(s/def ::w #{1.0 0.0})
-(s/def ::tuple (s/keys :req [::x ::y ::z ::w]))
+(s/def ::tuple (s/tuple (s/tuple float?)
+                        (s/tuple float?)
+                        (s/tuple float?)
+                        (s/tuple #{1.0 0.0})))
 (defn tuple [x y z w]
-  {::x x, ::y y, ::z z, ::w w})
+  [[x]
+   [y]
+   [z]
+   [w]])
 
 (def tuple? (partial s/valid? ::tuple))
 
