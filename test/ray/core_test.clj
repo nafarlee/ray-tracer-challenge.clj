@@ -483,7 +483,7 @@
   (let [transform (matrix/translation 5 -3 2)
         p (tuple/point -3 4 5)]
     (is (= (matrix/multiply transform p)
-           (matrix/point 2 1 7)))))
+           (tuple/point 2 1 7)))))
 
 (testing "Multiplying by the inverse of a translation matrix"
   (let [transform (matrix/translation 5 -3 2)
