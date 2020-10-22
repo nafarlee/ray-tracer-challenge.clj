@@ -541,6 +541,6 @@
     (is (matrix/eq (matrix/multiply inv p)
                    (tuple/point 0
                                 (/ (Math/sqrt 2) 2)
-                                (unchecked-negate (/ (Math/sqrt 2) 2)))))))
+                                (- (/ (Math/sqrt 2) 2)))))))
 
 )
