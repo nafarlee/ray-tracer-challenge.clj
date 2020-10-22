@@ -4,15 +4,15 @@
     [ray.matrix :as m]
     [ray.math :refer [float= square]]))
 
-(s/def ::tuple (s/tuple (s/tuple float?)
-                        (s/tuple float?)
-                        (s/tuple float?)
+(s/def ::tuple (s/tuple (s/tuple double?)
+                        (s/tuple double?)
+                        (s/tuple double?)
                         (s/tuple #{1.0 0.0})))
 (defn tuple [x y z w]
-  [[x]
-   [y]
-   [z]
-   [w]])
+  [[(double x)]
+   [(double y)]
+   [(double z)]
+   [(double w)]])
 
 (def tuple? (partial s/valid? ::tuple))
 
