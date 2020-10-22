@@ -498,4 +498,10 @@
     (is (= (matrix/multiply transform v)
            v))))
 
+(testing "A scaling matrix applied to a point"
+  (let [transform (matrix/scaling 2 3 4)
+        p (tuple/point -4 6 8)]
+    (is (= (matrix/multiply transform p)
+           (matrix/point -8 18 32)))))
+
 )
