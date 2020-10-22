@@ -523,4 +523,15 @@
     (is (= (matrix/multiply transform p)
            (tuple/point -2 3 4)))))
 
+(testing "Rotating a point around the x axis"
+  (let [p (tuple/point 0 1 0)
+        half-quarter (matrix/rotation-x (/ Math/PI 4))
+        full-quarter (matrix/rotation-x (/ Math/PI 2))]
+    (is (= (matrix/multiply half-quarter p)
+           (tuple/point 0
+                        (/ (Math/sqrt 2) 2)
+                        (/ (Math/sqrt 2) 2))))
+    (is (= (matrix/multiply full-quarter p)
+           (tuple/point 0 0 1)))))
+
 )
