@@ -1,6 +1,6 @@
 (ns ray.matrix
   (:require
-    [ray.math :refer [float=]]))
+    [ray.math :refer [cos float= sin]]))
 
 (defn at [m x y]
   (-> m
@@ -102,7 +102,7 @@
    [0 0 0 1]])
 
 (defn rotation-x [r]
-  [[1 0            0                               0]
-   [0 (Math/cos r) (unchecked-negate (Math/sin r)) 0]
-   [0 (Math/sin r)                    (Math/cos r) 0]
-   [0 0            0                               1]])
+  [[1 0       0                          0]
+   [0 (cos r) (unchecked-negate (sin r)) 0]
+   [0 (sin r) (cos r)                    0]
+   [0 0       0                          1]])
