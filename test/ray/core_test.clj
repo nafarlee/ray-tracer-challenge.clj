@@ -2,6 +2,7 @@
   (:require
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
+   [ray.math :refer [pi]]
    [ray.matrix :as matrix]
    [ray.tuple :as tuple]
    [ray.color :as rc]
@@ -525,8 +526,8 @@
 
 (testing "Rotating a point around the x axis"
   (let [p (tuple/point 0 1 0)
-        half-quarter (matrix/rotation-x (/ Math/PI 4))
-        full-quarter (matrix/rotation-x (/ Math/PI 2))]
+        half-quarter (matrix/rotation-x (/ pi 4))
+        full-quarter (matrix/rotation-x (/ pi 2))]
     (is (matrix/eq (matrix/multiply half-quarter p)
                    (tuple/point 0
                                 (/ (Math/sqrt 2) 2)
@@ -536,7 +537,7 @@
 
 (testing "The inverse of an x-rotation rotates in the opposite direction"
   (let [p (tuple/point 0 1 0)
-        half-quarter (matrix/rotation-x (/ Math/PI 4))
+        half-quarter (matrix/rotation-x (/ pi 4))
         inv (matrix/inverse half-quarter)]
     (is (matrix/eq (matrix/multiply inv p)
                    (tuple/point 0
