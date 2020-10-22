@@ -494,7 +494,7 @@
 
 (testing "Translation does not affect vectors"
   (let [transform (matrix/translation 5 -3 2)
-        v (tuple/vector -3 4 5)]
+        v (tuple/vector' -3 4 5)]
     (is (= (matrix/multiply transform v)
            v))))
 
