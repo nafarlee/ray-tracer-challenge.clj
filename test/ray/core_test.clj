@@ -602,4 +602,16 @@
     (is (matrix/eq (matrix/multiply transform p)
                    (tuple/point 2 3 7)))))
 
+(testing "Individual transformations are applied in sequence"
+  (let [p (tuple/point 1 0 1)
+        A (matrix/rotation-x (/ pi 2))
+        B (matrix/scaling 5 5 5)
+        C (matrix/translation 10 5 7)
+        p2 (matrix/multiply A p)
+        p3 (matrix/multiply B p2)
+        p4 (matrix/multiply C p3)]
+    (is (tuple/eq p2 (tuple/point 1 -1 0)))
+    (is (tuple/eq p3 (tuple/point 5 -5 0)))
+    (is (tuple/eq p4 (tuple/point 15 0 7)))))
+
 )
