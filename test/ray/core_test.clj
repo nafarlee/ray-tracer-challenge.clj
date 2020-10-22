@@ -534,4 +534,13 @@
     (is (= (matrix/multiply full-quarter p)
            (tuple/point 0 0 1)))))
 
+(testing "The inverse of an x-rotation rotates in the opposite direction"
+  (let [p (tuple/point 0 1 0)
+        half-quarter (matrix/rotation-x (/ Math/PI 4))
+        inv (matrix/inverse half-quarter)]
+    (is (= (matrix/multiply inv p)
+           (tuple/point 0
+                        (/ (Math/sqrt 2) 2)
+                        (unchecked-negate (/ (Math/sqrt 2) 2)))))))
+
 )
