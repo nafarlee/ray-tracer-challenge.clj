@@ -100,3 +100,9 @@
    [0 y 0 0]
    [0 0 z 0]
    [0 0 0 1]])
+
+(defn rotation-x [r]
+  [[1 0            0                               0]
+   [0 (Math/cos r) (unchecked-negate (Math/sin r)) 0]
+   [0 (Math/sin r)                    (Math/cos r) 0]
+   [0 0            0                               1]])
