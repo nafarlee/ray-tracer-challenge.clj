@@ -2,7 +2,7 @@
   (:require
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
-   [ray.math :refer [pi]]
+   [ray.math :refer [pi sqrt]]
    [ray.matrix :as matrix]
    [ray.tuple :as tuple]
    [ray.color :as rc]
@@ -112,12 +112,12 @@
 (testing "Computing the magnitude of vector (1, 2, 3)"
   (let [v (tuple/vector' 1 2 3)]
     (is (== (tuple/magnitude v)
-            (Math/sqrt 14)))))
+            (sqrt 14)))))
 
 (testing "Computing the magnitude of vector (-1, -2, -3)"
   (let [v (tuple/vector' -1 -2 -3)]
     (is (== (tuple/magnitude v)
-            (Math/sqrt 14)))))
+            (sqrt 14)))))
 
 (testing "Normalizing (4, 0, 0) gives (1, 0, 0)"
   (let [v (tuple/vector' 4 0 0)]
@@ -127,9 +127,9 @@
 (testing "Normalizing (1, 2, 3)"
   (let [v (tuple/vector' 1 2 3)]
     (is (tuple/eq (tuple/normalize v)
-            (tuple/vector' (/ 1 (Math/sqrt 14))
-                         (/ 2 (Math/sqrt 14))
-                         (/ 3 (Math/sqrt 14)))))))
+            (tuple/vector' (/ 1 (sqrt 14))
+                         (/ 2 (sqrt 14))
+                         (/ 3 (sqrt 14)))))))
 
 (testing "The magnitude of a normalized vector"
   (let [v (tuple/vector' 1 2 3)
@@ -530,8 +530,8 @@
         full-quarter (matrix/rotation-x (/ pi 2))]
     (is (matrix/eq (matrix/multiply half-quarter p)
                    (tuple/point 0
-                                (/ (Math/sqrt 2) 2)
-                                (/ (Math/sqrt 2) 2))))
+                                (/ (sqrt 2) 2)
+                                (/ (sqrt 2) 2))))
     (is (matrix/eq (matrix/multiply full-quarter p)
                    (tuple/point 0 0 1)))))
 
@@ -541,7 +541,7 @@
         inv (matrix/inverse half-quarter)]
     (is (matrix/eq (matrix/multiply inv p)
                    (tuple/point 0
-                                (/ (Math/sqrt 2) 2)
-                                (- (/ (Math/sqrt 2) 2)))))))
+                                (/ (sqrt 2) 2)
+                                (- (/ (sqrt 2) 2)))))))
 
 )

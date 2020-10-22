@@ -23,3 +23,6 @@
 
 (defn cos [x]
   (Math/cos x))
+
+(defn sqrt [x]
+  (Math/sqrt x))
