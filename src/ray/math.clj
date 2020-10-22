@@ -15,3 +15,11 @@
   (-> x
       (max low)
       (min high)))
+
+(def pi Math/PI)
+
+(defn sin [x]
+  (Math/sin x))
+
+(defn cos [x]
+  (Math/cos x))
