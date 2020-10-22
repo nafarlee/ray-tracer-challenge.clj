@@ -517,4 +517,10 @@
     (is (= (matrix/multiply inv v)
            (tuple/vector' -2 2 2)))))
 
+(testing "Reflection is scaling by a negative value"
+  (let [transform (matrix/scaling -1 1 1)
+        p (tuple/point 2 3 4)]
+    (is (= (matrix/multiply transform p)
+           (tuple/point -2 3 4)))))
+
 )
