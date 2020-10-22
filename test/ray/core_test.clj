@@ -3,7 +3,7 @@
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
    [ray.matrix :as matrix]
-   [ray.tuple :as rt]
+   [ray.tuple :as tuple]
    [ray.color :as rc]
    [ray.canvas :as rcan]
    [ray.ppm :as rp]
@@ -15,140 +15,140 @@
   (let [[[x]
          [y]
          [z]
-         [w] :as a] (rt/tuple 4.3 -4.2 3.1 1.0)]
+         [w] :as a] (tuple/tuple 4.3 -4.2 3.1 1.0)]
     (is (== x 4.3))
     (is (== y -4.2))
     (is (== z 3.1))
     (is (== w 1.0))
-    (is (rt/point? a))
-    (is (not (rt/vector'? a)))))
+    (is (tuple/point? a))
+    (is (not (tuple/vector'? a)))))
 
 (testing "A tuple with w=0.0 is a vector"
   (let [[[x]
          [y]
          [z]
-         [w] :as a] (rt/tuple 4.3 -4.2 3.1 0.0)]
+         [w] :as a] (tuple/tuple 4.3 -4.2 3.1 0.0)]
     (is (== x 4.3))
     (is (== y -4.2))
     (is (== z 3.1))
     (is (== w 0.0))
-    (is (not (rt/point? a))
-    (is (rt/vector'? a)))))
+    (is (not (tuple/point? a))
+    (is (tuple/vector'? a)))))
 
 (testing "point creates tuples with w=1"
-  (let [a (rt/point 4 -4 3)]
-    (is (rt/eq a (rt/tuple 4 -4 3 1)))))
+  (let [a (tuple/point 4 -4 3)]
+    (is (tuple/eq a (tuple/tuple 4 -4 3 1)))))
 
 (testing "vector creates tuples with w=0"
-  (let [a (rt/vector' 4 -4 3)]
-    (is (rt/eq a (rt/tuple 4 -4 3 0)))))
+  (let [a (tuple/vector' 4 -4 3)]
+    (is (tuple/eq a (tuple/tuple 4 -4 3 0)))))
 
 (testing "Adding two tuples"
-  (let [a1 (rt/tuple 3 -2 5 1)
-        a2 (rt/tuple -2 3 1 0)]
-    (is (rt/eq (rt/add a1 a2)
-                (rt/tuple 1 1 6 1)))))
+  (let [a1 (tuple/tuple 3 -2 5 1)
+        a2 (tuple/tuple -2 3 1 0)]
+    (is (tuple/eq (tuple/add a1 a2)
+                (tuple/tuple 1 1 6 1)))))
 
 (testing "Subtracting two points"
-  (let [p1 (rt/point 3 2 1)
-        p2 (rt/point 5 6 7)]
-    (is (rt/eq (rt/subtract p1 p2)
-                (rt/vector' -2 -4 -6)))))
+  (let [p1 (tuple/point 3 2 1)
+        p2 (tuple/point 5 6 7)]
+    (is (tuple/eq (tuple/subtract p1 p2)
+                (tuple/vector' -2 -4 -6)))))
 
 (testing "Subtracting a vector from a point"
-  (let [p (rt/point 3 2 1)
-        v (rt/vector' 5 6 7)]
-    (is (rt/eq (rt/subtract p v)
-                (rt/point -2 -4 -6)))))
+  (let [p (tuple/point 3 2 1)
+        v (tuple/vector' 5 6 7)]
+    (is (tuple/eq (tuple/subtract p v)
+                (tuple/point -2 -4 -6)))))
 
 (testing "Subtracting two vectors"
-  (let [v1 (rt/vector' 3 2 1)
-        v2 (rt/vector' 5 6 7)]
-    (is (rt/eq (rt/subtract v1 v2)
-                (rt/vector' -2 -4 -6)))))
+  (let [v1 (tuple/vector' 3 2 1)
+        v2 (tuple/vector' 5 6 7)]
+    (is (tuple/eq (tuple/subtract v1 v2)
+                (tuple/vector' -2 -4 -6)))))
 
 (testing "Subtracting a vector from the zero vector"
-  (let [zero (rt/vector' 0 0 0)
-        v (rt/vector' 1 -2 3)]
-    (is (rt/eq (rt/subtract zero v)
-                (rt/vector' -1 2 -3)))))
+  (let [zero (tuple/vector' 0 0 0)
+        v (tuple/vector' 1 -2 3)]
+    (is (tuple/eq (tuple/subtract zero v)
+                (tuple/vector' -1 2 -3)))))
 
 (testing "Negating a tuple"
-  (let [a (rt/tuple 1 -2 3 -4)]
-    (is (rt/eq (rt/negate a)
-                (rt/tuple -1 2 -3 4)))))
+  (let [a (tuple/tuple 1 -2 3 -4)]
+    (is (tuple/eq (tuple/negate a)
+                (tuple/tuple -1 2 -3 4)))))
 
 (testing "Multiplying a tuple by a scalar"
-  (let [a (rt/tuple 1 -2 3 -4)]
-    (is (rt/eq (rt/multiply a 3.5)
-                (rt/tuple 3.5 -7.0 10.5 -14.0)))))
+  (let [a (tuple/tuple 1 -2 3 -4)]
+    (is (tuple/eq (tuple/multiply a 3.5)
+                (tuple/tuple 3.5 -7.0 10.5 -14.0)))))
 
 (testing "Multiplying a tuple by a fraction"
-  (let [a (rt/tuple 1 -2 3 -4)]
-    (is (rt/eq (rt/multiply a 0.5)
-                (rt/tuple 0.5 -1.0 1.5 -2.0)))))
+  (let [a (tuple/tuple 1 -2 3 -4)]
+    (is (tuple/eq (tuple/multiply a 0.5)
+                (tuple/tuple 0.5 -1.0 1.5 -2.0)))))
 
 (testing "Dividing a tuple by a scalar"
-  (let [a (rt/tuple 1.0 -2.0 3.0 -4.0)]
-    (is (rt/eq (rt/divide a 2)
-                (rt/tuple 0.5 -1.0 1.5 -2.0)))))
+  (let [a (tuple/tuple 1.0 -2.0 3.0 -4.0)]
+    (is (tuple/eq (tuple/divide a 2)
+                (tuple/tuple 0.5 -1.0 1.5 -2.0)))))
 
 (testing "Computing the magnitude of vector (1, 0, 0)"
-  (let [v (rt/vector' 1 0 0)]
-    (is (== (rt/magnitude v)
+  (let [v (tuple/vector' 1 0 0)]
+    (is (== (tuple/magnitude v)
             1.0))))
 
 (testing "Computing the magnitude of vector (0, 1, 0)"
-  (let [v (rt/vector' 0 1 0)]
-    (is (== (rt/magnitude v)
+  (let [v (tuple/vector' 0 1 0)]
+    (is (== (tuple/magnitude v)
             1.0))))
 
 (testing "Computing the magnitude of vector (0, 0, 1)"
-  (let [v (rt/vector' 0 0 1)]
-    (is (== (rt/magnitude v)
+  (let [v (tuple/vector' 0 0 1)]
+    (is (== (tuple/magnitude v)
             1.0))))
 
 (testing "Computing the magnitude of vector (1, 2, 3)"
-  (let [v (rt/vector' 1 2 3)]
-    (is (== (rt/magnitude v)
+  (let [v (tuple/vector' 1 2 3)]
+    (is (== (tuple/magnitude v)
             (Math/sqrt 14)))))
 
 (testing "Computing the magnitude of vector (-1, -2, -3)"
-  (let [v (rt/vector' -1 -2 -3)]
-    (is (== (rt/magnitude v)
+  (let [v (tuple/vector' -1 -2 -3)]
+    (is (== (tuple/magnitude v)
             (Math/sqrt 14)))))
 
 (testing "Normalizing (4, 0, 0) gives (1, 0, 0)"
-  (let [v (rt/vector' 4 0 0)]
-    (is (rt/eq (rt/normalize v)
-                (rt/vector' 1.0 0.0 0.0)))))
+  (let [v (tuple/vector' 4 0 0)]
+    (is (tuple/eq (tuple/normalize v)
+                (tuple/vector' 1.0 0.0 0.0)))))
 
 (testing "Normalizing (1, 2, 3)"
-  (let [v (rt/vector' 1 2 3)]
-    (is (rt/eq (rt/normalize v)
-            (rt/vector' (/ 1 (Math/sqrt 14))
+  (let [v (tuple/vector' 1 2 3)]
+    (is (tuple/eq (tuple/normalize v)
+            (tuple/vector' (/ 1 (Math/sqrt 14))
                          (/ 2 (Math/sqrt 14))
                          (/ 3 (Math/sqrt 14)))))))
 
 (testing "The magnitude of a normalized vector"
-  (let [v (rt/vector' 1 2 3)
-        norm (rt/normalize v)]
-    (is (== (rt/magnitude norm)
+  (let [v (tuple/vector' 1 2 3)
+        norm (tuple/normalize v)]
+    (is (== (tuple/magnitude norm)
             1.0))))
 
 (testing "The dot product of two tuples"
-  (let [a (rt/vector' 1 2 3)
-        b (rt/vector' 2 3 4)]
-    (is (== (rt/dot a b)
+  (let [a (tuple/vector' 1 2 3)
+        b (tuple/vector' 2 3 4)]
+    (is (== (tuple/dot a b)
             20))))
 
 (testing "The cross product of two vectors"
-  (let [a (rt/vector' 1 2 3)
-        b (rt/vector' 2 3 4)]
-    (is (rt/eq (rt/cross a b)
-                (rt/vector' -1 2 -1)))
-    (is (rt/eq (rt/cross b a)
-                (rt/vector' 1 -2 1)))))
+  (let [a (tuple/vector' 1 2 3)
+        b (tuple/vector' 2 3 4)]
+    (is (tuple/eq (tuple/cross a b)
+                (tuple/vector' -1 2 -1)))
+    (is (tuple/eq (tuple/cross b a)
+                (tuple/vector' 1 -2 1)))))
 
 (testing "Colors are (red, green, blue) tuples"
   (let [[[red]
@@ -161,37 +161,37 @@
 (testing "Adding colors"
   (let [c1 (rc/color 0.9 0.6 0.75)
         c2 (rc/color 0.7 0.1 0.25)]
-    (is (rt/eq (rt/add c1 c2)
+    (is (tuple/eq (tuple/add c1 c2)
                 (rc/color 1.6 0.7 1.0)))))
 
 (testing "Subtracting colors"
   (let [c1 (rc/color 0.9 0.6 0.75)
         c2 (rc/color 0.7 0.1 0.25)]
-    (is (rt/eq (rt/subtract c1 c2)
+    (is (tuple/eq (tuple/subtract c1 c2)
                 (rc/color 0.2 0.5 0.5)))))
 
 (testing "Multiplying a color by scalar"
   (let [c (rc/color 0.2 0.3 0.4)]
-    (is (rt/eq (rc/color 0.4 0.6 0.8)
-                (rt/multiply c 2)))))
+    (is (tuple/eq (rc/color 0.4 0.6 0.8)
+                (tuple/multiply c 2)))))
 
 (testing "Multiplying colors"
   (let [c1 (rc/color 1 0.2 0.4)
         c2 (rc/color 0.9 1 0.1)]
-    (is (rt/eq (rt/hadamard c1 c2)
+    (is (tuple/eq (tuple/hadamard c1 c2)
                 (rc/color 0.9 0.2 0.04)))))
 
 (testing "Creating a canvas"
   (let [c (rcan/canvas 10 20)]
     (is (== (::rcan/width c) 10))
     (is (== (::rcan/height c) 20))
-    (is (every? (partial rt/eq (rc/color 0 0 0))
+    (is (every? (partial tuple/eq (rc/color 0 0 0))
                 (::rcan/pixels c)))))
 
 (testing "Writing pixels to a canvas"
   (let [c (rcan/canvas 10 20)
         red (rc/color 1 0 0)]
-    (is (rt/eq red
+    (is (tuple/eq red
                 (-> c
                     (rcan/write-pixel 2 3 red)
                     (rcan/pixel-at 2 3))))))
@@ -321,8 +321,8 @@
            [2 4 4 2]
            [8 6 4 1]
            [0 0 0 1]]
-        b (rt/point 1.0 2.0 3.0)
-        Ab (rt/point 18.0 24.0 33.0)]
+        b (tuple/point 1.0 2.0 3.0)
+        Ab (tuple/point 18.0 24.0 33.0)]
     (is (= (matrix/multiply A b) Ab))))
 
 (testing "Multiplying a matrix by the identity matrix"
@@ -333,7 +333,7 @@
     (is (= (matrix/multiply A matrix/id) A))))
 
 (testing "Multiplying the identity matrix by a tuple"
-  (let [a (rt/tuple 1 2 3 4)]
+  (let [a (tuple/tuple 1 2 3 4)]
     (is (= (matrix/multiply matrix/id a) a))))
 
 (testing "Transposing a matrix"
