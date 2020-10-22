@@ -510,4 +510,11 @@
     (is (= (matrix/multiply transform v)
            (tuple/vector' -8 18 32)))))
 
+(testing "Multiplying by the inverse of a scaling matrix"
+  (let [transform (matrix/scaling 2 3 4)
+        inv (matrix/inverse transform)
+        v (tuple/vector' -4 6 8)]
+    (is (= (matrix/multiply inv v)
+           (tuple/vector' -2 2 2)))))
+
 )
