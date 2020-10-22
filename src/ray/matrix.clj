@@ -28,6 +28,9 @@
        (partition (count (first b)))
        (mapv vec)))
 
+(defn chain [& ms]
+  (reduce multiply (reverse ms)))
+
 (def transpose columns)
 
 (def id [[1 0 0 0]
