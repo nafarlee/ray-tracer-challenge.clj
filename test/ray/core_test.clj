@@ -555,4 +555,15 @@
     (is (matrix/eq (matrix/multiply full-quarter p)
                    (tuple/point 1 0 0)))))
 
+(testing "Rotating a point around the z axis"
+  (let [p (tuple/point 0 1 0)
+        half-quarter (matrix/rotation-z (/ pi 4))
+        full-quarter (matrix/rotation-z (/ pi 2))]
+    (is (matrix/eq (matrix/multiply half-quarter p)
+                   (tuple/point (- (/ (sqrt 2) 2))
+                                (/ (sqrt 2) 2)
+                                0)))
+    (is (matrix/eq (matrix/multiply full-quarter p)
+                   (tuple/point -1 0 0)))))
+
 )
