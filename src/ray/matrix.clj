@@ -112,3 +112,9 @@
    [0           1 0       0]
    [(- (sin r)) 0 (cos r) 0]
    [0           0 0       1]])
+
+(defn rotation-z [r]
+  [[(cos r) (- (sin r)) 0 0]
+   [(sin r) (cos r)     0 0]
+   [0       0           1 0]
+   [0       0           0 1]])
