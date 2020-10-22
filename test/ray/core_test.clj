@@ -566,4 +566,40 @@
     (is (matrix/eq (matrix/multiply full-quarter p)
                    (tuple/point -1 0 0)))))
 
+(testing "A shearing transformation moves x in proportion to y"
+  (let [transform (matrix/shearing 1 0 0 0 0 0)
+        p (tuple/point 2 3 4)]
+    (is (matrix/eq (matrix/multiply transform p)
+                   (tuple/point 5 3 4)))))
+
+(testing "A shearing transformation moves x in proportion to z"
+  (let [transform (matrix/shearing 0 1 0 0 0 0)
+        p (tuple/point 2 3 4)]
+    (is (matrix/eq (matrix/multiply transform p)
+                   (tuple/point 6 3 4)))))
+
+(testing "A shearing transformation moves y in proportion to x"
+  (let [transform (matrix/shearing 0 0 1 0 0 0)
+        p (tuple/point 2 3 4)]
+    (is (matrix/eq (matrix/multiply transform p)
+                   (tuple/point 2 5 4)))))
+
+(testing "A shearing transformation moves y in proportion to z"
+  (let [transform (matrix/shearing 0 0 0 1 0 0)
+        p (tuple/point 2 3 4)]
+    (is (matrix/eq (matrix/multiply transform p)
+                   (tuple/point 2 7 4)))))
+
+(testing "A shearing transformation moves z in proportion to x"
+  (let [transform (matrix/shearing 0 0 0 0 1 0)
+        p (tuple/point 2 3 4)]
+    (is (matrix/eq (matrix/multiply transform p)
+                   (tuple/point 2 3 6)))))
+
+(testing "A shearing transformation moves z in proportion to y"
+  (let [transform (matrix/shearing 0 0 0 0 0 1)
+        p (tuple/point 2 3 4)]
+    (is (matrix/eq (matrix/multiply transform p)
+                   (tuple/point 2 3 7)))))
+
 )
