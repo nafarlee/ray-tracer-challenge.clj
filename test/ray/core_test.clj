@@ -614,4 +614,13 @@
     (is (tuple/eq p3 (tuple/point 5 -5 0)))
     (is (tuple/eq p4 (tuple/point 15 0 7)))))
 
+(testing "Chained transformations must be applied in reverse order"
+  (let [p (tuple/point 1 0 1)
+        A (matrix/rotation-x (/ pi 2))
+        B (matrix/scaling 5 5 5)
+        C (matrix/translation 10 5 7)
+        T (reduce matrix/multiply [C B A])]
+    (is (tuple/eq (matrix/multiply T p)
+                  (tuple/point 15 0 7)))))
+
 )
