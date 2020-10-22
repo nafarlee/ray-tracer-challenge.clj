@@ -479,4 +479,10 @@
     (is (= (matrix/multiply C (matrix/inverse B))
            A))))
 
+(testing "Multiplying by a translation matrix"
+  (let [transform (matrix/translation 5 -3 2)
+        p (tuple/point -3 4 5)]
+    (is (= (matrix/multiply transform p)
+           (matrix/point 2 1 7)))))
+
 )
