@@ -1,6 +1,6 @@
 (ns ray.matrix
   (:require
-    [ray.math :as rm]))
+    [ray.math :refer [float=]]))
 
 (defn at [m x y]
   (-> m
@@ -86,7 +86,7 @@
       (fmap (fn [_ r c] (/ (cofactor m c r) det)) m))))
 
 (defn eq [a b]
-  (->> (mapv rm/float= (flatten a) (flatten b))
+  (->> (mapv float= (flatten a) (flatten b))
        (every? identity)))
 
 (defn translation [x y z]
