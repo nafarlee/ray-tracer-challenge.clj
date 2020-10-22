@@ -502,7 +502,7 @@
   (let [transform (matrix/scaling 2 3 4)
         p (tuple/point -4 6 8)]
     (is (= (matrix/multiply transform p)
-           (matrix/point -8 18 32)))))
+           (tuple/point -8 18 32)))))
 
 (testing "A scaling matrix applied to a vector"
   (let [transform (matrix/scaling 2 3 4)
