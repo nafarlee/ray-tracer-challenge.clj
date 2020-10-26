@@ -2,7 +2,7 @@
   (:require
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
-   [ray.shape :refer [sphere]]
+   [ray.shape :refer [intersect sphere]]
    [ray.ray :refer [->ray position]]
    [ray.math :refer [pi sqrt]]
    [ray.matrix :as matrix]
