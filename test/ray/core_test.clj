@@ -2,6 +2,7 @@
   (:require
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
+   [ray.shape :refer [sphere]]
    [ray.ray :refer [->ray position]]
    [ray.math :refer [pi sqrt]]
    [ray.matrix :as matrix]
@@ -637,5 +638,11 @@
     (is (= (position r 1) (tuple/point 3 3 4)))
     (is (= (position r -1) (tuple/point 1 3 4)))
     (is (= (position r 2.5) (tuple/point 4.5 3 4)))))
+
+(testing "A ray intersects a sphere at two points"
+  (let [r (->ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
+        s (sphere)
+        xs (intersect s r)]
+    (is (= xs [4.0 6.0]))))
 
 )
