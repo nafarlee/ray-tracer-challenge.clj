@@ -2,7 +2,7 @@
   (:require
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
-   [ray.ray :refer [->ray]]
+   [ray.ray :refer [->ray position]]
    [ray.math :refer [pi sqrt]]
    [ray.matrix :as matrix]
    [ray.tuple :as tuple]
@@ -630,5 +630,12 @@
         r (->ray origin direction)]
     (is (= (:origin r) origin))
     (is (= (:direction r) direction))))
+
+(testing "Computing a point from a distance"
+  (let [r (->ray (tuple/point 2 3 4) (tuple/vector' 1 0 0))]
+    (is (= (position r 0) (tuple/point 2 3 4)))
+    (is (= (position r 1) (tuple/point 3 3 4)))
+    (is (= (position r -1) (tuple/point 1 3 4)))
+    (is (= (position r 2.5) (tuple/point 4.5 3 4)))))
 
 )
