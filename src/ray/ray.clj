@@ -5,5 +5,6 @@
 (defrecord ray [origin direction])
 
 (defn position [{:keys [origin direction]} t]
-  (add origin
-       (multiply direction t)))
+  (->> t
+       (multiply direction)
+       (add origin)))
