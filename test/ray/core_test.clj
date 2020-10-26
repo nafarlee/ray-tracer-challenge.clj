@@ -2,6 +2,7 @@
   (:require
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
+   [ray.ray :refer [->ray]]
    [ray.math :refer [pi sqrt]]
    [ray.matrix :as matrix]
    [ray.tuple :as tuple]
@@ -622,5 +623,12 @@
         T (reduce matrix/multiply [C B A])]
     (is (tuple/eq (matrix/multiply T p)
                   (tuple/point 15 0 7)))))
+
+(testing "Creating and querying a ray"
+  (let [origin (tuple/point 1 2 3)
+        direction (tuple/vector' 4 5 6)
+        r (->ray origin direction)]
+    (is (= (:origin r) origin))
+    (is (= (:direction r) direction))))
 
 )
