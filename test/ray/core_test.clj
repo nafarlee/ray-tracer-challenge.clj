@@ -709,4 +709,13 @@
         xs (intersections i1 i2)]
     (is (= (hit xs) nil))))
 
+(testing "The hit is always the lowest nonnegative intersection"
+  (let [s (sphere)
+        i1 (intersection 5 s)
+        i2 (intersection 7 s)
+        i3 (intersection -3 s)
+        i4 (intersection 2 s)
+        xs (intersections i1 i2 i3 i4)]
+    (is (= (hit xs) i4))))
+
 )
