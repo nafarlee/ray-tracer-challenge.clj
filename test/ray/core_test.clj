@@ -663,4 +663,10 @@
         xs (intersect s r)]
     (is (= xs [-1.0 1.0]))))
 
+(testing "A sphere is behind a ray"
+  (let [r (->ray (tuple/point 0 0 5) (tuple/vector' 0 0 1))
+        s (sphere)
+        xs (intersect s r)]
+    (is (= xs [-6.0 -4.0]))))
+
 )
