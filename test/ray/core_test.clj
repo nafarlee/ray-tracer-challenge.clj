@@ -682,4 +682,10 @@
         xs (intersections i1 i2)]
     (is (= (mapv :t xs) [1 2]))))
 
+(testing "Intersect sets the object on the intersection"
+  (let [r (->ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
+        s (sphere)
+        xs (intersect s r)]
+    (is (= (mapv :object xs) [s s]))))
+
 )
