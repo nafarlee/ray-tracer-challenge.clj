@@ -695,4 +695,11 @@
         xs (intersections i1 i2)]
     (is (= (hit xs) i1))))
 
+(testing "The hit, when some intersections have negative t"
+  (let [s (sphere)
+        i1 (intersection -1 s)
+        i2 (intersection 1 s)
+        xs (intersections i1 i2)]
+    (is (= (hit xs) i2))))
+
 )
