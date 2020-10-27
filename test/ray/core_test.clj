@@ -643,13 +643,13 @@
   (let [r (->ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
-    (is (= xs [4.0 6.0]))))
+    (is (= (mapv :t xs) [4.0 6.0]))))
 
 (testing "A ray intersects a sphere at a tangent"
   (let [r (->ray (tuple/point 0 1 -5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
-    (is (= xs [5.0 5.0]))))
+    (is (= (mapv :t xs) [5.0 5.0]))))
 
 (testing "A ray misses a sphere"
   (let [r (->ray (tuple/point 0 2 -5) (tuple/vector' 0 0 1))
@@ -661,13 +661,13 @@
   (let [r (->ray (tuple/point 0 0 0) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
-    (is (= xs [-1.0 1.0]))))
+    (is (= (mapv :t xs) [-1.0 1.0]))))
 
 (testing "A sphere is behind a ray"
   (let [r (->ray (tuple/point 0 0 5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
-    (is (= xs [-6.0 -4.0]))))
+    (is (= (mapv :t xs) [-6.0 -4.0]))))
 
 (testing "An intersection encapsulates t and object"
   (let [s (sphere)
