@@ -657,4 +657,10 @@
         xs (intersect s r)]
     (is (= xs []))))
 
+(testing "A ray originates inside a sphere"
+  (let [r (->ray (tuple/point 0 0 0) (tuple/vector' 0 0 1))
+        s (sphere)
+        xs (intersect s r)]
+    (is (= xs [-1.0 1.0]))))
+
 )
