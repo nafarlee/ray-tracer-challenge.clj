@@ -645,4 +645,10 @@
         xs (intersect s r)]
     (is (= xs [4.0 6.0]))))
 
+(testing "A ray intersects a sphere at a tangent"
+  (let [r (->ray (tuple/point 0 1 -5) (tuple/vector' 0 0 1))
+        s (sphere)
+        xs (intersect s r)]
+    (is (= (xs) [5.0 5.0]))))
+
 )
