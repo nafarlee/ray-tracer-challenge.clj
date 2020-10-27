@@ -18,8 +18,8 @@
         discriminant (- (square b) (* 4 a c))]
     (if (neg? discriminant)
       []
-      [(/ (- (- b) (sqrt discriminant)) (* 2 a))
-       (/ (+ (- b) (sqrt discriminant)) (* 2 a))])))
+      [(intersection (/ (- (- b) (sqrt discriminant)) (* 2 a)) s)
+       (intersection (/ (+ (- b) (sqrt discriminant)) (* 2 a)) s)])))
 
 (defn intersections [& is]
   (apply sorted-set-by #(compare (:t %1) (:t %2)) is))
