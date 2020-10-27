@@ -2,7 +2,7 @@
   (:require
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
-   [ray.shape :refer [intersect intersection intersections sphere]]
+   [ray.shape :refer [hit intersect intersection intersections sphere]]
    [ray.ray :refer [->ray position]]
    [ray.math :refer [pi sqrt]]
    [ray.matrix :as matrix]
@@ -687,5 +687,12 @@
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :object xs) [s s]))))
+
+(testing "The hit, when all intersections have positive t"
+  (let [s (sphere)
+        i1 (intersection 1 s)
+        i2 (intersection 2 s)
+        xs (intersections i1 i2)]
+    (is (= (hit xs) i1))))
 
 )
