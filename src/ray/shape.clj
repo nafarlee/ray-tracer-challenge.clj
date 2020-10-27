@@ -6,6 +6,10 @@
 (defn sphere []
   {})
 
+(defn intersection [t s]
+  {:t t
+   :object s})
+
 (defn intersect [s {:keys [direction origin]}]
   (let [sphere->ray (subtract origin (point 0 0 0))
         a (dot direction direction)
@@ -16,10 +20,6 @@
       []
       [(/ (- (- b) (sqrt discriminant)) (* 2 a))
        (/ (+ (- b) (sqrt discriminant)) (* 2 a))])))
-
-(defn intersection [t s]
-  {:t t
-   :object s})
 
 (defn intersections [& is]
   (apply sorted-set-by #(compare (:t %1) (:t %2)) is))
