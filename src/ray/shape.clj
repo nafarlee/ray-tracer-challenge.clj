@@ -16,3 +16,7 @@
       []
       [(/ (- (- b) (sqrt discriminant)) (* 2 a))
        (/ (+ (- b) (sqrt discriminant)) (* 2 a))])))
+
+(defn intersection [t s]
+  {:t t
+   :object s})
