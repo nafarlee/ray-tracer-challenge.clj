@@ -669,4 +669,10 @@
         xs (intersect s r)]
     (is (= xs [-6.0 -4.0]))))
 
+(testing "An intersection encapsulates t and object"
+  (let [s (sphere)
+        i (intersection 3.5 s)]
+    (is (= (:t i) 3.5))
+    (is (= (:object i) s))))
+
 )
