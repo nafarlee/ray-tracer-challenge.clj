@@ -20,3 +20,6 @@
 (defn intersection [t s]
   {:t t
    :object s})
+
+(defn intersections [& is]
+  (apply sorted-set-by #(compare (:t %1) (:t %2)) is))
