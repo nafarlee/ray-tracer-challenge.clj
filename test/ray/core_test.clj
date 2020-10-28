@@ -736,7 +736,7 @@
   (let [r (ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
         s (sphere (matrix/scaling 2 2 2))
         xs (intersect s r)]
-    (is (= (mapv :t xs) [3 7]))))
+    (is (= (mapv :t xs) [3.0 7.0]))))
 
 (testing "Intersecting a translated sphere with a ray"
   (let [r (ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))

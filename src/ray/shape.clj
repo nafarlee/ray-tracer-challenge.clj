@@ -1,7 +1,7 @@
 (ns ray.shape
   (:require
-    [ray.matrix :refer [id]]
-    [ray.ray :refer [direction origin]]
+    [ray.matrix :refer [id inverse]]
+    [ray.ray :refer [direction origin transform]]
     [ray.math :refer [sqrt square]]
     [ray.tuple :refer [dot subtract point]]))
 
@@ -16,8 +16,9 @@
    :object s})
 
 (defn intersect [s r]
-  (let [o (origin r)
-        d (direction r)
+  (let [r2 (transform r (inverse (:transform s)))
+        o (origin r2)
+        d (direction r2)
         sphere->ray (subtract o (point 0 0 0))
         a (dot d d)
         b (* 2 (dot d sphere->ray))
