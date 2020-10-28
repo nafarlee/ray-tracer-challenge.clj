@@ -2,7 +2,8 @@
   (:require
     [ray.tuple :refer [add multiply]]))
 
-(defrecord ray [origin direction])
+(defn ray [origin direction]
+  (mapv (comp vec concat) origin direction))
 
 (defn position [{:keys [origin direction]} t]
   (->> t
