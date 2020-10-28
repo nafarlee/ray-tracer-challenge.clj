@@ -3,7 +3,7 @@
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
    [ray.shape :refer [hit intersect intersection intersections sphere]]
-   [ray.ray :refer [direction origin position ray]]
+   [ray.ray :refer [direction origin position ray transform]]
    [ray.math :refer [pi sqrt]]
    [ray.matrix :as matrix]
    [ray.tuple :as tuple]
@@ -717,5 +717,12 @@
         i4 (intersection 2 s)
         xs (intersections i1 i2 i3 i4)]
     (is (= (hit xs) i4))))
+
+(testing "Translating a ray"
+  (let [r (ray (tuple/point 1 2 3) (tuple/vector' 0 1 0))
+        m (matrix/translation 3 4 5)
+        r2 (transform r m)]
+    (is (= (origin r2) (tuple/point 4 6 8)))
+    (is (= (direction r2) (tuple/vector' 0 1 0)))))
 
 )
