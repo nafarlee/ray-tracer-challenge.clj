@@ -725,4 +725,11 @@
     (is (= (origin r2) (tuple/point 4 6 8)))
     (is (= (direction r2) (tuple/vector' 0 1 0)))))
 
+(testing "Scaling a ray"
+  (let [r (ray (tuple/point 1 2 3) (tuple/vector' 0 1 0))
+        m (matrix/scaling 2 3 4)
+        r2 (transform r m)]
+    (is (= (origin r2) (tuple/point 2 6 12)))
+    (is (= (direction r2) (tuple/vector' 0 3 0)))))
+
 )
