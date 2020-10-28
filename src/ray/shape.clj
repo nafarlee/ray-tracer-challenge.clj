@@ -1,14 +1,15 @@
 (ns ray.shape
   (:require
+    [ray.matrix :refer [id]]
     [ray.ray :refer [direction origin]]
     [ray.math :refer [sqrt square]]
     [ray.tuple :refer [dot subtract point]]))
 
-(defrecord Sphere [])
+(defrecord Sphere [transform])
 
 (defn sphere
-  ([] (->Sphere))
-  ([m] (assoc (->Sphere) :transform m)))
+  ([] (->Sphere id))
+  ([m] (->Sphere m)))
 
 (defn intersection [t s]
   {:t t
