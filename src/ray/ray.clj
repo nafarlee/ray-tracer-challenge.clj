@@ -1,5 +1,6 @@
 (ns ray.ray
   (:require
+    [ray.matrix :as m]
     [ray.tuple :refer [add multiply]]))
 
 (defn ray [origin direction]
@@ -9,3 +10,6 @@
   (->> t
        (multiply direction)
        (add origin)))
+
+(defn transform [r m]
+  (m/multiply m r))
