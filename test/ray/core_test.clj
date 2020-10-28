@@ -732,4 +732,10 @@
     (is (= (origin r2) (tuple/point 2 6 12)))
     (is (= (direction r2) (tuple/vector' 0 3 0)))))
 
+(testing "Intersecting a scaled sphere with a ray"
+  (let [r (ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
+        s (sphere (matrix/scaling 2 2 2))
+        xs (intersect s r)]
+    (is (= (mapv :t xs) [3 7]))))
+
 )
