@@ -6,10 +6,16 @@
 (defn ray [origin direction]
   (mapv (comp vec concat) origin direction))
 
-(defn position [{:keys [origin direction]} t]
+(defn origin [r]
+  (mapv (comp vector first) r))
+
+(defn direction [r]
+  (mapv (comp vector second) r))
+
+(defn position [r t]
   (->> t
-       (multiply direction)
-       (add origin)))
+       (multiply (direction r))
+       (add (origin r))))
 
 (defn transform [r m]
   (m/multiply m r))

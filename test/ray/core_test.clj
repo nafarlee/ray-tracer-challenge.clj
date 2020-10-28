@@ -3,7 +3,7 @@
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
    [ray.shape :refer [hit intersect intersection intersections sphere]]
-   [ray.ray :refer [->ray position]]
+   [ray.ray :refer [direction origin position ray]]
    [ray.math :refer [pi sqrt]]
    [ray.matrix :as matrix]
    [ray.tuple :as tuple]
@@ -626,45 +626,45 @@
                   (tuple/point 15 0 7)))))
 
 (testing "Creating and querying a ray"
-  (let [origin (tuple/point 1 2 3)
-        direction (tuple/vector' 4 5 6)
-        r (->ray origin direction)]
-    (is (= (:origin r) origin))
-    (is (= (:direction r) direction))))
+  (let [o (tuple/point 1 2 3)
+        d (tuple/vector' 4 5 6)
+        r (ray o d)]
+    (is (= (origin r) o))
+    (is (= (direction r) d))))
 
 (testing "Computing a point from a distance"
-  (let [r (->ray (tuple/point 2 3 4) (tuple/vector' 1 0 0))]
+  (let [r (ray (tuple/point 2 3 4) (tuple/vector' 1 0 0))]
     (is (= (position r 0) (tuple/point 2 3 4)))
     (is (= (position r 1) (tuple/point 3 3 4)))
     (is (= (position r -1) (tuple/point 1 3 4)))
     (is (= (position r 2.5) (tuple/point 4.5 3 4)))))
 
 (testing "A ray intersects a sphere at two points"
-  (let [r (->ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :t xs) [4.0 6.0]))))
 
 (testing "A ray intersects a sphere at a tangent"
-  (let [r (->ray (tuple/point 0 1 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point 0 1 -5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :t xs) [5.0 5.0]))))
 
 (testing "A ray misses a sphere"
-  (let [r (->ray (tuple/point 0 2 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point 0 2 -5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= xs []))))
 
 (testing "A ray originates inside a sphere"
-  (let [r (->ray (tuple/point 0 0 0) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point 0 0 0) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :t xs) [-1.0 1.0]))))
 
 (testing "A sphere is behind a ray"
-  (let [r (->ray (tuple/point 0 0 5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point 0 0 5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :t xs) [-6.0 -4.0]))))
@@ -683,7 +683,7 @@
     (is (= (mapv :t xs) [1 2]))))
 
 (testing "Intersect sets the object on the intersection"
-  (let [r (->ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :object xs) [s s]))))

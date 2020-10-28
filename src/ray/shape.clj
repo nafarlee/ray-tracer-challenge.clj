@@ -1,5 +1,6 @@
 (ns ray.shape
   (:require
+    [ray.ray :refer [direction origin]]
     [ray.math :refer [sqrt square]]
     [ray.tuple :refer [dot subtract point]]))
 
@@ -10,10 +11,12 @@
   {:t t
    :object s})
 
-(defn intersect [s {:keys [direction origin]}]
-  (let [sphere->ray (subtract origin (point 0 0 0))
-        a (dot direction direction)
-        b (* 2 (dot direction sphere->ray))
+(defn intersect [s r]
+  (let [o (origin r)
+        d (direction r)
+        sphere->ray (subtract o (point 0 0 0))
+        a (dot d d)
+        b (* 2 (dot d sphere->ray))
         c (dec (dot sphere->ray sphere->ray))
         discriminant (- (square b) (* 4 a c))]
     (if (neg? discriminant)
