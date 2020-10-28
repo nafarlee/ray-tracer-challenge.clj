@@ -4,8 +4,11 @@
     [ray.math :refer [sqrt square]]
     [ray.tuple :refer [dot subtract point]]))
 
-(defn sphere []
-  {})
+(defrecord Sphere [])
+
+(defn sphere
+  ([] (->Sphere))
+  ([m] (assoc (->Sphere) :transform m)))
 
 (defn intersection [t s]
   {:t t
