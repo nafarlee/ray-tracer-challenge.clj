@@ -49,7 +49,6 @@
         canvas (canvas canvas-size canvas-size)
         pixel-size (/ wall-size canvas-size)
         shape (sphere)
-        red (color 1 0 0)
         ray-origin (point 0 0 -5)
         wall-z 10]
     (->> (for [x (range canvas-size)
@@ -65,7 +64,12 @@
                            (intersect shape $)
                            (hit $)))))
          (reduce (fn [c [x y]]
-                   (write-pixel c (int x) (int y) red))
+                   (write-pixel c
+                                (int x)
+                                (int y)
+                                (color (/ x canvas-size)
+                                       (/ y canvas-size)
+                                       1)))
                  canvas)
          canvas->ppm
          (spit "output.ppm"))))
