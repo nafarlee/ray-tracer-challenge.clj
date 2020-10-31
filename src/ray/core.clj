@@ -1,5 +1,7 @@
 (ns ray.core
   (:require
+    [ray.ray :refer [ray]]
+    [ray.shape :refer [intersect hit sphere]]
     [ray.matrix :as m]
     [ray.math :refer [pi]]
     [ray.tuple :as rt]
@@ -40,4 +42,32 @@
          rp/canvas->ppm
          (spit "output.ppm"))))
 
-(def -main chapter-4)
+(defn chapter-6 []
+  (let [wall-size 7
+        half (/ wall-size 2)
+        canvas-size 100
+        canvas (rcan/canvas canvas-size canvas-size)
+        pixel-size (/ wall-size canvas-size)
+        shape (sphere)
+        red (rc/color 1 0 0)
+        ray-origin (rt/point 0 0 -5)
+        wall-z 10]
+    (->> (for [x (range canvas-size)
+               y (range canvas-size)]
+           [x y])
+         (filter (fn [[x y]]
+                   (let [world-x (- (* pixel-size x) half)
+                         world-y (- half (* pixel-size y))]
+                     (as-> (rt/point world-x world-y wall-z) $
+                           (rt/subtract $ ray-origin)
+                           (rt/normalize $)
+                           (ray ray-origin $)
+                           (intersect shape $)
+                           (hit $)))))
+         (reduce (fn [c [x y]]
+                   (rcan/write-pixel c (int x) (int y) red))
+                 canvas)
+         rp/canvas->ppm
+         (spit "output.ppm"))))
+
+(def -main chapter-6)
