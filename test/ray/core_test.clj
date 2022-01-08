@@ -83,12 +83,12 @@
 
 (testing "Multiplying a tuple by a scalar"
   (let [a (tuple/tuple 1 -2 3 -4)]
-    (is (tuple/eq (tuple/multiply a 3.5)
+    (is (tuple/eq (tuple/scalar-multiply a 3.5)
                 (tuple/tuple 3.5 -7.0 10.5 -14.0)))))
 
 (testing "Multiplying a tuple by a fraction"
   (let [a (tuple/tuple 1 -2 3 -4)]
-    (is (tuple/eq (tuple/multiply a 0.5)
+    (is (tuple/eq (tuple/scalar-multiply a 0.5)
                 (tuple/tuple 0.5 -1.0 1.5 -2.0)))))
 
 (testing "Dividing a tuple by a scalar"
@@ -176,7 +176,7 @@
 (testing "Multiplying a color by scalar"
   (let [c (rc/color 0.2 0.3 0.4)]
     (is (tuple/eq (rc/color 0.4 0.6 0.8)
-                (tuple/multiply c 2)))))
+                (tuple/scalar-multiply c 2)))))
 
 (testing "Multiplying colors"
   (let [c1 (rc/color 1 0.2 0.4)

@@ -16,7 +16,7 @@
 
 (def tuple? (partial s/valid? ::tuple))
 
-(defn multiply [t x]
+(defn scalar-multiply [t x]
   (m/fmap (fn [e _ _] (* e x)) t))
 
 (defn divide [t x]
