@@ -86,6 +86,9 @@
 (defn scalar-multiply [t x]
   (fmap (fn [e _ _] (* e x)) t))
 
+(defn scalar-divide [t x]
+  (fmap (fn [e _ _] (/ e x)) t))
+
 (defn inverse [m]
   (let [det (determinant m)]
     (when (not (zero? det))

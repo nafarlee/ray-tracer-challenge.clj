@@ -16,9 +16,6 @@
 
 (def tuple? (partial s/valid? ::tuple))
 
-(defn scalar-divide [t x]
-  (m/fmap (fn [e _ _] (/ e x)) t))
-
 (defn point [x y z]
   (tuple x y z 1.0))
 

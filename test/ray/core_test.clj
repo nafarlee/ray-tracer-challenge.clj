@@ -93,7 +93,7 @@
 
 (testing "Dividing a tuple by a scalar"
   (let [a (tuple/tuple 1.0 -2.0 3.0 -4.0)]
-    (is (matrix/eq (tuple/scalar-divide a 2)
+    (is (matrix/eq (matrix/scalar-divide a 2)
                 (tuple/tuple 0.5 -1.0 1.5 -2.0)))))
 
 (testing "Computing the magnitude of vector (1, 0, 0)"
