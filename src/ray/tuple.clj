@@ -70,7 +70,7 @@
            (- (* ax by)
               (* ay bx))))
 
-(def hadamard (partial pointwise *))
+(def hadamard (partial m/entrywise *))
 
 (defn dot [a b]
   (->> (hadamard a b)
