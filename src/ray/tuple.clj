@@ -30,9 +30,6 @@
   (and (tuple? t)
        (zero? w)))
 
-(defn pointwise [f a b]
-  (mapv #(mapv f %1 %2) a b))
-
 (def add (partial m/entrywise +))
 
 (def subtract (partial m/entrywise -))
