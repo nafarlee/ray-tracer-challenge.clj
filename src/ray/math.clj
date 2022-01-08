@@ -2,10 +2,13 @@
 
 (def EPSILON 0.00001)
 
+(defn abs [x]
+  (Math/abs x))
+
 (defn float= [^double a ^double b]
   (->> a
        (- b)
-       Math/abs
+       abs
        (> EPSILON)))
 
 (defn square [x]
