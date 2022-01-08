@@ -18,13 +18,6 @@
   (and (tuple? t)
        (== 1.0 w)))
 
-(defn vector3 [x y z]
-  (tuple x y z 0.0))
-
-(defn vector3?  [[_ _ _ [w] :as t]]
-  (and (tuple? t)
-       (zero? w)))
-
 (defn magnitude [v]
   (->> v
        flatten
@@ -35,19 +28,6 @@
 (defn normalize [v]
   (let [m (magnitude v)]
      (m/fmap (fn [e _ _] (/ e m)) v)))
-
-(defn cross [[[ax]
-              [ay]
-              [az]]
-             [[bx]
-              [by]
-              [bz]]]
-  (vector3 (- (* ay bz)
-              (* az by))
-           (- (* az bx)
-              (* ax bz))
-           (- (* ax by)
-              (* ay bx))))
 
 (defn dot [a b]
   (->> (m/hadamard a b)
