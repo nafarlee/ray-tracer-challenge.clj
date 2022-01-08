@@ -43,7 +43,8 @@
 
 (def subtract (partial m/entrywise -))
 
-(def negate (partial subtract (vector' 0 0 0)))
+(defn negate [t]
+  (m/fmap (fn [e _ _] (- e)) t))
 
 (defn magnitude [v]
   (->> v
