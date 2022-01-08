@@ -6,10 +6,7 @@
   (Math/abs x))
 
 (defn float= [^double a ^double b]
-  (->> a
-       (- b)
-       abs
-       (> EPSILON)))
+  (> EPSILON (abs (- a b))))
 
 (defn square [x]
   (Math/pow x 2))
