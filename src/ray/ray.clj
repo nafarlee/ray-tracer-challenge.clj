@@ -1,7 +1,7 @@
 (ns ray.ray
   (:require
     [ray.matrix :as m]
-    [ray.tuple :refer [add scalar-multiply]]))
+    [ray.tuple :refer [add]]))
 
 (defn ray [origin direction]
   (mapv (comp vec concat) origin direction))
@@ -14,7 +14,7 @@
 
 (defn position [r t]
   (->> t
-       (scalar-multiply (direction r))
+       (m/scalar-multiply (direction r))
        (add (origin r))))
 
 (defn transform [r m]
