@@ -18,10 +18,10 @@
   (and (tuple? t)
        (== 1.0 w)))
 
-(defn vector' [x y z]
+(defn vector3 [x y z]
   (tuple x y z 0.0))
 
-(defn vector'?  [[_ _ _ [w] :as t]]
+(defn vector3?  [[_ _ _ [w] :as t]]
   (and (tuple? t)
        (zero? w)))
 
@@ -42,7 +42,7 @@
              [[bx]
               [by]
               [bz]]]
-  (vector' (- (* ay bz)
+  (vector3 (- (* ay bz)
               (* az by))
            (- (* az bx)
               (* ax bz))

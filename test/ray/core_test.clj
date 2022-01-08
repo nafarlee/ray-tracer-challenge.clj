@@ -24,7 +24,7 @@
     (is (== z 3.1))
     (is (== w 1.0))
     (is (tuple/point3? a))
-    (is (not (tuple/vector'? a)))))
+    (is (not (tuple/vector3? a)))))
 
 (testing "A tuple with w=0.0 is a vector"
   (let [[[x]
@@ -36,14 +36,14 @@
     (is (== z 3.1))
     (is (== w 0.0))
     (is (not (tuple/point3? a))
-    (is (tuple/vector'? a)))))
+    (is (tuple/vector3? a)))))
 
 (testing "point creates tuples with w=1"
   (let [a (tuple/point3 4 -4 3)]
     (is (matrix/eq a (tuple/tuple 4 -4 3 1)))))
 
 (testing "vector creates tuples with w=0"
-  (let [a (tuple/vector' 4 -4 3)]
+  (let [a (tuple/vector3 4 -4 3)]
     (is (matrix/eq a (tuple/tuple 4 -4 3 0)))))
 
 (testing "Adding two tuples"
@@ -56,25 +56,25 @@
   (let [p1 (tuple/point3 3 2 1)
         p2 (tuple/point3 5 6 7)]
     (is (matrix/eq (matrix/subtract p1 p2)
-                (tuple/vector' -2 -4 -6)))))
+                (tuple/vector3 -2 -4 -6)))))
 
 (testing "Subtracting a vector from a point"
   (let [p (tuple/point3 3 2 1)
-        v (tuple/vector' 5 6 7)]
+        v (tuple/vector3 5 6 7)]
     (is (matrix/eq (matrix/subtract p v)
                 (tuple/point3 -2 -4 -6)))))
 
 (testing "Subtracting two vectors"
-  (let [v1 (tuple/vector' 3 2 1)
-        v2 (tuple/vector' 5 6 7)]
+  (let [v1 (tuple/vector3 3 2 1)
+        v2 (tuple/vector3 5 6 7)]
     (is (matrix/eq (matrix/subtract v1 v2)
-                (tuple/vector' -2 -4 -6)))))
+                (tuple/vector3 -2 -4 -6)))))
 
 (testing "Subtracting a vector from the zero vector"
-  (let [zero (tuple/vector' 0 0 0)
-        v (tuple/vector' 1 -2 3)]
+  (let [zero (tuple/vector3 0 0 0)
+        v (tuple/vector3 1 -2 3)]
     (is (matrix/eq (matrix/subtract zero v)
-                (tuple/vector' -1 2 -3)))))
+                (tuple/vector3 -1 2 -3)))))
 
 (testing "Negating a tuple"
   (let [a (tuple/tuple 1 -2 3 -4)]
@@ -97,61 +97,61 @@
                 (tuple/tuple 0.5 -1.0 1.5 -2.0)))))
 
 (testing "Computing the magnitude of vector (1, 0, 0)"
-  (let [v (tuple/vector' 1 0 0)]
+  (let [v (tuple/vector3 1 0 0)]
     (is (== (tuple/magnitude v)
             1.0))))
 
 (testing "Computing the magnitude of vector (0, 1, 0)"
-  (let [v (tuple/vector' 0 1 0)]
+  (let [v (tuple/vector3 0 1 0)]
     (is (== (tuple/magnitude v)
             1.0))))
 
 (testing "Computing the magnitude of vector (0, 0, 1)"
-  (let [v (tuple/vector' 0 0 1)]
+  (let [v (tuple/vector3 0 0 1)]
     (is (== (tuple/magnitude v)
             1.0))))
 
 (testing "Computing the magnitude of vector (1, 2, 3)"
-  (let [v (tuple/vector' 1 2 3)]
+  (let [v (tuple/vector3 1 2 3)]
     (is (== (tuple/magnitude v)
             (sqrt 14)))))
 
 (testing "Computing the magnitude of vector (-1, -2, -3)"
-  (let [v (tuple/vector' -1 -2 -3)]
+  (let [v (tuple/vector3 -1 -2 -3)]
     (is (== (tuple/magnitude v)
             (sqrt 14)))))
 
 (testing "Normalizing (4, 0, 0) gives (1, 0, 0)"
-  (let [v (tuple/vector' 4 0 0)]
+  (let [v (tuple/vector3 4 0 0)]
     (is (matrix/eq (tuple/normalize v)
-                (tuple/vector' 1.0 0.0 0.0)))))
+                (tuple/vector3 1.0 0.0 0.0)))))
 
 (testing "Normalizing (1, 2, 3)"
-  (let [v (tuple/vector' 1 2 3)]
+  (let [v (tuple/vector3 1 2 3)]
     (is (matrix/eq (tuple/normalize v)
-            (tuple/vector' (/ 1 (sqrt 14))
+            (tuple/vector3 (/ 1 (sqrt 14))
                          (/ 2 (sqrt 14))
                          (/ 3 (sqrt 14)))))))
 
 (testing "The magnitude of a normalized vector"
-  (let [v (tuple/vector' 1 2 3)
+  (let [v (tuple/vector3 1 2 3)
         norm (tuple/normalize v)]
     (is (== (tuple/magnitude norm)
             1.0))))
 
 (testing "The dot product of two tuples"
-  (let [a (tuple/vector' 1 2 3)
-        b (tuple/vector' 2 3 4)]
+  (let [a (tuple/vector3 1 2 3)
+        b (tuple/vector3 2 3 4)]
     (is (== (tuple/dot a b)
             20))))
 
 (testing "The cross product of two vectors"
-  (let [a (tuple/vector' 1 2 3)
-        b (tuple/vector' 2 3 4)]
+  (let [a (tuple/vector3 1 2 3)
+        b (tuple/vector3 2 3 4)]
     (is (matrix/eq (tuple/cross a b)
-                (tuple/vector' -1 2 -1)))
+                (tuple/vector3 -1 2 -1)))
     (is (matrix/eq (tuple/cross b a)
-                (tuple/vector' 1 -2 1)))))
+                (tuple/vector3 1 -2 1)))))
 
 (testing "Colors are (red, green, blue) tuples"
   (let [[[red]
@@ -497,7 +497,7 @@
 
 (testing "Translation does not affect vectors"
   (let [transform (matrix/translation 5 -3 2)
-        v (tuple/vector' -3 4 5)]
+        v (tuple/vector3 -3 4 5)]
     (is (= (matrix/multiply transform v)
            v))))
 
@@ -509,16 +509,16 @@
 
 (testing "A scaling matrix applied to a vector"
   (let [transform (matrix/scaling 2 3 4)
-        v (tuple/vector' -4 6 8)]
+        v (tuple/vector3 -4 6 8)]
     (is (= (matrix/multiply transform v)
-           (tuple/vector' -8 18 32)))))
+           (tuple/vector3 -8 18 32)))))
 
 (testing "Multiplying by the inverse of a scaling matrix"
   (let [transform (matrix/scaling 2 3 4)
         inv (matrix/inverse transform)
-        v (tuple/vector' -4 6 8)]
+        v (tuple/vector3 -4 6 8)]
     (is (= (matrix/multiply inv v)
-           (tuple/vector' -2 2 2)))))
+           (tuple/vector3 -2 2 2)))))
 
 (testing "Reflection is scaling by a negative value"
   (let [transform (matrix/scaling -1 1 1)
@@ -627,44 +627,44 @@
 
 (testing "Creating and querying a ray"
   (let [o (tuple/point3 1 2 3)
-        d (tuple/vector' 4 5 6)
+        d (tuple/vector3 4 5 6)
         r (ray o d)]
     (is (= (origin r) o))
     (is (= (direction r) d))))
 
 (testing "Computing a point from a distance"
-  (let [r (ray (tuple/point3 2 3 4) (tuple/vector' 1 0 0))]
+  (let [r (ray (tuple/point3 2 3 4) (tuple/vector3 1 0 0))]
     (is (= (position r 0) (tuple/point3 2 3 4)))
     (is (= (position r 1) (tuple/point3 3 3 4)))
     (is (= (position r -1) (tuple/point3 1 3 4)))
     (is (= (position r 2.5) (tuple/point3 4.5 3 4)))))
 
 (testing "A ray intersects a sphere at two points"
-  (let [r (ray (tuple/point3 0 0 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 0 -5) (tuple/vector3 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :t xs) [4.0 6.0]))))
 
 (testing "A ray intersects a sphere at a tangent"
-  (let [r (ray (tuple/point3 0 1 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 1 -5) (tuple/vector3 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :t xs) [5.0 5.0]))))
 
 (testing "A ray misses a sphere"
-  (let [r (ray (tuple/point3 0 2 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 2 -5) (tuple/vector3 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= xs []))))
 
 (testing "A ray originates inside a sphere"
-  (let [r (ray (tuple/point3 0 0 0) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 0 0) (tuple/vector3 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :t xs) [-1.0 1.0]))))
 
 (testing "A sphere is behind a ray"
-  (let [r (ray (tuple/point3 0 0 5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 0 5) (tuple/vector3 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :t xs) [-6.0 -4.0]))))
@@ -683,7 +683,7 @@
     (is (= (mapv :t xs) [1 2]))))
 
 (testing "Intersect sets the object on the intersection"
-  (let [r (ray (tuple/point3 0 0 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 0 -5) (tuple/vector3 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :object xs) [s s]))))
@@ -719,27 +719,27 @@
     (is (= (hit xs) i4))))
 
 (testing "Translating a ray"
-  (let [r (ray (tuple/point3 1 2 3) (tuple/vector' 0 1 0))
+  (let [r (ray (tuple/point3 1 2 3) (tuple/vector3 0 1 0))
         m (matrix/translation 3 4 5)
         r2 (transform r m)]
     (is (= (origin r2) (tuple/point3 4 6 8)))
-    (is (= (direction r2) (tuple/vector' 0 1 0)))))
+    (is (= (direction r2) (tuple/vector3 0 1 0)))))
 
 (testing "Scaling a ray"
-  (let [r (ray (tuple/point3 1 2 3) (tuple/vector' 0 1 0))
+  (let [r (ray (tuple/point3 1 2 3) (tuple/vector3 0 1 0))
         m (matrix/scaling 2 3 4)
         r2 (transform r m)]
     (is (= (origin r2) (tuple/point3 2 6 12)))
-    (is (= (direction r2) (tuple/vector' 0 3 0)))))
+    (is (= (direction r2) (tuple/vector3 0 3 0)))))
 
 (testing "Intersecting a scaled sphere with a ray"
-  (let [r (ray (tuple/point3 0 0 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 0 -5) (tuple/vector3 0 0 1))
         s (sphere (matrix/scaling 2 2 2))
         xs (intersect s r)]
     (is (= (mapv :t xs) [3.0 7.0]))))
 
 (testing "Intersecting a translated sphere with a ray"
-  (let [r (ray (tuple/point3 0 0 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 0 -5) (tuple/vector3 0 0 1))
         s (sphere (matrix/translation 5 0 0))
         xs (intersect s r)]
     (is (= xs []))))
