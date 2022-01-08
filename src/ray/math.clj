@@ -2,7 +2,7 @@
 
 (def EPSILON 0.00001)
 
-(defn float= [a b]
+(defn float= [^double a ^double b]
   (->> a
        (- b)
        Math/abs
