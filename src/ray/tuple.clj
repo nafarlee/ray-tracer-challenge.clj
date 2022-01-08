@@ -76,8 +76,3 @@
   (->> (hadamard a b)
        flatten
        (apply +)))
-
-(defn eq [a b]
-  (->> (pointwise float= a b)
-       flatten
-       (every? identity)))
