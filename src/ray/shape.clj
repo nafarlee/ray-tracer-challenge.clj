@@ -3,7 +3,8 @@
     [ray.matrix :refer [id inverse subtract]]
     [ray.ray :refer [direction origin transform]]
     [ray.math :refer [sqrt square]]
-    [ray.tuple :refer [dot point3]]))
+    [ray.point3 :refer [point3]]
+    [ray.tuple :refer [dot]]))
 
 (defrecord Sphere [transform])
 
