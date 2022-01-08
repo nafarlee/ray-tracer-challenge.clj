@@ -4,17 +4,12 @@
     [ray.matrix :as m]
     [ray.math :refer [float= square]]))
 
-(s/def ::tuple (s/tuple (s/tuple double?)
-                        (s/tuple double?)
-                        (s/tuple double?)
-                        (s/tuple #{1.0 0.0})))
-(defn tuple [x y z w]
-  [[(double x)]
-   [(double y)]
-   [(double z)]
-   [(double w)]])
+(defn tuple [& ds]
+  (mapv (comp vector double) ds))
 
-(def tuple? (partial s/valid? ::tuple))
+(def tuple?
+  (partial s/valid?
+           (s/coll-of (s/tuple double?) :kind vector?)))
 
 (defn point [x y z]
   (tuple x y z 1.0))
