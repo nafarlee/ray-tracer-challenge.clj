@@ -6,4 +6,5 @@
   :dependencies [[org.clojure/clojure "1.10.3"]]
   :main ^:skip-aot ray.core
   :target-path "target/%s"
+  :global-vars {*warn-on-reflection* true}
   :profiles {:uberjar {:aot :all}})
