@@ -138,3 +138,5 @@
   (mapv (partial mapv f) a b))
 
 (def add (partial entrywise +))
+
+(def subtract (partial entrywise -))

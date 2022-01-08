@@ -55,25 +55,25 @@
 (testing "Subtracting two points"
   (let [p1 (tuple/point 3 2 1)
         p2 (tuple/point 5 6 7)]
-    (is (matrix/eq (tuple/subtract p1 p2)
+    (is (matrix/eq (matrix/subtract p1 p2)
                 (tuple/vector' -2 -4 -6)))))
 
 (testing "Subtracting a vector from a point"
   (let [p (tuple/point 3 2 1)
         v (tuple/vector' 5 6 7)]
-    (is (matrix/eq (tuple/subtract p v)
+    (is (matrix/eq (matrix/subtract p v)
                 (tuple/point -2 -4 -6)))))
 
 (testing "Subtracting two vectors"
   (let [v1 (tuple/vector' 3 2 1)
         v2 (tuple/vector' 5 6 7)]
-    (is (matrix/eq (tuple/subtract v1 v2)
+    (is (matrix/eq (matrix/subtract v1 v2)
                 (tuple/vector' -2 -4 -6)))))
 
 (testing "Subtracting a vector from the zero vector"
   (let [zero (tuple/vector' 0 0 0)
         v (tuple/vector' 1 -2 3)]
-    (is (matrix/eq (tuple/subtract zero v)
+    (is (matrix/eq (matrix/subtract zero v)
                 (tuple/vector' -1 2 -3)))))
 
 (testing "Negating a tuple"
@@ -170,7 +170,7 @@
 (testing "Subtracting colors"
   (let [c1 (rc/color 0.9 0.6 0.75)
         c2 (rc/color 0.7 0.1 0.25)]
-    (is (matrix/eq (tuple/subtract c1 c2)
+    (is (matrix/eq (matrix/subtract c1 c2)
                 (rc/color 0.2 0.5 0.5)))))
 
 (testing "Multiplying a color by scalar"

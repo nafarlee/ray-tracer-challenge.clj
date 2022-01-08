@@ -30,8 +30,6 @@
   (and (tuple? t)
        (zero? w)))
 
-(def subtract (partial m/entrywise -))
-
 (defn negate [t]
   (m/fmap (fn [e _ _] (- e)) t))
 

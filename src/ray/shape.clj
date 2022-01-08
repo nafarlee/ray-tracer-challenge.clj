@@ -1,9 +1,9 @@
 (ns ray.shape
   (:require
-    [ray.matrix :refer [id inverse]]
+    [ray.matrix :refer [id inverse subtract]]
     [ray.ray :refer [direction origin transform]]
     [ray.math :refer [sqrt square]]
-    [ray.tuple :refer [dot subtract point]]))
+    [ray.tuple :refer [dot point]]))
 
 (defrecord Sphere [transform])
 
