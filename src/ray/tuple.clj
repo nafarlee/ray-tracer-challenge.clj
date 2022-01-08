@@ -11,10 +11,10 @@
   (partial s/valid?
            (s/coll-of (s/tuple double?) :kind vector?)))
 
-(defn point [x y z]
+(defn point3 [x y z]
   (tuple x y z 1.0))
 
-(defn point?  [[_ _ _ [w] :as t]]
+(defn point3?  [[_ _ _ [w] :as t]]
   (and (tuple? t)
        (== 1.0 w)))
 

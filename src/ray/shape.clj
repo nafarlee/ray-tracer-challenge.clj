@@ -3,7 +3,7 @@
     [ray.matrix :refer [id inverse subtract]]
     [ray.ray :refer [direction origin transform]]
     [ray.math :refer [sqrt square]]
-    [ray.tuple :refer [dot point]]))
+    [ray.tuple :refer [dot point3]]))
 
 (defrecord Sphere [transform])
 
@@ -19,7 +19,7 @@
   (let [r2 (transform r (inverse (:transform s)))
         o (origin r2)
         d (direction r2)
-        sphere->ray (subtract o (point 0 0 0))
+        sphere->ray (subtract o (point3 0 0 0))
         a (dot d d)
         b (* 2 (dot d sphere->ray))
         c (dec (dot sphere->ray sphere->ray))

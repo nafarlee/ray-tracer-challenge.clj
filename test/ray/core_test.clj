@@ -23,7 +23,7 @@
     (is (== y -4.2))
     (is (== z 3.1))
     (is (== w 1.0))
-    (is (tuple/point? a))
+    (is (tuple/point3? a))
     (is (not (tuple/vector'? a)))))
 
 (testing "A tuple with w=0.0 is a vector"
@@ -35,11 +35,11 @@
     (is (== y -4.2))
     (is (== z 3.1))
     (is (== w 0.0))
-    (is (not (tuple/point? a))
+    (is (not (tuple/point3? a))
     (is (tuple/vector'? a)))))
 
 (testing "point creates tuples with w=1"
-  (let [a (tuple/point 4 -4 3)]
+  (let [a (tuple/point3 4 -4 3)]
     (is (matrix/eq a (tuple/tuple 4 -4 3 1)))))
 
 (testing "vector creates tuples with w=0"
@@ -53,16 +53,16 @@
                 (tuple/tuple 1 1 6 1)))))
 
 (testing "Subtracting two points"
-  (let [p1 (tuple/point 3 2 1)
-        p2 (tuple/point 5 6 7)]
+  (let [p1 (tuple/point3 3 2 1)
+        p2 (tuple/point3 5 6 7)]
     (is (matrix/eq (matrix/subtract p1 p2)
                 (tuple/vector' -2 -4 -6)))))
 
 (testing "Subtracting a vector from a point"
-  (let [p (tuple/point 3 2 1)
+  (let [p (tuple/point3 3 2 1)
         v (tuple/vector' 5 6 7)]
     (is (matrix/eq (matrix/subtract p v)
-                (tuple/point -2 -4 -6)))))
+                (tuple/point3 -2 -4 -6)))))
 
 (testing "Subtracting two vectors"
   (let [v1 (tuple/vector' 3 2 1)
@@ -324,8 +324,8 @@
            [2 4 4 2]
            [8 6 4 1]
            [0 0 0 1]]
-        b (tuple/point 1.0 2.0 3.0)
-        Ab (tuple/point 18.0 24.0 33.0)]
+        b (tuple/point3 1.0 2.0 3.0)
+        Ab (tuple/point3 18.0 24.0 33.0)]
     (is (= (matrix/multiply A b) Ab))))
 
 (testing "Multiplying a matrix by the identity matrix"
@@ -484,16 +484,16 @@
 
 (testing "Multiplying by a translation matrix"
   (let [transform (matrix/translation 5 -3 2)
-        p (tuple/point -3 4 5)]
+        p (tuple/point3 -3 4 5)]
     (is (= (matrix/multiply transform p)
-           (tuple/point 2 1 7)))))
+           (tuple/point3 2 1 7)))))
 
 (testing "Multiplying by the inverse of a translation matrix"
   (let [transform (matrix/translation 5 -3 2)
         inv (matrix/inverse transform)
-        p (tuple/point -3 4 5)]
+        p (tuple/point3 -3 4 5)]
     (is (= (matrix/multiply inv p)
-           (tuple/point -8 7 3)))))
+           (tuple/point3 -8 7 3)))))
 
 (testing "Translation does not affect vectors"
   (let [transform (matrix/translation 5 -3 2)
@@ -503,9 +503,9 @@
 
 (testing "A scaling matrix applied to a point"
   (let [transform (matrix/scaling 2 3 4)
-        p (tuple/point -4 6 8)]
+        p (tuple/point3 -4 6 8)]
     (is (= (matrix/multiply transform p)
-           (tuple/point -8 18 32)))))
+           (tuple/point3 -8 18 32)))))
 
 (testing "A scaling matrix applied to a vector"
   (let [transform (matrix/scaling 2 3 4)
@@ -522,149 +522,149 @@
 
 (testing "Reflection is scaling by a negative value"
   (let [transform (matrix/scaling -1 1 1)
-        p (tuple/point 2 3 4)]
+        p (tuple/point3 2 3 4)]
     (is (= (matrix/multiply transform p)
-           (tuple/point -2 3 4)))))
+           (tuple/point3 -2 3 4)))))
 
 (testing "Rotating a point around the x axis"
-  (let [p (tuple/point 0 1 0)
+  (let [p (tuple/point3 0 1 0)
         half-quarter (matrix/rotation-x (/ pi 4))
         full-quarter (matrix/rotation-x (/ pi 2))]
     (is (matrix/eq (matrix/multiply half-quarter p)
-                   (tuple/point 0
+                   (tuple/point3 0
                                 (/ (sqrt 2) 2)
                                 (/ (sqrt 2) 2))))
     (is (matrix/eq (matrix/multiply full-quarter p)
-                   (tuple/point 0 0 1)))))
+                   (tuple/point3 0 0 1)))))
 
 (testing "The inverse of an x-rotation rotates in the opposite direction"
-  (let [p (tuple/point 0 1 0)
+  (let [p (tuple/point3 0 1 0)
         half-quarter (matrix/rotation-x (/ pi 4))
         inv (matrix/inverse half-quarter)]
     (is (matrix/eq (matrix/multiply inv p)
-                   (tuple/point 0
+                   (tuple/point3 0
                                 (/ (sqrt 2) 2)
                                 (- (/ (sqrt 2) 2)))))))
 
 (testing "Rotating a point around the y axis"
-  (let [p (tuple/point 0 0 1)
+  (let [p (tuple/point3 0 0 1)
         half-quarter (matrix/rotation-y (/ pi 4))
         full-quarter (matrix/rotation-y (/ pi 2))]
     (is (matrix/eq (matrix/multiply half-quarter p)
-                   (tuple/point (/ (sqrt 2) 2)
+                   (tuple/point3 (/ (sqrt 2) 2)
                                 0
                                 (/ (sqrt 2) 2))))
     (is (matrix/eq (matrix/multiply full-quarter p)
-                   (tuple/point 1 0 0)))))
+                   (tuple/point3 1 0 0)))))
 
 (testing "Rotating a point around the z axis"
-  (let [p (tuple/point 0 1 0)
+  (let [p (tuple/point3 0 1 0)
         half-quarter (matrix/rotation-z (/ pi 4))
         full-quarter (matrix/rotation-z (/ pi 2))]
     (is (matrix/eq (matrix/multiply half-quarter p)
-                   (tuple/point (- (/ (sqrt 2) 2))
+                   (tuple/point3 (- (/ (sqrt 2) 2))
                                 (/ (sqrt 2) 2)
                                 0)))
     (is (matrix/eq (matrix/multiply full-quarter p)
-                   (tuple/point -1 0 0)))))
+                   (tuple/point3 -1 0 0)))))
 
 (testing "A shearing transformation moves x in proportion to y"
   (let [transform (matrix/shearing 1 0 0 0 0 0)
-        p (tuple/point 2 3 4)]
+        p (tuple/point3 2 3 4)]
     (is (matrix/eq (matrix/multiply transform p)
-                   (tuple/point 5 3 4)))))
+                   (tuple/point3 5 3 4)))))
 
 (testing "A shearing transformation moves x in proportion to z"
   (let [transform (matrix/shearing 0 1 0 0 0 0)
-        p (tuple/point 2 3 4)]
+        p (tuple/point3 2 3 4)]
     (is (matrix/eq (matrix/multiply transform p)
-                   (tuple/point 6 3 4)))))
+                   (tuple/point3 6 3 4)))))
 
 (testing "A shearing transformation moves y in proportion to x"
   (let [transform (matrix/shearing 0 0 1 0 0 0)
-        p (tuple/point 2 3 4)]
+        p (tuple/point3 2 3 4)]
     (is (matrix/eq (matrix/multiply transform p)
-                   (tuple/point 2 5 4)))))
+                   (tuple/point3 2 5 4)))))
 
 (testing "A shearing transformation moves y in proportion to z"
   (let [transform (matrix/shearing 0 0 0 1 0 0)
-        p (tuple/point 2 3 4)]
+        p (tuple/point3 2 3 4)]
     (is (matrix/eq (matrix/multiply transform p)
-                   (tuple/point 2 7 4)))))
+                   (tuple/point3 2 7 4)))))
 
 (testing "A shearing transformation moves z in proportion to x"
   (let [transform (matrix/shearing 0 0 0 0 1 0)
-        p (tuple/point 2 3 4)]
+        p (tuple/point3 2 3 4)]
     (is (matrix/eq (matrix/multiply transform p)
-                   (tuple/point 2 3 6)))))
+                   (tuple/point3 2 3 6)))))
 
 (testing "A shearing transformation moves z in proportion to y"
   (let [transform (matrix/shearing 0 0 0 0 0 1)
-        p (tuple/point 2 3 4)]
+        p (tuple/point3 2 3 4)]
     (is (matrix/eq (matrix/multiply transform p)
-                   (tuple/point 2 3 7)))))
+                   (tuple/point3 2 3 7)))))
 
 (testing "Individual transformations are applied in sequence"
-  (let [p (tuple/point 1 0 1)
+  (let [p (tuple/point3 1 0 1)
         A (matrix/rotation-x (/ pi 2))
         B (matrix/scaling 5 5 5)
         C (matrix/translation 10 5 7)
         p2 (matrix/multiply A p)
         p3 (matrix/multiply B p2)
         p4 (matrix/multiply C p3)]
-    (is (matrix/eq p2 (tuple/point 1 -1 0)))
-    (is (matrix/eq p3 (tuple/point 5 -5 0)))
-    (is (matrix/eq p4 (tuple/point 15 0 7)))))
+    (is (matrix/eq p2 (tuple/point3 1 -1 0)))
+    (is (matrix/eq p3 (tuple/point3 5 -5 0)))
+    (is (matrix/eq p4 (tuple/point3 15 0 7)))))
 
 (testing "Chained transformations must be applied in reverse order"
-  (let [p (tuple/point 1 0 1)
+  (let [p (tuple/point3 1 0 1)
         A (matrix/rotation-x (/ pi 2))
         B (matrix/scaling 5 5 5)
         C (matrix/translation 10 5 7)
         T (reduce matrix/multiply [C B A])]
     (is (matrix/eq (matrix/multiply T p)
-                  (tuple/point 15 0 7)))))
+                  (tuple/point3 15 0 7)))))
 
 (testing "Creating and querying a ray"
-  (let [o (tuple/point 1 2 3)
+  (let [o (tuple/point3 1 2 3)
         d (tuple/vector' 4 5 6)
         r (ray o d)]
     (is (= (origin r) o))
     (is (= (direction r) d))))
 
 (testing "Computing a point from a distance"
-  (let [r (ray (tuple/point 2 3 4) (tuple/vector' 1 0 0))]
-    (is (= (position r 0) (tuple/point 2 3 4)))
-    (is (= (position r 1) (tuple/point 3 3 4)))
-    (is (= (position r -1) (tuple/point 1 3 4)))
-    (is (= (position r 2.5) (tuple/point 4.5 3 4)))))
+  (let [r (ray (tuple/point3 2 3 4) (tuple/vector' 1 0 0))]
+    (is (= (position r 0) (tuple/point3 2 3 4)))
+    (is (= (position r 1) (tuple/point3 3 3 4)))
+    (is (= (position r -1) (tuple/point3 1 3 4)))
+    (is (= (position r 2.5) (tuple/point3 4.5 3 4)))))
 
 (testing "A ray intersects a sphere at two points"
-  (let [r (ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 0 -5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :t xs) [4.0 6.0]))))
 
 (testing "A ray intersects a sphere at a tangent"
-  (let [r (ray (tuple/point 0 1 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 1 -5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :t xs) [5.0 5.0]))))
 
 (testing "A ray misses a sphere"
-  (let [r (ray (tuple/point 0 2 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 2 -5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= xs []))))
 
 (testing "A ray originates inside a sphere"
-  (let [r (ray (tuple/point 0 0 0) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 0 0) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :t xs) [-1.0 1.0]))))
 
 (testing "A sphere is behind a ray"
-  (let [r (ray (tuple/point 0 0 5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 0 5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :t xs) [-6.0 -4.0]))))
@@ -683,7 +683,7 @@
     (is (= (mapv :t xs) [1 2]))))
 
 (testing "Intersect sets the object on the intersection"
-  (let [r (ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 0 -5) (tuple/vector' 0 0 1))
         s (sphere)
         xs (intersect s r)]
     (is (= (mapv :object xs) [s s]))))
@@ -719,27 +719,27 @@
     (is (= (hit xs) i4))))
 
 (testing "Translating a ray"
-  (let [r (ray (tuple/point 1 2 3) (tuple/vector' 0 1 0))
+  (let [r (ray (tuple/point3 1 2 3) (tuple/vector' 0 1 0))
         m (matrix/translation 3 4 5)
         r2 (transform r m)]
-    (is (= (origin r2) (tuple/point 4 6 8)))
+    (is (= (origin r2) (tuple/point3 4 6 8)))
     (is (= (direction r2) (tuple/vector' 0 1 0)))))
 
 (testing "Scaling a ray"
-  (let [r (ray (tuple/point 1 2 3) (tuple/vector' 0 1 0))
+  (let [r (ray (tuple/point3 1 2 3) (tuple/vector' 0 1 0))
         m (matrix/scaling 2 3 4)
         r2 (transform r m)]
-    (is (= (origin r2) (tuple/point 2 6 12)))
+    (is (= (origin r2) (tuple/point3 2 6 12)))
     (is (= (direction r2) (tuple/vector' 0 3 0)))))
 
 (testing "Intersecting a scaled sphere with a ray"
-  (let [r (ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 0 -5) (tuple/vector' 0 0 1))
         s (sphere (matrix/scaling 2 2 2))
         xs (intersect s r)]
     (is (= (mapv :t xs) [3.0 7.0]))))
 
 (testing "Intersecting a translated sphere with a ray"
-  (let [r (ray (tuple/point 0 0 -5) (tuple/vector' 0 0 1))
+  (let [r (ray (tuple/point3 0 0 -5) (tuple/vector' 0 0 1))
         s (sphere (matrix/translation 5 0 0))
         xs (intersect s r)]
     (is (= xs []))))
