@@ -127,3 +127,6 @@
    [yx 1  yz 0]
    [zx zy 1  0]
    [0  0  0  1]])
+
+(defn entrywise [f a b]
+  (mapv (partial mapv f) a b))
