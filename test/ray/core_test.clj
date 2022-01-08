@@ -181,7 +181,7 @@
 (testing "Multiplying colors"
   (let [c1 (rc/color 1 0.2 0.4)
         c2 (rc/color 0.9 1 0.1)]
-    (is (matrix/eq (tuple/hadamard c1 c2)
+    (is (matrix/eq (matrix/hadamard c1 c2)
                 (rc/color 0.9 0.2 0.04)))))
 
 (testing "Creating a canvas"

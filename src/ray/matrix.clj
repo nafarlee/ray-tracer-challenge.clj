@@ -143,3 +143,5 @@
 
 (defn negate [t]
   (fmap (fn [e _ _] (- e)) t))
+
+(def hadamard (partial entrywise *))

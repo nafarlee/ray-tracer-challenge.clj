@@ -54,9 +54,7 @@
            (- (* ax by)
               (* ay bx))))
 
-(def hadamard (partial m/entrywise *))
-
 (defn dot [a b]
-  (->> (hadamard a b)
+  (->> (m/hadamard a b)
        flatten
        (apply +)))
