@@ -3,11 +3,11 @@
     [clojure.string :as st]))
 
 (defn- shortest-indent [string]
-  (->> string
-       st/trim
-       (re-seq #"\n\s*")
-       (sort-by count)
-       first))
+  (as-> string <>
+        (st/trim <>)
+        (re-seq #"\n\s*" <>)
+        (sort-by count <>)
+        (nth <> 0)))
 
 (defn $ [string]
   (as-> string a

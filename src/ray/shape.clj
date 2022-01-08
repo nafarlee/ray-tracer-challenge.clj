@@ -34,6 +34,6 @@
   (apply sorted-set-by #(compare (:t %1) (:t %2)) is))
 
 (defn hit [is]
-  (->> is
-       (drop-while #(neg? (:t %)))
-       first))
+  (as-> is <>
+        (drop-while #(neg? (:t %)) <>)
+        (nth <> 0 nil)))

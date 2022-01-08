@@ -25,7 +25,7 @@
   (->> (for [r (rows a)
              c (columns b)]
          (dot r c))
-       (partition (count (first b)))
+       (partition (count (nth b 0)))
        (mapv vec)))
 
 (defn chain [& ms]
@@ -39,7 +39,7 @@
          [0 0 0 1]])
 
 (defn size [m]
-  [(count m) (count (first m))])
+  [(count m) (count (nth m 0))])
 
 (defn determinant2 [[[a b]
                      [c d]]]
@@ -55,7 +55,7 @@
   (if (= [2 2] (size m))
     (determinant2 m)
     (apply + (for [r [0]
-                   c (->> m first count range)]
+                   c (-> m (nth 0) count range)]
                (* (at m r c) (cofactor m r c))))))
 
 (defn minor [m r c]
@@ -77,10 +77,10 @@
        not))
 
 (defn fmap [f m]
-  (->> (for [r (->> m size first range)
+  (->> (for [r (-> m size (nth 0) range)
              c (->> m size second range)]
          (f (at m r c) r c))
-       (partition (count (first m)))
+       (partition (count (nth m 0)))
        (mapv vec)))
 
 (defn scalar-multiply [t x]

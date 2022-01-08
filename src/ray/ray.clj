@@ -6,7 +6,7 @@
   (mapv (comp vec concat) origin direction))
 
 (defn origin [r]
-  (mapv (comp vector first) r))
+  (mapv (comp vector #(nth % 0)) r))
 
 (defn direction [r]
   (mapv (comp vector second) r))
