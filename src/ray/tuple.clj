@@ -41,7 +41,7 @@
 
 (def add (partial m/entrywise +))
 
-(def subtract (partial pointwise -))
+(def subtract (partial m/entrywise -))
 
 (def negate (partial subtract (vector' 0 0 0)))
 
