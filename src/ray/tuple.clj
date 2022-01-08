@@ -19,7 +19,7 @@
 (defn scalar-multiply [t x]
   (m/fmap (fn [e _ _] (* e x)) t))
 
-(defn divide [t x]
+(defn scalar-divide [t x]
   (m/fmap (fn [e _ _] (/ e x)) t))
 
 (defn point [x y z]
