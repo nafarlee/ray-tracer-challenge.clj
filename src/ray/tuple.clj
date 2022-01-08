@@ -39,7 +39,7 @@
 (defn pointwise [f a b]
   (mapv #(mapv f %1 %2) a b))
 
-(def add (partial pointwise +))
+(def add (partial m/entrywise +))
 
 (def subtract (partial pointwise -))
 
