@@ -49,7 +49,7 @@
 (testing "Adding two tuples"
   (let [a1 (tuple/tuple 3 -2 5 1)
         a2 (tuple/tuple -2 3 1 0)]
-    (is (matrix/eq (tuple/add a1 a2)
+    (is (matrix/eq (matrix/add a1 a2)
                 (tuple/tuple 1 1 6 1)))))
 
 (testing "Subtracting two points"
@@ -164,7 +164,7 @@
 (testing "Adding colors"
   (let [c1 (rc/color 0.9 0.6 0.75)
         c2 (rc/color 0.7 0.1 0.25)]
-    (is (matrix/eq (tuple/add c1 c2)
+    (is (matrix/eq (matrix/add c1 c2)
                 (rc/color 1.6 0.7 1.0)))))
 
 (testing "Subtracting colors"

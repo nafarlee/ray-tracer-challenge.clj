@@ -30,8 +30,6 @@
   (and (tuple? t)
        (zero? w)))
 
-(def add (partial m/entrywise +))
-
 (def subtract (partial m/entrywise -))
 
 (defn negate [t]
