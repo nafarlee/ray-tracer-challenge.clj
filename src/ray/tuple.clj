@@ -30,9 +30,6 @@
   (and (tuple? t)
        (zero? w)))
 
-(defn negate [t]
-  (m/fmap (fn [e _ _] (- e)) t))
-
 (defn magnitude [v]
   (->> v
        flatten

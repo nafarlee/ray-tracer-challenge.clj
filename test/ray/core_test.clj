@@ -78,7 +78,7 @@
 
 (testing "Negating a tuple"
   (let [a (tuple/tuple 1 -2 3 -4)]
-    (is (matrix/eq (tuple/negate a)
+    (is (matrix/eq (matrix/negate a)
                 (tuple/tuple -1 2 -3 4)))))
 
 (testing "Multiplying a tuple by a scalar"

@@ -140,3 +140,6 @@
 (def add (partial entrywise +))
 
 (def subtract (partial entrywise -))
+
+(defn negate [t]
+  (fmap (fn [e _ _] (- e)) t))
