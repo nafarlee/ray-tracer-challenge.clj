@@ -8,4 +8,3 @@
 (defn point3?  [[_ _ _ [w] :as t]]
   (and (tuple? t)
        (== 1.0 w)))
-
