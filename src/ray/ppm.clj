@@ -2,10 +2,9 @@
   (:require
     [clojure.string :as st]
     [ray.string :as rs]
-    [ray.math :refer [clamp]]
+    [ray.math :refer [clamp round]]
     [ray.canvas :as rcan]
-    [ray.color :as rc]
-    ))
+    [ray.color :as rc]))
 
 (defn str-wrap [max-length xs]
   (->> (reduce (fn [[s & lines] a]
@@ -36,7 +35,7 @@
                   (map (partial * 255))
                   (map (partial clamp 0 255))
                   (map double)
-                  (map (fn [x] (Math/round x)))
+                  (map round)
                   (str-wrap 70)))
        (st/join "\n")))
 

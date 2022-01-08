@@ -26,3 +26,6 @@
 
 (defn sqrt [x]
   (Math/sqrt x))
+
+(defn round [^double x]
+  (Math/round x))
