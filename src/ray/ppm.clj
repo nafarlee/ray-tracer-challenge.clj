@@ -24,12 +24,12 @@
       255
       "
       rs/$
-      (format (::rcan/width c) (::rcan/height c))))
+      (format (:width c) (:height c))))
 
 (defn ppm-body [c]
   (->> c
-       ::rcan/pixels
-       (partition (::rcan/width c))
+       :pixels
+       (partition (:width c))
        (map #(->> %
                   flatten
                   (map (partial * 255))

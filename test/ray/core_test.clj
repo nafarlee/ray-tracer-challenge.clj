@@ -188,10 +188,10 @@
 
 (testing "Creating a canvas"
   (let [c (rcan/canvas 10 20)]
-    (is (== (::rcan/width c) 10))
-    (is (== (::rcan/height c) 20))
+    (is (== (:width c) 10))
+    (is (== (:height c) 20))
     (is (every? (partial matrix/eq (rc/color 0 0 0))
-                (::rcan/pixels c)))))
+                (:pixels c)))))
 
 (testing "Writing pixels to a canvas"
   (let [c (rcan/canvas 10 20)
