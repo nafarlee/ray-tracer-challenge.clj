@@ -1,11 +1,6 @@
 (ns ray.color
   (:require
-    [clojure.spec.alpha :as s]))
+    [ray.tuple :refer [tuple]]))
 
-(s/def ::color (s/tuple (s/tuple double?)
-                        (s/tuple double?)
-                        (s/tuple double?)))
-(defn color [red green blue]
-  [[red]
-   [green]
-   [blue]])
+(defn color [r g b]
+  (tuple r g b))
