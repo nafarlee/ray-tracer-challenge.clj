@@ -1,12 +1,6 @@
 (ns ray.canvas
   (:require
-    [clojure.spec.alpha :as s]
     [ray.color :refer [color]]))
-
-(s/def ::pixels vector?)
-(s/def ::width (s/and pos? integer?))
-(s/def ::height (s/and pos? integer?))
-(s/def ::canvas (s/keys :req [::pixels ::width ::height]))
 
 (defn ->canvas [p w h]
   {::pixels p, ::width w, ::height h})
