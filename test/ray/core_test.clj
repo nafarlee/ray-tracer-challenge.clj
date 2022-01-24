@@ -14,7 +14,7 @@
    [ray.point3 :refer [point3 point3?]]
    [ray.string :as rs]))
 
-(deftest ray-tracer-challenge-tests
+(deftest chapter-one
 
 (testing "A tuple with w=1.0 is a point"
   (let [[[x]
@@ -155,6 +155,10 @@
     (is (matrix/eq (cross b a)
                    (vector3 1 -2 1)))))
 
+)
+
+(deftest chapter-two
+
 (testing "Colors are (red, green, blue) tuples"
   (let [[[red]
          [green]
@@ -250,10 +254,16 @@
                  153 255 204 153 255 204 153 255 204 153 255 204 153
                  ")))))
 
+
+
 (testing "PPM files are terminated by a newline character"
   (let [c (rcan/canvas 5 3)]
     (is (st/ends-with? (rp/canvas->ppm c)
                        "\n"))))
+
+)
+
+(deftest chapter-three
 
 (testing "Constructing and inspecting a 4x4 matrix"
   (let [M [[1    2    3    4]
@@ -484,6 +494,10 @@
     (is (= (matrix/multiply C (matrix/inverse B))
            A))))
 
+)
+
+(deftest chapter-four
+
 (testing "Multiplying by a translation matrix"
   (let [transform (matrix/translation 5 -3 2)
         p (point3 -3 4 5)]
@@ -626,6 +640,10 @@
         T (reduce matrix/multiply [C B A])]
     (is (matrix/eq (matrix/multiply T p)
                    (point3 15 0 7)))))
+
+)
+
+(deftest chapter-five
 
 (testing "Creating and querying a ray"
   (let [o (point3 1 2 3)
