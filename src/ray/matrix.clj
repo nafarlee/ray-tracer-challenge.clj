@@ -95,7 +95,7 @@
       (fmap (fn [_ r c] (/ (cofactor m c r) det)) m))))
 
 (defn eq [a b]
-  (->> (mapv float= (flatten a) (flatten b))
+  (->> (map float= (flatten a) (flatten b))
        (every? identity)))
 
 (defn translation [x y z]
