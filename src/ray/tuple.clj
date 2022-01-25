@@ -19,8 +19,7 @@
        Math/sqrt))
 
 (defn normalize [v]
-  (let [m (magnitude v)]
-     (m/fmap (fn [e _ _] (/ e m)) v)))
+  (m/scalar-divide v (magnitude v)))
 
 (defn dot [a b]
   (->> (m/hadamard a b)
