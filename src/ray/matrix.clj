@@ -136,7 +136,8 @@
 (defn add [a b]
   (fmap + a b))
 
-(def subtract (partial entrywise -))
+(defn subtract [a b]
+  (fmap - a b))
 
 (defn negate [t]
   (fmap - t))
