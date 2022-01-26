@@ -76,17 +76,17 @@
        zero?
        not))
 
-(defn fmap-indexed [f m]
-  (let [[row-count column-count] (size m)]
+(defn fmap-indexed [f & ms]
+  (let [[row-count column-count] (size (nth ms 0))]
     (->> (for [r (range row-count)
                c (range column-count)]
-           (f r c (at m r c)))
+           (apply f r c (mapv #(at % r c) ms)))
          (partition column-count)
          (mapv vec))))
 
-(defn fmap [f m]
-  (fmap-indexed (fn [_ _ e] (f e))
-                m))
+(defn fmap [f & ms]
+  (apply fmap-indexed (fn [_ _ e] (f e))
+         ms))
 
 (defn scalar-multiply [t x]
   (fmap (partial * x) t))
