@@ -80,12 +80,12 @@
   (let [[row-count column-count] (size m)]
     (->> (for [r (range row-count)
                c (range column-count)]
-           (f (at m r c) r c))
+           (f r c (at m r c)))
          (partition column-count)
          (mapv vec))))
 
 (defn fmap [f m]
-  (fmap-indexed (fn [e _ _] (f e))
+  (fmap-indexed (fn [_ _ e] (f e))
                 m))
 
 (defn scalar-multiply [t x]
@@ -97,7 +97,7 @@
 (defn inverse [m]
   (let [det (determinant m)]
     (when (not (zero? det))
-      (fmap-indexed (fn [_ r c] (/ (cofactor m c r) det)) m))))
+      (fmap-indexed (fn [r c _] (/ (cofactor m c r) det)) m))))
 
 (defn eq [a b]
   (->> (map float= (flatten a) (flatten b))
