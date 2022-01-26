@@ -21,16 +21,6 @@
 (defn dot [r c]
   (apply + (mapv * r c)))
 
-(defn multiply [a b]
-  (->> (for [r (rows a)
-             c (columns b)]
-         (dot r c))
-       (partition (count (nth b 0)))
-       (mapv vec)))
-
-(defn chain [& ms]
-  (reduce multiply (reverse ms)))
-
 (def transpose columns)
 
 (def id [[1 0 0 0]
@@ -150,3 +140,13 @@
   (fmap - t))
 
 (def hadamard (partial entrywise *))
+
+(defn multiply [a b]
+  (->> (for [r (rows a)
+             c (columns b)]
+         (dot r c))
+       (partition (count (nth b 0)))
+       (mapv vec)))
+
+(defn chain [& ms]
+  (reduce multiply (reverse ms)))
