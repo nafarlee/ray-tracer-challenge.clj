@@ -453,7 +453,7 @@
             [-0.80827 -1.45677 -0.44361  0.52068]
             [-0.07895 -0.22368 -0.05263  0.19737]
             [-0.52256 -0.81391 -0.30075  0.30639]]
-           (matrix/fmap (fn [x _ _] (->> x double (format "%.5f") Double.)) B)))))
+           (matrix/fmap-indexed (fn [x _ _] (->> x double (format "%.5f") Double.)) B)))))
 
 (testing "Calculating the inverse of another matrix"
   (let [A [[8 -5 9 2]
@@ -464,9 +464,9 @@
             [-0.07692  0.12308  0.02564  0.03077]
             [ 0.35897  0.35897  0.43590  0.92308]
             [-0.69231 -0.69231 -0.76923 -1.92308]]
-           (matrix/fmap (fn [x _ _]
-                          (->> x double (format "%.5f") Double.))
-                        (matrix/inverse A))))))
+           (matrix/fmap-indexed (fn [x _ _]
+                                  (->> x double (format "%.5f") Double.))
+                                (matrix/inverse A))))))
 
 (testing "Calculating the inverse of a third matrix"
   (let [A [[ 9  3  0  9]
@@ -477,9 +477,9 @@
             [-0.07778  0.03333  0.36667 -0.33333]
             [-0.02901 -0.14630 -0.10926  0.12963]
             [ 0.17778  0.06667 -0.26667  0.33333]]
-           (matrix/fmap (fn [x _ _]
-                          (->> x double (format "%.5f") Double.))
-                        (matrix/inverse A))))))
+           (matrix/fmap-indexed (fn [x _ _]
+                                  (->> x double (format "%.5f") Double.))
+                                (matrix/inverse A))))))
 
 (testing "Multiplying a product by its inverse"
   (let [A [[ 3 -9  7  3]

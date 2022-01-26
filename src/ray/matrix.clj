@@ -76,7 +76,7 @@
        zero?
        not))
 
-(defn fmap [f m]
+(defn fmap-indexed [f m]
   (let [[row-count column-count] (size m)]
     (->> (for [r (range row-count)
                c (range column-count)]
@@ -85,15 +85,15 @@
          (mapv vec))))
 
 (defn scalar-multiply [t x]
-  (fmap (fn [e _ _] (* e x)) t))
+  (fmap-indexed (fn [e _ _] (* e x)) t))
 
 (defn scalar-divide [t x]
-  (fmap (fn [e _ _] (/ e x)) t))
+  (fmap-indexed (fn [e _ _] (/ e x)) t))
 
 (defn inverse [m]
   (let [det (determinant m)]
     (when (not (zero? det))
-      (fmap (fn [_ r c] (/ (cofactor m c r) det)) m))))
+      (fmap-indexed (fn [_ r c] (/ (cofactor m c r) det)) m))))
 
 (defn eq [a b]
   (->> (map float= (flatten a) (flatten b))
@@ -143,6 +143,6 @@
 (def subtract (partial entrywise -))
 
 (defn negate [t]
-  (fmap (fn [e _ _] (- e)) t))
+  (fmap-indexed (fn [e _ _] (- e)) t))
 
 (def hadamard (partial entrywise *))
