@@ -142,7 +142,8 @@
 (defn negate [t]
   (fmap - t))
 
-(def hadamard (partial entrywise *))
+(defn hadamard [a b]
+  (fmap * a b))
 
 (defn multiply [a b]
   (->> (for [r (rows a)
