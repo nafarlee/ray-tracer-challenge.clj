@@ -133,7 +133,8 @@
 (defn entrywise [f a b]
   (mapv (partial mapv f) a b))
 
-(def add (partial entrywise +))
+(defn add [a b]
+  (fmap + a b))
 
 (def subtract (partial entrywise -))
 
