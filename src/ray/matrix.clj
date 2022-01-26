@@ -89,7 +89,7 @@
                 m))
 
 (defn scalar-multiply [t x]
-  (fmap-indexed (fn [e _ _] (* e x)) t))
+  (fmap (partial * x) t))
 
 (defn scalar-divide [t x]
   (fmap-indexed (fn [e _ _] (/ e x)) t))
