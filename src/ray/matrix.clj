@@ -84,6 +84,10 @@
          (partition column-count)
          (mapv vec))))
 
+(defn fmap [f m]
+  (fmap-indexed (fn [e _ _] (f e))
+                m))
+
 (defn scalar-multiply [t x]
   (fmap-indexed (fn [e _ _] (* e x)) t))
 
