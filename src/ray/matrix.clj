@@ -77,11 +77,12 @@
        not))
 
 (defn fmap [f m]
-  (->> (for [r (-> m size (nth 0) range)
-             c (->> m size second range)]
-         (f (at m r c) r c))
-       (partition (count (nth m 0)))
-       (mapv vec)))
+  (let [[row-count column-count] (size m)]
+    (->> (for [r (range row-count)
+               c (range column-count)]
+           (f (at m r c) r c))
+         (partition column-count)
+         (mapv vec))))
 
 (defn scalar-multiply [t x]
   (fmap (fn [e _ _] (* e x)) t))
