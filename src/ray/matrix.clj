@@ -92,7 +92,7 @@
   (fmap (partial * x) t))
 
 (defn scalar-divide [t x]
-  (fmap-indexed (fn [e _ _] (/ e x)) t))
+  (fmap #(/ % x) t))
 
 (defn inverse [m]
   (let [det (determinant m)]
