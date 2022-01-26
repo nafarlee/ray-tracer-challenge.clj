@@ -44,9 +44,11 @@
 (defn determinant [m]
   (if (= [2 2] (size m))
     (determinant2 m)
-    (apply + (for [r [0]
-                   c (-> m (nth 0) count range)]
-               (* (at m r c) (cofactor m r c))))))
+    (let [row-id 0]
+      (->> (row m row-id)
+           (map-indexed (fn [column-id e]
+                          (* e (cofactor m row-id column-id))))
+           (apply +)))))
 
 (defn minor [m r c]
   (-> m
