@@ -75,7 +75,8 @@
          (mapv vec))))
 
 (defn fmap [f & ms]
-  (apply fmap-indexed (fn [_ _ e] (f e))
+  (apply fmap-indexed
+         (fn [_ _ & es] (apply f es))
          ms))
 
 (defn scalar-multiply [t x]
