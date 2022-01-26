@@ -147,6 +147,6 @@
 (def subtract (partial entrywise -))
 
 (defn negate [t]
-  (fmap-indexed (fn [e _ _] (- e)) t))
+  (fmap - t))
 
 (def hadamard (partial entrywise *))
