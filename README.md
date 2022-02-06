@@ -1,1 +1,1 @@
-# ray-tracer-challenge
+# ray-tracer-challenge.clj
