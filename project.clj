@@ -7,5 +7,4 @@
   :plugins [[cider/cider-nrepl "0.24.0"]]
   :main ^:skip-aot ray.core
   :target-path "target/%s"
-  :global-vars {*warn-on-reflection* true}
   :profiles {:uberjar {:aot :all}})
