@@ -44,7 +44,7 @@
          canvas->ppm
          (spit "output.ppm"))))
 
-(defn chapter-6 []
+(defn chapter-5 []
   (let [wall-size 7
         half (/ wall-size 2)
         canvas-size 100
@@ -76,4 +76,4 @@
          canvas->ppm
          (spit "output.ppm"))))
 
-(def -main chapter-6)
+(def -main chapter-5)
