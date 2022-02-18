@@ -38,7 +38,7 @@
         canvas (canvas size size)
         white (color 255 255 255)]
     (->> (range 0 (* 2 pi) (/ pi 6))
-         (mapv #(chain point3 slide-out (rotation-z %) center))
+         (mapv #(chain point slide-out (rotation-z %) center))
          (reduce (fn [c [[x] [y]]] (write-pixel c (int x) (int y) white))
                  canvas)
          canvas->ppm
