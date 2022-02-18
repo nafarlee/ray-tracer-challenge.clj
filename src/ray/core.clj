@@ -45,34 +45,35 @@
          (spit "output.ppm"))))
 
 (defn chapter-5 []
-  (let [wall-size 7
-        half (/ wall-size 2)
+  (let [wall-size   7
+        half        (/ wall-size 2)
         canvas-size 100
-        canvas (canvas canvas-size canvas-size)
-        pixel-size (/ wall-size canvas-size)
-        shape (sphere)
-        ray-origin (point3 0 0 -5)
-        wall-z 10]
+        canvas      (canvas canvas-size canvas-size)
+        pixel-size  (/ wall-size canvas-size)
+        shape       (sphere)
+        ray-origin  (point3 0 0 -5)
+        wall-z      10
+        hit?        (fn [[x y]]
+                      (let [world-x (- (* pixel-size x) half)
+                            world-y (- half (* pixel-size y))]
+                        (as-> (point3 world-x world-y wall-z) $
+                              (subtract $ ray-origin)
+                              (normalize $)
+                              (ray ray-origin $)
+                              (intersect shape $)
+                              (hit $))))
+        draw-hit    (fn [c [x y]]
+                      (write-pixel c
+                                   (int x)
+                                   (int y)
+                                   (color (/ x canvas-size)
+                                          (/ y canvas-size)
+                                          1)))]
     (->> (for [x (range canvas-size)
                y (range canvas-size)]
            [x y])
-         (filter (fn [[x y]]
-                   (let [world-x (- (* pixel-size x) half)
-                         world-y (- half (* pixel-size y))]
-                     (as-> (point3 world-x world-y wall-z) $
-                           (subtract $ ray-origin)
-                           (normalize $)
-                           (ray ray-origin $)
-                           (intersect shape $)
-                           (hit $)))))
-         (reduce (fn [c [x y]]
-                   (write-pixel c
-                                (int x)
-                                (int y)
-                                (color (/ x canvas-size)
-                                       (/ y canvas-size)
-                                       1)))
-                 canvas)
+         (filter hit?)
+         (reduce draw-hit canvas)
          canvas->ppm
          (spit "output.ppm"))))
 
