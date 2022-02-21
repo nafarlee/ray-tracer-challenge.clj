@@ -1,6 +1,6 @@
 (ns ray.shape
   (:require
-    [ray.matrix :refer [id inverse subtract]]
+    [ray.matrix :refer [id inverse multiply submatrix subtract transpose]]
     [ray.ray :refer [direction origin transform]]
     [ray.math :refer [sqrt square]]
     [ray.point3 :refer [point3]]
@@ -38,5 +38,10 @@
         (drop-while #(neg? (:t %)) <>)
         (nth <> 0 nil)))
 
-(defn normal-at [sph p]
-  (normalize (subtract p (point3 0 0 0))))
+(defn normal-at [sph world-point]
+  (let [object-point  (multiply (inverse (:transform sph))
+                                world-point)
+        object-normal (subtract object-point (point3 0 0 0))
+        world-normal  (multiply (transpose (inverse (:transform sph)))
+                                object-normal)]
+    (normalize (assoc world-normal 3 [0]))))
