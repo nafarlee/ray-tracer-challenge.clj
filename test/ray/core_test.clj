@@ -755,6 +755,12 @@
   (let [s (sphere)]
     (is (= (:transform s) matrix/id))))
 
+(testing "Changing a sphere's transformation"
+  (let [s (sphere)
+        t (matrix/translation 2 3 4)]
+    (is (= (:transform (assoc s :transform t))
+           t))))
+
 (testing "Intersecting a scaled sphere with a ray"
   (let [r (ray (point3 0 0 -5) (vector3 0 0 1))
         s (sphere (matrix/scaling 2 2 2))
