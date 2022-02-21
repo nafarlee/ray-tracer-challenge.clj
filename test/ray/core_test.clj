@@ -807,5 +807,5 @@
                              (matrix/rotation-z (/ pi 5)))
           s (sphere m)
           v (/ (sqrt 2) 2)
-          n (normal-at (s (point3 0 v (- v))))]
+          n (normal-at s (point3 0 v (- v)))]
       (is (matrix/eq n (vector3 0 0.97014 -0.24254))))))
