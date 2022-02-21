@@ -547,8 +547,8 @@
         full-quarter (matrix/rotation-x (/ pi 2))]
     (is (matrix/eq (matrix/multiply half-quarter p)
                    (point3 0
-                                (/ (sqrt 2) 2)
-                                (/ (sqrt 2) 2))))
+                           (/ (sqrt 2) 2)
+                           (/ (sqrt 2) 2))))
     (is (matrix/eq (matrix/multiply full-quarter p)
                    (point3 0 0 1)))))
 
@@ -567,8 +567,8 @@
         full-quarter (matrix/rotation-y (/ pi 2))]
     (is (matrix/eq (matrix/multiply half-quarter p)
                    (point3 (/ (sqrt 2) 2)
-                                0
-                                (/ (sqrt 2) 2))))
+                           0
+                           (/ (sqrt 2) 2))))
     (is (matrix/eq (matrix/multiply full-quarter p)
                    (point3 1 0 0)))))
 
@@ -578,8 +578,8 @@
         full-quarter (matrix/rotation-z (/ pi 2))]
     (is (matrix/eq (matrix/multiply half-quarter p)
                    (point3 (- (/ (sqrt 2) 2))
-                                (/ (sqrt 2) 2)
-                                0)))
+                           (/ (sqrt 2) 2)
+                           0)))
     (is (matrix/eq (matrix/multiply full-quarter p)
                    (point3 -1 0 0)))))
 
