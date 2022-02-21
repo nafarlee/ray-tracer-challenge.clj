@@ -39,8 +39,7 @@
         (nth <> 0 nil)))
 
 (defn normal-at [sph world-point]
-  (let [object-point  (multiply (inverse (:transform sph))
-                                world-point)
+  (let [object-point  (multiply (inverse (:transform sph)) world-point)
         object-normal (subtract object-point (point3 0 0 0))
         world-normal  (multiply (-> (:transform sph)
                                     (submatrix 3 3)
