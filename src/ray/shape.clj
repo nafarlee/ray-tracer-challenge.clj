@@ -4,7 +4,7 @@
     [ray.ray :refer [direction origin transform]]
     [ray.math :refer [sqrt square]]
     [ray.point3 :refer [point3]]
-    [ray.tuple :refer [dot]]))
+    [ray.tuple :refer [dot normalize]]))
 
 (defrecord Sphere [transform])
 
@@ -37,3 +37,6 @@
   (as-> is <>
         (drop-while #(neg? (:t %)) <>)
         (nth <> 0 nil)))
+
+(defn normal-at [sph p]
+  (normalize (subtract p (point3 0 0 0))))
