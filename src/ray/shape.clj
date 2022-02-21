@@ -42,6 +42,9 @@
   (let [object-point  (multiply (inverse (:transform sph))
                                 world-point)
         object-normal (subtract object-point (point3 0 0 0))
-        world-normal  (multiply (transpose (inverse (:transform sph)))
-                                object-normal)]
-    (normalize (assoc world-normal 3 [0]))))
+        world-normal  (multiply (-> (:transform sph)
+                                    (submatrix 3 3)
+                                    inverse
+                                    transpose)
+                                (submatrix object-normal 3 3))]
+    (normalize world-normal)))
