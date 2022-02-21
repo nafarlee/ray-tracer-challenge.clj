@@ -751,6 +751,10 @@
     (is (= (origin r2) (point3 2 6 12)))
     (is (= (direction r2) (vector3 0 3 0)))))
 
+(testing "A sphere's default transformation"
+  (let [s (sphere)]
+    (is (= (:transform s) matrix/id))))
+
 (testing "Intersecting a scaled sphere with a ray"
   (let [r (ray (point3 0 0 -5) (vector3 0 0 1))
         s (sphere (matrix/scaling 2 2 2))
