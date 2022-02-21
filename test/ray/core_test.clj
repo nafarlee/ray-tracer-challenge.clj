@@ -2,7 +2,12 @@
   (:require
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
-   [ray.shape :refer [hit intersect intersection intersections sphere]]
+   [ray.shape :refer [hit
+                      intersect
+                      intersection
+                      intersections
+                      normal-at
+                      sphere]]
    [ray.ray :refer [direction origin position ray transform]]
    [ray.math :refer [pi sqrt]]
    [ray.matrix :as matrix]
@@ -763,3 +768,25 @@
           s (sphere (matrix/translation 5 0 0))
           xs (intersect s r)]
       (is (= xs [])))))
+
+(deftest chapter-six
+  (testing "The normal on a sphere at a point on the x axis"
+    (let [s (sphere)
+          n (normal-at s (point3 1 0 0))]
+      (is (matrix/eq n (vector3 1 0 0)))))
+
+  (testing "The normal on a sphere at a point on the y axis"
+    (let [s (sphere)
+          n (normal-at s (point3 0 1 0))]
+      (is (matrix/eq n (vector3 0 1 0)))))
+
+  (testing "The normal on a sphere at a point on the z axis"
+    (let [s (sphere)
+          n (normal-at s (point3 0 0 1))]
+      (is (matrix/eq n (vector3 0 0 1)))))
+
+  (testing "The normal on a sphere at a nonaxial point"
+    (let [s (sphere)
+          v (/ (sqrt 3) 3)
+          n (normal-at s (point3 v v v))]
+      (is (matrix/eq n (vector3 v v v))))))
