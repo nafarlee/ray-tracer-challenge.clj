@@ -789,4 +789,10 @@
     (let [s (sphere)
           v (/ (sqrt 3) 3)
           n (normal-at s (point3 v v v))]
-      (is (matrix/eq n (vector3 v v v))))))
+      (is (matrix/eq n (vector3 v v v)))))
+
+  (testing "The normal is a normalized vector"
+    (let [s (sphere)
+          v (/ (sqrt 3) 3)
+          n (normal-at s (point3 v v v))]
+      (is (matrix/eq n (tuple/normalize n))))))
