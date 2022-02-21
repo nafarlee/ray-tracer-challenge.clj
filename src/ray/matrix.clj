@@ -148,6 +148,7 @@
   (fmap * a b))
 
 (defn multiply [a b]
+  {:pre [(= (second (size a)) (first (size b)))]}
   (->> (for [r (rows a)
              c (columns b)]
          (dot r c))
