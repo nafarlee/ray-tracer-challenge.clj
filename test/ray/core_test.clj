@@ -795,4 +795,17 @@
     (let [s (sphere)
           v (/ (sqrt 3) 3)
           n (normal-at s (point3 v v v))]
-      (is (matrix/eq n (tuple/normalize n))))))
+      (is (matrix/eq n (tuple/normalize n)))))
+
+  (testing "Computing the normal on a translated sphere"
+    (let [s (sphere (matrix/translation 0 1 0))
+          n (normal-at s (point3 0 1.70711 -0.70711))]
+      (is (matrix/eq n (vector3 0 0.70711 -0.70711)))))
+
+  (testing "Computing the normal on a transformed sphere"
+    (let [m (matrix/multiply (matrix/scaling 1 0.5 1)
+                             (matrix/rotation-z (/ pi 5)))
+          s (sphere m)
+          v (/ (sqrt 2) 2)
+          n (normal-at (s (point3 0 v (- v))))]
+      (is (matrix/eq n (vector3 0 0.97014 -0.24254))))))
