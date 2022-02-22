@@ -808,4 +808,17 @@
           s (sphere m)
           v (/ (sqrt 2) 2)
           n (normal-at s (point3 0 v (- v)))]
-      (is (matrix/eq n (vector3 0 0.97014 -0.24254))))))
+      (is (matrix/eq n (vector3 0 0.97014 -0.24254)))))
+
+  (testing "Reflecting a vector approaching at 45°"
+    (let [v (vector3 1 -1 0)
+          n (vector3 0 1 0)
+          r (reflect v n)]
+      (is (matrix/eq r (vector3 1 1 0)))))
+
+  (testing "Reflecting a vector off a slanted surface"
+    (let [v    (vector3 0 -1 0)
+          root (/ (sqrt 2) 2)
+          n    (vector3 root root 0)
+          r    (reflect v n)]
+      (is (matrix/eq r (vector3 1 0 0))))))
