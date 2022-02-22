@@ -821,4 +821,11 @@
           root (/ (sqrt 2) 2)
           n    (vector3 root root 0)
           r    (reflect v n)]
-      (is (matrix/eq r (vector3 1 0 0))))))
+      (is (matrix/eq r (vector3 1 0 0)))))
+
+  (testing "A point light has a position and intensity"
+    (let [intensity (rc/color 1 1 1)
+          position  (point3 0 0 0)
+          light     (->PointLight position intensity)]
+      (is (= (:position light) position))
+      (is (= (:intensity light) intensity)))))
