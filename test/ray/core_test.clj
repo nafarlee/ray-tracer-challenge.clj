@@ -3,7 +3,7 @@
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
    [ray.material :refer [material]]
-   [ray.light :refer [->PointLight]]
+   [ray.light :refer [->PointLight lighting]]
    [ray.shape :refer [hit
                       intersect
                       intersection
@@ -850,4 +850,39 @@
           m (material)
           m (assoc m :ambient 1)
           s (assoc s :material m)]
-      (is (= (:material s) m)))))
+      (is (= (:material s) m))))
+
+  (let [m        (material)
+        position (point3 0 0 0)]
+    (testing "Lighting with the eye between the light and the surface"
+      (let [eyev    (vector3 0 0 -1)
+            normalv (vector3 0 0 -1)
+            light   (->PointLight (point3 0 0 -10) (rc/color 1 1 1))
+            result  (lighting m light position eyev normalv)]
+        (is (= result (rc/color 1.9 1.9 1.9)))))
+    (testing "Lighting with the eye between light and surface, eye offset 45°"
+      (let [root    (/ (sqrt 2) 2)
+            eyev    (vector3 0 root (- root))
+            normalv (vector3 0 0 -1)
+            light   (->PointLight (point3 0 0 -10) (rc/color 1 1 1))
+            result  (lighting m light position eyev normalv)]
+        (is (= result (rc/color 1.0 1.0 1.0)))))
+    (testing "Lighting with the eye opposite surface, light offset 45°"
+      (let [eyev    (vector3 0 0 -1)
+            normalv (vector3 0 0 -1)
+            light   (->PointLight (point3 0 10 -10) (rc/color 1 1 1))
+            result  (lighting m light position eyev normalv)]
+        (is (= result (rc/color 0.7364 0.7364 0.7364)))))
+    (testing "Lighting with eye in the path of the reflection vector"
+      (let [root    (/ (sqrt 2) 2)
+            eyev    (vector3 0 (- root) (- root))
+            normalv (vector3 0 0 -1)
+            light   (->PointLight (point3 0 10 -10) (rc/color 1 1 1))
+            result  (lighting m light position eyev normalv)]
+        (is (= result (rc/color 1.6364 1.6364 1.6364)))))
+    (testing "Lighting with the light behind the surface"
+      (let [eyev    (vector3 0 0 -1)
+            normalv (vector3 0 0 -1)
+            light   (->PointLight (point3 0 0 10) (rc/color 1 1 1))
+            result  (lighting m light position eyev normalv)]
+        (is (= result (rc/color 0.1 0.1 0.1)))))))
