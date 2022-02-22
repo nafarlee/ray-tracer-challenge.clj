@@ -2,6 +2,7 @@
   (:require
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
+   [ray.light :refer [->PointLight]]
    [ray.shape :refer [hit
                       intersect
                       intersection
