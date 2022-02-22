@@ -838,4 +838,16 @@
       (is (= (:ambient m) 0.1))
       (is (= (:diffuse m) 0.9))
       (is (= (:specular m) 0.9))
-      (is (= (:shininess m) 200.0)))))
+      (is (= (:shininess m) 200.0))))
+
+  (testing "A sphere has a default material"
+    (let [s (sphere)
+          m (:material s)]
+      (is (= m (material)))))
+
+  (testing "A sphere may be assigned a material"
+    (let [s (sphere)
+          m (material)
+          m (assoc m :ambient 1)
+          s (assoc s :material m)]
+      (is (= (:material s) m)))))
