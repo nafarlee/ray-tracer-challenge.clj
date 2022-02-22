@@ -1,16 +1,17 @@
 (ns ray.shape
   (:require
+    [ray.material :refer [material]]
     [ray.matrix :refer [id inverse multiply submatrix subtract transpose]]
     [ray.ray :refer [direction origin transform]]
     [ray.math :refer [sqrt square]]
     [ray.point3 :refer [point3]]
     [ray.tuple :refer [dot normalize]]))
 
-(defrecord Sphere [transform])
+(defrecord Sphere [transform material])
 
 (defn sphere
-  ([] (->Sphere id))
-  ([m] (->Sphere m)))
+  ([] (->Sphere id (material)))
+  ([m] (->Sphere m (material))))
 
 (defn intersection [t s]
   {:t t
