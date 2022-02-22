@@ -1,6 +1,7 @@
 (ns ray.vector3
   (:require
-    [ray.tuple :refer [tuple tuple?]]))
+    [ray.matrix :as m]
+    [ray.tuple :refer [dot tuple tuple?]]))
 
 (defn vector3 [x y z]
   (tuple x y z 0.0))
@@ -21,3 +22,12 @@
               (* ax bz))
            (- (* ax by)
               (* ay bx))))
+
+(defn reflect [in normal]
+  {:pre  [(vector3? in)
+          (vector3? normal)]
+   :post [(vector3? %)]}
+  (->> (dot in normal)
+       (* 2)
+       (m/scalar-multiply normal)
+       (m/subtract in)))
