@@ -15,7 +15,7 @@
    [ray.color :as rc]
    [ray.canvas :as rcan]
    [ray.ppm :as rp]
-   [ray.vector3 :refer [cross vector3 vector3?]]
+   [ray.vector3 :refer [cross reflect vector3 vector3?]]
    [ray.point3 :refer [point3 point3?]]
    [ray.string :as rs]))
 
