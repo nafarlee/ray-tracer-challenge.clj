@@ -1,6 +1,7 @@
 (ns ray.core-test
   (:require
    [clojure.string :as st]
+   pjstadig.humane-test-output
    [clojure.test :refer [deftest is testing]]
    [ray.material :refer [material]]
    [ray.light :refer [->PointLight lighting]]
@@ -20,6 +21,8 @@
    [ray.vector3 :refer [cross reflect vector3 vector3?]]
    [ray.point3 :refer [point3 point3?]]
    [ray.string :as rs]))
+
+(pjstadig.humane-test-output/activate!)
 
 (deftest chapter-one
   (testing "A tuple with w=1.0 is a point"
