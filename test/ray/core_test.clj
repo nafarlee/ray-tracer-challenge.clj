@@ -2,6 +2,7 @@
   (:require
    [clojure.string :as st]
    [clojure.test :refer [deftest is testing]]
+   [ray.material :refer [material]]
    [ray.light :refer [->PointLight]]
    [ray.shape :refer [hit
                       intersect
@@ -829,4 +830,12 @@
           position  (point3 0 0 0)
           light     (->PointLight position intensity)]
       (is (= (:position light) position))
-      (is (= (:intensity light) intensity)))))
+      (is (= (:intensity light) intensity))))
+
+  (testing "The default material"
+    (let [m (material)]
+      (is (= (:color m) (rc/color 1 1 1)))
+      (is (= (:ambient m) 0.1))
+      (is (= (:diffuse m) 0.9))
+      (is (= (:specular m) 0.9))
+      (is (= (:shininess m) 200.0)))))
