@@ -8,6 +8,9 @@
 (defn float= [^double a ^double b]
   (> EPSILON (abs (- a b))))
 
+(defn pow [x e]
+  (Math/pow x e))
+
 (defn square [x]
   (Math/pow x 2))
 
