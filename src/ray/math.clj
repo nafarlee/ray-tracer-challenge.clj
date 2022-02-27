@@ -12,7 +12,7 @@
   (Math/pow x e))
 
 (defn square [x]
-  (Math/pow x 2))
+  (pow x 2))
 
 (defn clamp [low high x]
   (-> x
