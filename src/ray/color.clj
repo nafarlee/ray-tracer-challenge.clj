@@ -4,3 +4,5 @@
 
 (defn color [r g b]
   (tuple r g b))
+
+(def black (color 0 0 0))
