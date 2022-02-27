@@ -20,6 +20,15 @@
    (hadamard (:color m) (:intensity l))
    (:ambient m)))
 
+(defn- diffuse [m l n]
+  (let [lightVnormal (dot l n)]
+    (if (neg? lightVnormal)
+      black
+      (scalar-multiply
+       (hadamard (:color m) (:intensity l))
+       (* (:diffuse m)
+          lightVnormal)))))
+
 (defn lighting [m l p e n]
   {:pre [(is (Material? m))
          (is (PointLight? l))
