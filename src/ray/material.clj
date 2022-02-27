@@ -4,6 +4,8 @@
 
 (defrecord Material [color ambient diffuse specular shininess])
 
+(def Material? (partial instance? Material))
+
 (defn material []
   (->Material
    (color 1 1 1)
