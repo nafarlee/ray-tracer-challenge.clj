@@ -862,30 +862,30 @@
             normalv (vector3 0 0 -1)
             light   (->PointLight (point3 0 0 -10) (rc/color 1 1 1))
             result  (lighting m light position eyev normalv)]
-        (is (= (rc/color 1.9 1.9 1.9) result))))
+        (is (matrix/eq (rc/color 1.9 1.9 1.9) result))))
     (testing "Lighting with the eye between light and surface, eye offset 45°"
       (let [root    (/ (sqrt 2) 2)
             eyev    (vector3 0 root (- root))
             normalv (vector3 0 0 -1)
             light   (->PointLight (point3 0 0 -10) (rc/color 1 1 1))
             result  (lighting m light position eyev normalv)]
-        (is (= (rc/color 1.0 1.0 1.0) result))))
+        (is (matrix/eq (rc/color 1.0 1.0 1.0) result))))
     (testing "Lighting with the eye opposite surface, light offset 45°"
       (let [eyev    (vector3 0 0 -1)
             normalv (vector3 0 0 -1)
             light   (->PointLight (point3 0 10 -10) (rc/color 1 1 1))
             result  (lighting m light position eyev normalv)]
-        (is (= (rc/color 0.7364 0.7364 0.7364) result))))
+        (is (matrix/eq (rc/color 0.7364 0.7364 0.7364) result))))
     (testing "Lighting with eye in the path of the reflection vector"
       (let [root    (/ (sqrt 2) 2)
             eyev    (vector3 0 (- root) (- root))
             normalv (vector3 0 0 -1)
             light   (->PointLight (point3 0 10 -10) (rc/color 1 1 1))
             result  (lighting m light position eyev normalv)]
-        (is (= (rc/color 1.6364 1.6364 1.6364) result))))
+        (is (matrix/eq (rc/color 1.6364 1.6364 1.6364) result))))
     (testing "Lighting with the light behind the surface"
       (let [eyev    (vector3 0 0 -1)
             normalv (vector3 0 0 -1)
             light   (->PointLight (point3 0 0 10) (rc/color 1 1 1))
             result  (lighting m light position eyev normalv)]
-        (is (= (rc/color 0.1 0.1 0.1) result))))))
+        (is (matrix/eq (rc/color 0.1 0.1 0.1) result))))))
