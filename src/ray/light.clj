@@ -21,6 +21,10 @@
    (:ambient m)))
 
 (defn- diffuse [m l p n]
+  {:pre [(is (Material? m))
+         (is (PointLight? l))
+         (is (point3? p))
+         (is (vector3? n))]}
   (let [light-vector (normalize (subtract (:position l) p))
         lightVnormal (dot light-vector n)]
     (if (neg? lightVnormal)
