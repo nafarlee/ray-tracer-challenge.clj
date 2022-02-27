@@ -20,8 +20,9 @@
    (hadamard (:color m) (:intensity l))
    (:ambient m)))
 
-(defn- diffuse [m l n]
-  (let [lightVnormal (dot l n)]
+(defn- diffuse [m l p n]
+  (let [light-vector (normalize (subtract (:position l) p))
+        lightVnormal (dot light-vector n)]
     (if (neg? lightVnormal)
       black
       (scalar-multiply
