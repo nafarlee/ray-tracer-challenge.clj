@@ -34,6 +34,18 @@
        (* (:diffuse m)
           lightVnormal)))))
 
+(defn- specular [m l p e n]
+  (let [point=>light   (normalize (subtract (:position l) p))
+        reflection:eye (delay (dot (reflect (negate point=>light) n) e))]
+    (cond
+      (neg? (dot point=>light n))  black
+      (not (pos? @reflection:eye)) black
+      :else                        (scalar-multiply
+                                    (:intensity l)
+                                    (* (:specular m)
+                                       (pow reflection:eye
+                                            (:shininess m)))))))
+
 (defn lighting [m l p e n]
   {:pre [(is (Material? m))
          (is (PointLight? l))
