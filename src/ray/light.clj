@@ -18,19 +18,16 @@
    {:keys [intensity]}]
   (scalar-multiply (hadamard color intensity) ambient))
 
-(defn- diffuse [m l p n]
-  {:pre [(is (Material? m))
-         (is (PointLight? l))
-         (is (point3? p))
-         (is (vector3? n))]}
-  (let [light-vector (normalize (subtract (:position l) p))
-        lightVnormal (dot light-vector n)]
-    (if (neg? lightVnormal)
+(defn- diffuse
+  [{:keys [color diffuse]}
+   {:keys [position intensity]}
+   point
+   normal]
+  (let [light:normal (dot (normalize (subtract position point)) normal)]
+    (if (neg? light:normal)
       black
-      (scalar-multiply
-       (hadamard (:color m) (:intensity l))
-       (* (:diffuse m)
-          lightVnormal)))))
+      (scalar-multiply (hadamard color intensity)
+                       (* diffuse light:normal)))))
 
 (defn- specular [m l p e n]
   (let [point=>light   (normalize (subtract (:position l) p))
