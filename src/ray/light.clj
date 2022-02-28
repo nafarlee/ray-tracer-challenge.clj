@@ -43,7 +43,7 @@
       :else                        (scalar-multiply
                                     (:intensity l)
                                     (* (:specular m)
-                                       (pow reflection:eye
+                                       (pow @reflection:eye
                                             (:shininess m)))))))
 
 (defn lighting [m l p e n]
