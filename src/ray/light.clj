@@ -14,10 +14,8 @@
 (def PointLight? (partial instance? PointLight))
 
 (defn- ambient
-  [{:keys [color ambient] :as m}
-   {:keys [intensity] :as l}]
-  {:pre [(is (Material? m))
-         (is (PointLight? l))]}
+  [{:keys [color ambient]}
+   {:keys [intensity]}]
   (scalar-multiply (hadamard color intensity) ambient))
 
 (defn- diffuse [m l p n]
