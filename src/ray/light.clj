@@ -52,21 +52,7 @@
          (is (point3? p))
          (is (vector3? e))
          (is (vector3? n))]}
-  (let [effective-color     (hadamard (:color m) (:intensity l))
-        light-vector        (normalize (subtract (:position l) p))
-        ambient             (scalar-multiply effective-color (:ambient m))
-        light-dot-normal    (dot light-vector n)]
-    (if (< light-dot-normal 0)
-      ambient
-      (let [diffuse         (scalar-multiply effective-color
-                                             (* (:diffuse m)
-                                                light-dot-normal))
-            reflect-vector  (reflect (negate light-vector) n)
-            reflect-dot-eye (dot reflect-vector e)
-            specular        (if-not (pos? reflect-dot-eye)
-                              black
-                              (scalar-multiply (:intensity l)
-                                               (* (:specular m)
-                                                  (pow reflect-dot-eye
-                                                       (:shininess m)))))]
-       (add ambient diffuse specular)))))
+  (add
+   (ambient m l)
+   (diffuse m l p n)
+   (specular m l p e n)))
