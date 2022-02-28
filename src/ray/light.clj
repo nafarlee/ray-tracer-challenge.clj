@@ -29,17 +29,21 @@
       (scalar-multiply (hadamard color intensity)
                        (* diffuse light:normal)))))
 
-(defn- specular [m l p e n]
-  (let [point=>light   (normalize (subtract (:position l) p))
-        reflection:eye (delay (dot (reflect (negate point=>light) n) e))]
+(defn- specular
+  [{:keys [specular shininess]}
+   {:keys [position intensity]}
+   point
+   eye
+   normal]
+  (let [point=>light   (normalize (subtract position point))
+        reflection:eye (delay (dot (reflect (negate point=>light) normal) eye))]
     (cond
-      (neg? (dot point=>light n))  black
-      (not (pos? @reflection:eye)) black
-      :else                        (scalar-multiply
-                                    (:intensity l)
-                                    (* (:specular m)
-                                       (pow @reflection:eye
-                                            (:shininess m)))))))
+      (neg? (dot point=>light normal)) black
+      (not (pos? @reflection:eye))     black
+      :else                            (scalar-multiply
+                                        intensity
+                                        (* specular
+                                           (pow @reflection:eye shininess))))))
 
 (defn lighting [m l p e n]
   {:pre [(is (Material? m))
