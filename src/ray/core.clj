@@ -14,7 +14,7 @@
     [ray.vector3 :refer [vector3]]
     [ray.tuple :refer [normalize]]
     [ray.canvas :refer [canvas write-pixel]]
-    [ray.color :refer [black color]]
+    [ray.color :refer [color]]
     [ray.light :refer [->PointLight lighting]]
     [ray.ppm :refer [canvas->ppm]])
   (:gen-class))
