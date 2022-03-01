@@ -1,14 +1,21 @@
 (ns ray.core
   (:require
-    [ray.ray :refer [ray]]
-    [ray.shape :refer [intersect hit sphere]]
-    [ray.matrix :refer [add chain rotation-z scalar-multiply subtract translation]]
+    [ray.ray :refer [direction position ray]]
+    [ray.shape :refer [intersect hit normal-at sphere]]
+    [ray.matrix :refer [add
+                        chain
+                        negate
+                        rotation-z
+                        scalar-multiply
+                        subtract
+                        translation]]
     [ray.math :refer [pi]]
     [ray.point3 :refer [point3]]
     [ray.vector3 :refer [vector3]]
     [ray.tuple :refer [normalize]]
     [ray.canvas :refer [canvas write-pixel]]
-    [ray.color :refer [color]]
+    [ray.color :refer [black color]]
+    [ray.light :refer [->PointLight lighting]]
     [ray.ppm :refer [canvas->ppm]])
   (:gen-class))
 
@@ -50,7 +57,8 @@
         canvas-size 100
         canvas      (canvas canvas-size canvas-size)
         pixel-size  (/ wall-size canvas-size)
-        shape       (sphere)
+        shape       (assoc-in (sphere) [:material :color] (color 1 0.2 1))
+        light       (->PointLight (point3 -10 10 -10) (color 1 1 1))
         ray-origin  (point3 0 0 -5)
         wall-z      10
         render      (fn [c [x y]]
@@ -60,10 +68,20 @@
                             origin=>brick (subtract brick ray-origin)
                             r             (ray ray-origin
                                                (normalize origin=>brick))
-                            h             (hit (intersect shape r))]
+                            h             (hit (intersect shape r))
+                            pos           (delay (position r (:t h)))
+                            normal        (delay (normal-at (:object h) @pos))
+                            eye           (delay (negate (direction r)))]
                         (if-not h
                           c
-                          (write-pixel c (int x) (int y) (color 1 1 1)))))]
+                          (write-pixel c
+                                       (int x)
+                                       (int y)
+                                       (lighting (get-in h [:object :material])
+                                                 light
+                                                 @pos
+                                                 @eye
+                                                 @normal)))))]
     (->> (for [x (range canvas-size)
                y (range canvas-size)]
            [x y])
