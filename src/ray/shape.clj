@@ -1,10 +1,12 @@
 (ns ray.shape
   (:require
+    [clojure.test :refer [is]]
     [ray.material :refer [material]]
     [ray.matrix :refer [id inverse multiply submatrix subtract transpose]]
     [ray.ray :refer [direction origin transform]]
     [ray.math :refer [sqrt square]]
     [ray.point3 :refer [point3]]
+    [ray.vector3 :refer [vector3?]]
     [ray.tuple :refer [dot normalize]]))
 
 (defrecord Sphere [transform material])
@@ -40,6 +42,7 @@
         (nth <> 0 nil)))
 
 (defn normal-at [sph world-point]
+  {:post [(is (vector3? %))]}
   (let [object-point  (multiply (inverse (:transform sph)) world-point)
         object-normal (subtract object-point (point3 0 0 0))
         world-normal  (multiply (-> (:transform sph)
@@ -47,4 +50,4 @@
                                     inverse
                                     transpose)
                                 (submatrix object-normal 3 3))]
-    (normalize world-normal)))
+    (normalize (conj world-normal [0]))))
