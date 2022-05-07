@@ -3,6 +3,7 @@
    [clojure.string :as st]
    pjstadig.humane-test-output
    [clojure.test :refer [deftest is testing]]
+   [ray.world :refer [world]]
    [ray.material :refer [material]]
    [ray.light :refer [->PointLight lighting]]
    [ray.shape :refer [hit
@@ -889,3 +890,9 @@
             light   (->PointLight (point3 0 0 10) (rc/color 1 1 1))
             result  (lighting m light position eyev normalv)]
         (is (matrix/eq (rc/color 0.1 0.1 0.1) result))))))
+
+(deftest chapter-seven
+  (testing "Creating a world"
+    (let [w (world)]
+      (is (empty? (:objects w)))
+      (is (nil? (:light w))))))
