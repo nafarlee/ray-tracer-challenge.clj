@@ -12,8 +12,12 @@
 (defrecord Sphere [transform material])
 
 (defn sphere
-  ([] (->Sphere id (material)))
-  ([m] (->Sphere m (material))))
+  ([] (sphere {}))
+  ([m] (map->Sphere
+        (merge
+         {:transform id
+          :material (material)}
+         m))))
 
 (defn intersection [t s]
   {:t t
