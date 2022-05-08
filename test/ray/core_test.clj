@@ -3,7 +3,7 @@
    [clojure.string :as st]
    pjstadig.humane-test-output
    [clojure.test :refer [deftest is testing]]
-   [ray.world :refer [world default-world]]
+   [ray.world :refer [world default-world intersect-world]]
    [ray.material :refer [material]]
    [ray.light :refer [->PointLight lighting]]
    [ray.shape :refer [hit
@@ -910,4 +910,13 @@
           w (default-world)]
       (is (= (:light w) light))
       (is (some (partial = s1) (:objects w)))
-      (is (some (partial = s2) (:objects w))))))
+      (is (some (partial = s2) (:objects w)))))
+  (testing "Intersect a world with a ray"
+    (let [w  (default-world)
+          r  (ray (point3 0 0 -5) (vector3 0 0 1))
+          xs (intersect-world)]
+      (is (= (count xs) 4))
+      (is (= (:t (nth xs 0)) 4))
+      (is (= (:t (nth xs 1)) 4.5))
+      (is (= (:t (nth xs 2)) 5.5))
+      (is (= (:t (nth xs 3)) 6)))))
