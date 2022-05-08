@@ -917,8 +917,8 @@
     (let [w  (default-world)
           r  (ray (point3 0 0 -5) (vector3 0 0 1))
           xs (intersect-world w r)]
-      (is (= (count xs) 4))
-      (is (= (:t (nth xs 0)) 4))
-      (is (= (:t (nth xs 1)) 4.5))
-      (is (= (:t (nth xs 2)) 5.5))
-      (is (= (:t (nth xs 3)) 6)))))
+      (is (= 4 (count xs) 4))
+      (is (= 4 (:t (nth xs 0))))
+      (is (= 4.5 (:t (nth xs 1))))
+      (is (= 5.5 (:t (nth xs 2))))
+      (is (= 6 (:t (nth xs 3)))))))
