@@ -11,6 +11,7 @@
                       intersection
                       intersections
                       normal-at
+                      prepare-computations
                       sphere]]
    [ray.ray :refer [direction origin position ray transform]]
    [ray.math :refer [pi sqrt]]
@@ -921,4 +922,15 @@
       (is (== 4 (:t (nth xs 0))))
       (is (== 4.5 (:t (nth xs 1))))
       (is (== 5.5 (:t (nth xs 2))))
-      (is (== 6 (:t (nth xs 3)))))))
+      (is (== 6 (:t (nth xs 3))))))
+
+  (testing "Precomputing the state of an intersection"
+    (let [r     (ray (point3 0 0 -5) (vector3 0 0 1))
+          shape (sphere)
+          i     (intersection 4 shape)
+          comps (prepare-computations i r)]
+      (is (== (:t i) (:t comps)))
+      (is (== (:object i) (:object comps)))
+      (is (= (point3 0 0 -1) (:point comps)))
+      (is (= (vector3 0 0 -1) (:eyev comps)))
+      (is (= (vector3 0 0 -1) (:normalv comps))))))
