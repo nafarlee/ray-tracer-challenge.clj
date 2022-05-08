@@ -916,7 +916,7 @@
   (testing "Intersect a world with a ray"
     (let [w  (default-world)
           r  (ray (point3 0 0 -5) (vector3 0 0 1))
-          xs (intersect-world)]
+          xs (intersect-world w r)]
       (is (= (count xs) 4))
       (is (= (:t (nth xs 0)) 4))
       (is (= (:t (nth xs 1)) 4.5))
