@@ -2,8 +2,14 @@
   (:require
     [clojure.test :refer [is]]
     [ray.material :refer [material]]
-    [ray.matrix :refer [id inverse multiply submatrix subtract transpose]]
-    [ray.ray :refer [direction origin transform]]
+    [ray.matrix :refer [id
+                        inverse
+                        multiply
+                        negate
+                        submatrix
+                        subtract
+                        transpose]]
+    [ray.ray :refer [direction origin position transform]]
     [ray.math :refer [sqrt square]]
     [ray.point3 :refer [point3]]
     [ray.vector3 :refer [vector3?]]
@@ -57,3 +63,11 @@
                                     transpose)
                                 (submatrix object-normal 3 3))]
     (normalize (conj world-normal [0]))))
+
+(defn prepare-computations [intersection ray]
+  (let [t       (:t intersection)
+        object  (:object intersection)
+        point   (position ray t)
+        eyev    (negate (direction ray))
+        normalv (normal-at object point)]
+    (->Computations t object point eyev normalv)))
