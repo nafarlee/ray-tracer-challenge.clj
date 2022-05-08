@@ -5,7 +5,7 @@
    [ray.matrix :refer [scaling]]
    [ray.color :refer [color]]
    [ray.material :refer [material]]
-   [ray.shape :refer [sphere]]))
+   [ray.shape :refer [sphere intersect]]))
 
 (defrecord World [objects light])
 
@@ -26,3 +26,10 @@
    (->PointLight
     (point3 -10 -10 -10)
     (color 1 1 1))))
+
+(defn intersect-world [w r]
+  (->> w
+       :objects
+       (map #(intersect % r))
+       flatten
+       (sort-by :t)))
