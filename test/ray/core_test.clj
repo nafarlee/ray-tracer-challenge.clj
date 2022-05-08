@@ -930,7 +930,7 @@
           i     (intersection 4 shape)
           comps (prepare-computations i r)]
       (is (== (:t i) (:t comps)))
-      (is (== (:object i) (:object comps)))
+      (is (= (:object i) (:object comps)))
       (is (= (point3 0 0 -1) (:point comps)))
       (is (= (vector3 0 0 -1) (:eyev comps)))
       (is (= (vector3 0 0 -1) (:normalv comps))))))
