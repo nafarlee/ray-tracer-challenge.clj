@@ -896,6 +896,7 @@
     (let [w (world)]
       (is (empty? (:objects w)))
       (is (nil? (:light w)))))
+
   (testing "The default world"
     (let [light (->PointLight (point3 -10 -10 -10) (rc/color 1 1 1))
           s1    (sphere
@@ -911,6 +912,7 @@
       (is (= (:light w) light))
       (is (some (partial = s1) (:objects w)))
       (is (some (partial = s2) (:objects w)))))
+
   (testing "Intersect a world with a ray"
     (let [w  (default-world)
           r  (ray (point3 0 0 -5) (vector3 0 0 1))
