@@ -3,7 +3,7 @@
    [clojure.string :as st]
    pjstadig.humane-test-output
    [clojure.test :refer [deftest is testing]]
-   [ray.world :refer [world]]
+   [ray.world :refer [world default-world]]
    [ray.material :refer [material]]
    [ray.light :refer [->PointLight lighting]]
    [ray.shape :refer [hit
@@ -895,4 +895,19 @@
   (testing "Creating a world"
     (let [w (world)]
       (is (empty? (:objects w)))
-      (is (nil? (:light w))))))
+      (is (nil? (:light w)))))
+  (testing "The default world"
+    (let [light (->PointLight (point3 -10 -10 -10) (rc/color 1 1 1))
+          s1    (sphere
+                 {:material
+                  (material
+                   {:color    (rc/color 0.8 1.0 0.6)
+                    :diffuse  0.7
+                    :specular 0.2})})
+          s2    (sphere
+                 {:transform
+                  (matrix/scaling 0.5 0.5 0.5)})
+          w (default-world)]
+      (is (= (:light w) light))
+      (is (some (partial = s1) (:objects w)))
+      (is (some (partial = s2) (:objects w))))))
