@@ -11,6 +11,8 @@
 
 (defrecord Sphere [transform material])
 
+(defrecord Computations [t object point eyev normalv])
+
 (defn sphere
   ([] (sphere {}))
   ([m] (map->Sphere
