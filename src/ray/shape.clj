@@ -17,7 +17,7 @@
 
 (defrecord Sphere [transform material])
 
-(defrecord Computations [t object point eyev normalv])
+(defrecord Computations [t object point eyev normalv inside])
 
 (defn sphere
   ([] (sphere {}))
@@ -70,5 +70,9 @@
         object  (:object intersection)
         point   (position ray t)
         eyev    (negate (direction ray))
-        normalv (normal-at object point)]
-    (->Computations t object point eyev normalv)))
+        normalv (normal-at object point)
+        inside  (neg? (dot normalv eyev))
+        normalv (if inside
+                  (negate normalv)
+                  normalv)]
+    (->Computations t object point eyev normalv inside)))
