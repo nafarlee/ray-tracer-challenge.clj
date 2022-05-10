@@ -766,13 +766,13 @@
 
   (testing "Intersecting a scaled sphere with a ray"
     (let [r (ray (point3 0 0 -5) (vector3 0 0 1))
-          s (sphere {:transform (matrix/scaling 2 2 2)})
+          s (sphere :transform (matrix/scaling 2 2 2))
           xs (intersect s r)]
       (is (= (mapv :t xs) [3.0 7.0]))))
 
   (testing "Intersecting a translated sphere with a ray"
     (let [r (ray (point3 0 0 -5) (vector3 0 0 1))
-          s (sphere {:transform (matrix/translation 5 0 0)})
+          s (sphere :transform (matrix/translation 5 0 0))
           xs (intersect s r)]
       (is (= xs [])))))
 
@@ -805,14 +805,14 @@
       (is (matrix/eq n (tuple/normalize n)))))
 
   (testing "Computing the normal on a translated sphere"
-    (let [s (sphere {:transform (matrix/translation 0 1 0)})
+    (let [s (sphere :transform (matrix/translation 0 1 0))
           n (normal-at s (point3 0 1.70711 -0.70711))]
       (is (matrix/eq n (vector3 0 0.70711 -0.70711)))))
 
   (testing "Computing the normal on a transformed sphere"
     (let [m (matrix/multiply (matrix/scaling 1 0.5 1)
                              (matrix/rotation-z (/ pi 5)))
-          s (sphere {:transform m})
+          s (sphere :transform m)
           v (/ (sqrt 2) 2)
           n (normal-at s (point3 0 v (- v)))]
       (is (matrix/eq n (vector3 0 0.97014 -0.24254)))))
@@ -901,14 +901,12 @@
   (testing "The default world"
     (let [light (->PointLight (point3 -10 -10 -10) (rc/color 1 1 1))
           s1    (sphere
-                 {:material
-                  (material
-                   {:color    (rc/color 0.8 1.0 0.6)
-                    :diffuse  0.7
-                    :specular 0.2})})
-          s2    (sphere
-                 {:transform
-                  (matrix/scaling 0.5 0.5 0.5)})
+                 :material
+                 (material
+                  :color    (rc/color 0.8 1.0 0.6)
+                  :diffuse  0.7
+                  :specular 0.2))
+          s2    (sphere :transform (matrix/scaling 0.5 0.5 0.5))
           w (default-world)]
       (is (= (:light w) light))
       (is (some (partial = s1) (:objects w)))
