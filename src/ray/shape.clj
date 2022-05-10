@@ -21,11 +21,12 @@
 
 (defn sphere
   ([] (sphere {}))
-  ([m] (map->Sphere
-        (merge
-         {:transform id
-          :material (material)}
-         m))))
+  ([& {:as opts}]
+   (map->Sphere
+    (merge
+     {:transform id
+      :material (material)}
+     opts))))
 
 (defn intersection [t s]
   {:t t
