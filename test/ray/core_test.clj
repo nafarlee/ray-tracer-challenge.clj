@@ -931,4 +931,21 @@
       (is (= (:object i) (:object comps)))
       (is (= (point3 0 0 -1) (:point comps)))
       (is (= (vector3 0 0 -1) (:eyev comps)))
-      (is (= (vector3 0 0 -1) (:normalv comps))))))
+      (is (= (vector3 0 0 -1) (:normalv comps)))))
+
+  (testing "The hit, when an intersection occurs on the outside"
+    (let [r     (ray (point3 0 0 -5) (vector3 0 0 1))
+          shape (sphere)
+          i     (intersection 4 shape)
+          comps (prepare-computations i r)]
+      (is (false? (:inside comps)))))
+
+  (testing "The hit, when an intersection occurs on the outside"
+    (let [r     (ray (point3 0 0 0) (vector3 0 0 1))
+          shape (sphere)
+          i     (intersection 1 shape)
+          comps (prepare-computations i r)]
+      (is (= (point3 0 0 1) (:point comps)))
+      (is (= (vector3 0 0 -1) (:eyev comps)))
+      (is (= (vector3 0 0 -1) (:normalv comps)))
+      (is (true? (:inside comps))))))
