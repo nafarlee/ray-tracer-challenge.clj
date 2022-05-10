@@ -28,3 +28,6 @@
        (map #(intersect % r))
        flatten
        (sort-by :t)))
+
+(defn shade-hit [w comps]
+  (color 1 1 1))
