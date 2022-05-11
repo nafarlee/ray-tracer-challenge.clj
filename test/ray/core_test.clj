@@ -991,4 +991,17 @@
           to   (point3 0 0 0)
           up   (vector3 0 1 0)
           t    (view-transform from to up)]
-      (is (matrix/eq (matrix/translation 0 0 -8) t)))))
+      (is (matrix/eq (matrix/translation 0 0 -8) t))))
+
+  (testing "An arbitrary view transformation"
+    (let [from (point3 1 3 2)
+          to   (point3 4 -2 8)
+          up   (vector3 1 1 0)
+          t    (view-transform from to up)]
+      (is
+       (matrix/eq
+        [[-0.50709  0.50709  0.67612  -2.36643]
+         [ 0.76772  0.60609  0.12122  -2.82843]
+         [-0.35857  0.59761 -0.71714   0.00000]
+         [ 0.00000  0.00000  0.00000   1.00000]]
+        t)))))
