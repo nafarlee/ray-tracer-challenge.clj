@@ -984,4 +984,11 @@
           to   (point3 0 0 1)
           up   (vector3 0 1 0)
           t    (view-transform from to up)]
-      (is (matrix/eq (matrix/scaling -1 1 -1) t)))))
+      (is (matrix/eq (matrix/scaling -1 1 -1) t))))
+
+  (testing "The view transformation moves the world"
+    (let [from (point3 0 0 8)
+          to   (point3 0 0 0)
+          up   (vector3 0 1 0)
+          t    (view-transform from to up)]
+      (is (matrix/eq (matrix/translation 0 0 -8) t)))))
