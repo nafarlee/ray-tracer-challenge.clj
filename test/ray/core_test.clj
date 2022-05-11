@@ -963,4 +963,10 @@
     (let [w (default-world)
           r (ray (point3 0 0 -5) (vector3 0 1 0))
           c (color-at w r)]
-      (is (matrix/eq (rc/color 0 0 0) c)))))
+      (is (matrix/eq (rc/color 0 0 0) c))))
+
+  (testing "The color when a ray hits"
+    (let [w (default-world)
+          r (ray (point3 0 0 -5) (vector3 0 0 1))
+          c (color-at w r)]
+      (is (matrix/eq (rc/color 0.38066 0.47583 0.2855) c)))))
