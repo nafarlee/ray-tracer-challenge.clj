@@ -3,6 +3,7 @@
    [clojure.string :as st]
    pjstadig.humane-test-output
    [clojure.test :refer [deftest is testing]]
+   [ray.transform :refer [view-transform]]
    [ray.world :refer [world color-at shade-hit default-world intersect-world]]
    [ray.material :refer [material]]
    [ray.light :refer [->PointLight lighting]]
@@ -969,4 +970,11 @@
     (let [w (default-world)
           r (ray (point3 0 0 -5) (vector3 0 0 1))
           c (color-at w r)]
-      (is (matrix/eq (rc/color 0.38066 0.47583 0.2855) c)))))
+      (is (matrix/eq (rc/color 0.38066 0.47583 0.2855) c))))
+
+  (testing "The transformation matrix for the default orientation"
+    (let [from (point3 0 0 0)
+          to   (point3 0 0 -1)
+          up   (vector3 0 1 0)
+          t    (view-transform from to up)]
+      (is (matrix/eq matrix/id t)))))
