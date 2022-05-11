@@ -1,7 +1,7 @@
 (ns ray.world
   (:require
    [ray.point3 :refer [point3]]
-   [ray.light :refer [->PointLight]]
+   [ray.light :refer [->PointLight lighting]]
    [ray.matrix :refer [scaling]]
    [ray.color :refer [color]]
    [ray.material :refer [material]]
@@ -29,5 +29,5 @@
        flatten
        (sort-by :t)))
 
-(defn shade-hit [w comps]
-  (color 1 1 1))
+(defn shade-hit [{:keys [light]} {:keys [object point eyev normalv]}]
+  (lighting (:material object) light point eyev normalv))
