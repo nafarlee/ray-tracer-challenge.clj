@@ -3,9 +3,9 @@
    [ray.point3 :refer [point3]]
    [ray.light :refer [->PointLight lighting]]
    [ray.matrix :refer [scaling]]
-   [ray.color :refer [color]]
+   [ray.color :refer [black color]]
    [ray.material :refer [material]]
-   [ray.shape :refer [sphere intersect]]))
+   [ray.shape :refer [sphere intersect prepare-computations]]))
 
 (defrecord World [objects light])
 
@@ -31,3 +31,9 @@
 
 (defn shade-hit [{:keys [light]} {:keys [object point eyev normalv]}]
   (lighting (:material object) light point eyev normalv))
+
+(defn color-at [w r]
+  (let [intersections (intersect-world w r)]
+    (if (empty? intersections)
+      black
+      (shade-hit w (prepare-computations (first intersections) r)))))
