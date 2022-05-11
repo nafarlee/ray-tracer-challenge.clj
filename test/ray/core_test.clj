@@ -3,7 +3,7 @@
    [clojure.string :as st]
    pjstadig.humane-test-output
    [clojure.test :refer [deftest is testing]]
-   [ray.world :refer [world shade-hit default-world intersect-world]]
+   [ray.world :refer [world color-at shade-hit default-world intersect-world]]
    [ray.material :refer [material]]
    [ray.light :refer [->PointLight lighting]]
    [ray.shape :refer [hit
@@ -957,4 +957,10 @@
           i     (intersection 4 shape)
           comps (prepare-computations i r)
           c     (shade-hit w comps)]
-      (is (matrix/eq (rc/color 0.38066 0.47583 0.2855) c)))))
+      (is (matrix/eq (rc/color 0.38066 0.47583 0.2855) c))))
+
+  (testing "The color when a ray misses"
+    (let [w (default-world)
+          r (ray (point3 0 0 -5) (vector3 0 1 0))
+          c (color-at w r)]
+      (is (matrix/eq (rc/color 0 0 0) c)))))
