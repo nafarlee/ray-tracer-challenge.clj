@@ -977,4 +977,11 @@
           to   (point3 0 0 -1)
           up   (vector3 0 1 0)
           t    (view-transform from to up)]
-      (is (matrix/eq matrix/id t)))))
+      (is (matrix/eq matrix/id t))))
+
+  (testing "A view transformation matrix looking in positive z direction"
+    (let [from (point3 0 0 0)
+          to   (point3 0 0 1)
+          up   (vector3 0 1 0)
+          t    (view-transform from to up)]
+      (is (matrix/eq (matrix/scaling -1 1 -1) t)))))
