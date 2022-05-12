@@ -19,7 +19,7 @@
 
 (pjstadig.humane-test-output/activate!)
 
-(deftest tuples
+(deftest tuples.feature
   (testing "A tuple with w=1.0 is a point"
     (let [[[x]
            [y]
@@ -190,4 +190,3 @@
           n    (vector3 root root 0)
           r    (reflect v n)]
       (is (eq r (vector3 1 0 0))))))
-
