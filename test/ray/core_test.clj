@@ -24,36 +24,6 @@
 (pjstadig.humane-test-output/activate!)
 
 (deftest chapter-five
-  (testing "A ray intersects a sphere at two points"
-    (let [r (ray (point3 0 0 -5) (vector3 0 0 1))
-          s (sphere)
-          xs (intersect s r)]
-      (is (= (mapv :t xs) [4.0 6.0]))))
-
-  (testing "A ray intersects a sphere at a tangent"
-    (let [r (ray (point3 0 1 -5) (vector3 0 0 1))
-          s (sphere)
-          xs (intersect s r)]
-      (is (= (mapv :t xs) [5.0 5.0]))))
-
-  (testing "A ray misses a sphere"
-    (let [r (ray (point3 0 2 -5) (vector3 0 0 1))
-          s (sphere)
-          xs (intersect s r)]
-      (is (= xs []))))
-
-  (testing "A ray originates inside a sphere"
-    (let [r (ray (point3 0 0 0) (vector3 0 0 1))
-          s (sphere)
-          xs (intersect s r)]
-      (is (= (mapv :t xs) [-1.0 1.0]))))
-
-  (testing "A sphere is behind a ray"
-    (let [r (ray (point3 0 0 5) (vector3 0 0 1))
-          s (sphere)
-          xs (intersect s r)]
-      (is (= (mapv :t xs) [-6.0 -4.0]))))
-
   (testing "An intersection encapsulates t and object"
     (let [s (sphere)
           i (intersection 3.5 s)]
