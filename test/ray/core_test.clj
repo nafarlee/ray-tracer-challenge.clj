@@ -17,13 +17,6 @@
 (pjstadig.humane-test-output/activate!)
 
 (deftest chapter-six
-  (testing "A point light has a position and intensity"
-    (let [intensity (rc/color 1 1 1)
-          position  (point3 0 0 0)
-          light     (->PointLight position intensity)]
-      (is (= (:position light) position))
-      (is (= (:intensity light) intensity))))
-
   (testing "The default material"
     (let [m (material)]
       (is (= (:color m) (rc/color 1 1 1)))
