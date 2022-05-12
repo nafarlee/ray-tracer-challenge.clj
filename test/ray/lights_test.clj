@@ -6,6 +6,8 @@
    [ray.light :refer [->PointLight]]
    [ray.point3 :refer [point3]]))
 
+(pjstadig.humane-test-output/activate!)
+
 (deftest lights.feature
   (testing "A point light has a position and intensity"
     (let [intensity (color 1 1 1)

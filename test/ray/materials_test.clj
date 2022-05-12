@@ -10,6 +10,8 @@
    [ray.color :refer [color]]
    [ray.material :refer [material]]))
 
+(pjstadig.humane-test-output/activate!)
+
 (deftest materials.feature
   (testing "The default material"
     (let [m (material)]
