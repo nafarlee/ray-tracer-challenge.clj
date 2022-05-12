@@ -4,7 +4,14 @@
    pjstadig.humane-test-output
    [ray.point3 :refer [point3]]
    [ray.vector3 :refer [vector3]]
-   [ray.shape :refer [sphere hit intersect intersection intersections]]
+   [ray.shape
+    :refer
+    [sphere
+     hit
+     intersect
+     intersection
+     intersections
+     prepare-computations]]
    [ray.ray :refer [ray]]))
 
 (pjstadig.humane-test-output/activate!)
@@ -57,4 +64,32 @@
           i3 (intersection -3 s)
           i4 (intersection 2 s)
           xs (intersections i1 i2 i3 i4)]
-      (is (= (hit xs) i4)))))
+      (is (= (hit xs) i4))))
+
+  (testing "Precomputing the state of an intersection"
+    (let [r     (ray (point3 0 0 -5) (vector3 0 0 1))
+          shape (sphere)
+          i     (intersection 4 shape)
+          comps (prepare-computations i r)]
+      (is (== (:t i) (:t comps)))
+      (is (= (:object i) (:object comps)))
+      (is (= (point3 0 0 -1) (:point comps)))
+      (is (= (vector3 0 0 -1) (:eyev comps)))
+      (is (= (vector3 0 0 -1) (:normalv comps)))))
+
+  (testing "The hit, when an intersection occurs on the outside"
+    (let [r     (ray (point3 0 0 -5) (vector3 0 0 1))
+          shape (sphere)
+          i     (intersection 4 shape)
+          comps (prepare-computations i r)]
+      (is (false? (:inside comps)))))
+
+  (testing "The hit, when an intersection occurs on the outside"
+    (let [r     (ray (point3 0 0 0) (vector3 0 0 1))
+          shape (sphere)
+          i     (intersection 1 shape)
+          comps (prepare-computations i r)]
+      (is (= (point3 0 0 1) (:point comps)))
+      (is (= (vector3 0 0 -1) (:eyev comps)))
+      (is (= (vector3 0 0 -1) (:normalv comps)))
+      (is (true? (:inside comps))))))

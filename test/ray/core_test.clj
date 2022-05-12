@@ -3,8 +3,6 @@
    pjstadig.humane-test-output
    [clojure.test :refer [deftest is testing]]
    [ray.transform :refer [view-transform]]
-   [ray.shape :refer [intersection prepare-computations sphere]]
-   [ray.ray :refer [ray]]
    [ray.matrix :as matrix]
    [ray.vector3 :refer [vector3]]
    [ray.point3 :refer [point3]]))
@@ -12,34 +10,6 @@
 (pjstadig.humane-test-output/activate!)
 
 (deftest chapter-seven
-  (testing "Precomputing the state of an intersection"
-    (let [r     (ray (point3 0 0 -5) (vector3 0 0 1))
-          shape (sphere)
-          i     (intersection 4 shape)
-          comps (prepare-computations i r)]
-      (is (== (:t i) (:t comps)))
-      (is (= (:object i) (:object comps)))
-      (is (= (point3 0 0 -1) (:point comps)))
-      (is (= (vector3 0 0 -1) (:eyev comps)))
-      (is (= (vector3 0 0 -1) (:normalv comps)))))
-
-  (testing "The hit, when an intersection occurs on the outside"
-    (let [r     (ray (point3 0 0 -5) (vector3 0 0 1))
-          shape (sphere)
-          i     (intersection 4 shape)
-          comps (prepare-computations i r)]
-      (is (false? (:inside comps)))))
-
-  (testing "The hit, when an intersection occurs on the outside"
-    (let [r     (ray (point3 0 0 0) (vector3 0 0 1))
-          shape (sphere)
-          i     (intersection 1 shape)
-          comps (prepare-computations i r)]
-      (is (= (point3 0 0 1) (:point comps)))
-      (is (= (vector3 0 0 -1) (:eyev comps)))
-      (is (= (vector3 0 0 -1) (:normalv comps)))
-      (is (true? (:inside comps)))))
-
   (testing "The transformation matrix for the default orientation"
     (let [from (point3 0 0 0)
           to   (point3 0 0 -1)
