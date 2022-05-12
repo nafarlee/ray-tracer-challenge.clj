@@ -11,7 +11,7 @@
                       normal-at
                       prepare-computations
                       sphere]]
-   [ray.ray :refer [direction origin ray transform]]
+   [ray.ray :refer [ray]]
    [ray.math :refer [pi sqrt]]
    [ray.matrix :as matrix]
    [ray.tuple :as tuple]
@@ -22,20 +22,6 @@
 (pjstadig.humane-test-output/activate!)
 
 (deftest chapter-five
-  (testing "Translating a ray"
-    (let [r (ray (point3 1 2 3) (vector3 0 1 0))
-          m (matrix/translation 3 4 5)
-          r2 (transform r m)]
-      (is (= (origin r2) (point3 4 6 8)))
-      (is (= (direction r2) (vector3 0 1 0)))))
-
-  (testing "Scaling a ray"
-    (let [r (ray (point3 1 2 3) (vector3 0 1 0))
-          m (matrix/scaling 2 3 4)
-          r2 (transform r m)]
-      (is (= (origin r2) (point3 2 6 12)))
-      (is (= (direction r2) (vector3 0 3 0)))))
-
   (testing "A sphere's default transformation"
     (let [s (sphere)]
       (is (= (:transform s) matrix/id))))
