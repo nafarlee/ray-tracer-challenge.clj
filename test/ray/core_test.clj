@@ -1,6 +1,5 @@
 (ns ray.core-test
   (:require
-   [clojure.string :as st]
    pjstadig.humane-test-output
    [clojure.test :refer [deftest is testing]]
    [ray.transform :refer [view-transform]]
@@ -19,84 +18,10 @@
    [ray.matrix :as matrix]
    [ray.tuple :as tuple]
    [ray.color :as rc]
-   [ray.canvas :as rcan]
-   [ray.ppm :as rp]
    [ray.vector3 :refer [vector3]]
-   [ray.point3 :refer [point3]]
-   [ray.string :as rs]))
+   [ray.point3 :refer [point3]]))
 
 (pjstadig.humane-test-output/activate!)
-
-(deftest chapter-two
-  (testing "Creating a canvas"
-    (let [c (rcan/canvas 10 20)]
-      (is (== (:width c) 10))
-      (is (== (:height c) 20))
-      (is (every? (partial matrix/eq (rc/color 0 0 0))
-                  (:pixels c)))))
-
-  (testing "Writing pixels to a canvas"
-    (let [c (rcan/canvas 10 20)
-          red (rc/color 1 0 0)]
-      (is (matrix/eq red
-                     (-> c
-                         (rcan/write-pixel 2 3 red)
-                         (rcan/pixel-at 2 3))))))
-
-  (testing "Constructing the PPM header"
-    (let [c (rcan/canvas 5 3)
-          ppm (rp/canvas->ppm c)
-          header (->> ppm (st/split-lines) (take 3) (st/join "\n"))]
-      (is (= header (rs/$ "
-                          P3
-                          5 3
-                          255
-                          ")))))
-
-  (testing "Constructing the PPM pixel data"
-    (let [c (rcan/canvas 5 3)
-          c1 (rc/color 1.5 0 0)
-          c2 (rc/color 0 0.5 0)
-          c3 (rc/color -0.5 0 1)]
-      (is (= (as-> c %
-                   (rcan/write-pixel % 0 0 c1)
-                   (rcan/write-pixel % 2 1 c2)
-                   (rcan/write-pixel % 4 2 c3)
-                   (rp/canvas->ppm %)
-                   (st/split-lines %)
-                   (drop 3 %)
-                   (take 3 %)
-                   (st/join "\n" %))
-             (rs/$ "
-                   255 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-                   0 0 0 0 0 0 0 128 0 0 0 0 0 0 0
-                   0 0 0 0 0 0 0 0 0 0 0 0 0 0 255
-                   ")))))
-
-  (testing "Splitting long lines in PPM files"
-    (let [c (rcan/canvas 10 2)
-          color (rc/color 1 0.8 0.6)]
-      (is (= (as-> c $
-                   (reduce (fn [can [x y]] (rcan/write-pixel can x y color))
-                           $
-                           (for [x (range 10), y (range 2)] [x y]))
-                   (rp/canvas->ppm $)
-                   (st/split-lines $)
-                   (drop 3 $)
-                   (take 4 $)
-                   (st/join "\n" $))
-             (rs/$ "
-                   255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204
-                   153 255 204 153 255 204 153 255 204 153 255 204 153
-                   255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204
-                   153 255 204 153 255 204 153 255 204 153 255 204 153
-                   ")))))
-
-  (testing "PPM files are terminated by a newline character"
-    (let [c (rcan/canvas 5 3)]
-      (is (st/ends-with? (rp/canvas->ppm c)
-                         "\n")))))
-
 
 (deftest chapter-three
   (testing "Constructing and inspecting a 4x4 matrix"
