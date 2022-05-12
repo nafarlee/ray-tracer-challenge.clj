@@ -2,11 +2,14 @@
   (:require
    [clojure.string :refer [split-lines join ends-with?]]
    [clojure.test :refer [deftest is testing]]
+   pjstadig.humane-test-output
    [ray.string :refer [$]]
    [ray.ppm :refer [canvas->ppm]]
    [ray.matrix :refer [eq]]
    [ray.color :refer [color]]
    [ray.canvas :refer [canvas write-pixel pixel-at]]))
+
+(pjstadig.humane-test-output/activate!)
 
 (deftest canvas.feature
   (testing "Creating a canvas"
