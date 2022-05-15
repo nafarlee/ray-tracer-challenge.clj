@@ -3,7 +3,7 @@
     [clojure.test :refer [deftest is testing]]
     pjstadig.humane-test-output
     [ray.camera :refer [camera]]
-    [ray.matrix :refer [id]]
+    [ray.matrix :refer [eq id]]
     [ray.math :refer [pi]]))
 
 (pjstadig.humane-test-output/activate!)
@@ -17,7 +17,7 @@
       (is (== 160 (:hsize c)))
       (is (== 120 (:vsize c)))
       (is (== (/ pi 2) (:field-of-view c)))
-      (is (= id (:transform c)))))
+      (is (eq id (:transform c)))))
 
   (testing "The pixel size for a horizontal canvas"
     (let [c (camera 200 125 (/ pi 2))]
