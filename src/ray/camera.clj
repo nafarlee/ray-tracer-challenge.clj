@@ -19,3 +19,12 @@
        (if (>= aspect 1)
          half-view
          (* half-view aspect))))))
+
+(def half-height
+  (memoize
+   (fn [{:keys [field-of-view hsize vsize]}]
+     (let [half-view (tan (/ field-of-view 2))
+           aspect    (/ hsize vsize)]
+       (if (>= aspect 1)
+         (/ half-view aspect)
+         half-view)))))
