@@ -2,6 +2,7 @@
   (:require
     [clojure.test :refer [deftest is testing]]
     pjstadig.humane-test-output
+    [ray.ray :refer [origin direction]]
     [ray.vector3 :refer [vector3]]
     [ray.point3 :refer [point3]]
     [ray.camera :refer [camera pixel-size ray-for-pixel]]
@@ -32,14 +33,14 @@
   (testing "Constructing a ray through the center of the canvas"
     (let [c (camera 201 101 (/ pi 2))
           r (ray-for-pixel c 100 50)]
-      (is (eq (point3 0 0 0) (:origin r)))
-      (is (eq (vector3 0 0 -1) (:direction r)))))
+      (is (eq (point3 0 0 0) (origin r)))
+      (is (eq (vector3 0 0 -1) (direction r)))))
 
   (testing "Constructing a ray through the corner of the canvas"
     (let [c (camera 201 101 (/ pi 2))
           r (ray-for-pixel c 0 0)]
-      (is (eq (point3 0 0 0) (:origin r)))
-      (is (eq (vector3 0.66519 0.33259 -0.66851) (:direction r)))))
+      (is (eq (point3 0 0 0) (origin r)))
+      (is (eq (vector3 0.66519 0.33259 -0.66851) (direction r)))))
 
   (testing "Constructing a ray when the camera is transformed"
     (let [c (camera
@@ -48,6 +49,6 @@
              (/ pi 2)
              (multiply (rotation-y (/ pi 4)) (translation 0 -2 5)))
           r (ray-for-pixel c 100 50)]
-      (is (eq (point3 0 2 -5) (:origin r)))
+      (is (eq (point3 0 2 -5) (origin r)))
       (is (eq (vector3 (/ (sqrt 2) 2) 0 (- (/ (sqrt 2) 2)))
-              (:direction r))))))
+              (direction r))))))
