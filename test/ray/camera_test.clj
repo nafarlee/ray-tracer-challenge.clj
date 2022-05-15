@@ -17,7 +17,7 @@
       (is (== 160 (:hsize c)))
       (is (== 120 (:vsize c)))
       (is (== (/ pi 2) (:field-of-view c)))
-      (is (== id (:transform c)))))
+      (is (= id (:transform c)))))
 
   (testing "The pixel size for a horizontal canvas"
     (let [c (camera 200 125 (/ pi 2))]
