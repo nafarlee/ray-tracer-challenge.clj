@@ -28,3 +28,8 @@
        (if (>= aspect 1)
          (/ half-view aspect)
          half-view)))))
+
+(def pixel-size
+  (memoize
+   (fn [{:keys [hsize] :as camera}]
+     (/ (* 2 (half-width camera)) hsize))))
