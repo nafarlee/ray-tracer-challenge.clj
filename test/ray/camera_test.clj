@@ -2,9 +2,9 @@
   (:require
     [clojure.test :refer [deftest is testing]]
     pjstadig.humane-test-output
-    [ray.camera :refer [camera]]
+    [ray.camera :refer [camera pixel-size]]
     [ray.matrix :refer [eq id]]
-    [ray.math :refer [pi]]))
+    [ray.math :refer [float= pi]]))
 
 (pjstadig.humane-test-output/activate!)
 
@@ -21,8 +21,8 @@
 
   (testing "The pixel size for a horizontal canvas"
     (let [c (camera 200 125 (/ pi 2))]
-      (is (== 0.01 (:pixel-size c)))))
+      (is (float= 0.01 (pixel-size c)))))
 
   (testing "The pixel size for a vertical canvas"
     (let [c (camera 125 200 (/ pi 2))]
-      (is (== 0.01 (:pixel-size c))))))
+      (is (float= 0.01 (pixel-size c))))))
