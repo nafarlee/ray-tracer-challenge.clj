@@ -24,6 +24,9 @@
 (defn cos [x]
   (Math/cos x))
 
+(defn tan [x]
+  (Math/tan x))
+
 (defn sqrt [x]
   (Math/sqrt x))
 
