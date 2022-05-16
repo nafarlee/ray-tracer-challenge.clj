@@ -41,7 +41,7 @@
   (let [xoffset   (* (pixel-size camera) (+ px 0.5))
         yoffset   (* (pixel-size camera) (+ py 0.5))
         world-x   (- (half-width camera) xoffset)
-        world-y   (- (half-width camera) yoffset)
+        world-y   (- (half-height camera) yoffset)
         pixel     (multiply (inverse transform)
                             (point3 world-x world-y -1))
         origin    (multiply (inverse transform)
