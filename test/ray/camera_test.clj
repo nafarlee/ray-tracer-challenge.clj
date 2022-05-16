@@ -58,11 +58,11 @@
               (direction r)))))
 
   (testing "Rendering a world with a camera"
-    (let [w (default-world)
-          from (point3 0 0 -5)
-          to (point3 0 0 0)
-          up (vector3 0 1 0)
-          c (camera 11 11 (/ pi 2) (view-transform from to up))
+    (let [w     (default-world)
+          from  (point3 0 0 -5)
+          to    (point3 0 0 0)
+          up    (vector3 0 1 0)
+          c     (camera 11 11 (/ pi 2) (view-transform from to up))
           image (render c w)]
       (is (eq (color 0.38066 0.47583 0.2855)
               (pixel-at image 5 5))))))
