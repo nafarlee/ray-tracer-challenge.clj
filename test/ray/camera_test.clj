@@ -2,11 +2,15 @@
   (:require
     [clojure.test :refer [deftest is testing]]
     pjstadig.humane-test-output
+    [ray.canvas :refer [pixel-at]]
     [ray.ray :refer [origin direction]]
+    [ray.color :refer [color]]
     [ray.vector3 :refer [vector3]]
     [ray.point3 :refer [point3]]
-    [ray.camera :refer [camera pixel-size ray-for-pixel]]
+    [ray.camera :refer [camera pixel-size ray-for-pixel render]]
     [ray.matrix :refer [eq id multiply rotation-y translation]]
+    [ray.world :refer [default-world]]
+    [ray.transform :refer [view-transform]]
     [ray.math :refer [float= pi sqrt]]))
 
 (pjstadig.humane-test-output/activate!)
@@ -51,4 +55,14 @@
           r (ray-for-pixel c 100 50)]
       (is (eq (point3 0 2 -5) (origin r)))
       (is (eq (vector3 (/ (sqrt 2) 2) 0 (- (/ (sqrt 2) 2)))
-              (direction r))))))
+              (direction r)))))
+
+  (testing "Rendering a world with a camera"
+    (let [w (default-world)
+          from (point3 0 0 -5)
+          to (point3 0 0 0)
+          up (vector3 0 1 0)
+          c (camera 11 11 (/ pi 2) (view-transform from to up))
+          image (render c w)]
+      (is (eq (color 0.38066 0.47583 0.2855)
+              (pixel-at image 5 5))))))
