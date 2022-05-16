@@ -1,5 +1,7 @@
 (ns ray.camera
   (:require
+   [ray.canvas :refer [->Canvas]]
+   [ray.world :refer [color-at]]
    [ray.tuple :refer [normalize]]
    [ray.ray :refer [ray]]
    [ray.point3 :refer [point3]]
@@ -48,3 +50,9 @@
                             (point3 0 0 0))
         direction (normalize (subtract pixel origin))]
     (ray origin direction)))
+
+(defn render [{:keys [hsize vsize] :as camera} world]
+  (-> (for [x (range hsize)
+            y (range vsize)]
+        (color-at world (ray-for-pixel camera x y)))
+      (->Canvas hsize vsize)))
