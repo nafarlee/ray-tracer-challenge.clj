@@ -2,9 +2,7 @@
   (:require
     [clojure.string :as st]
     [ray.string :as rs]
-    [ray.math :refer [clamp round]]
-    [ray.canvas :as rcan]
-    [ray.color :as rc]))
+    [ray.math :refer [clamp round]]))
 
 (defn str-wrap [max-length xs]
   (->> (reduce (fn [[s & lines] a]
