@@ -24,17 +24,20 @@
       rs/$
       (format (:width c) (:height c))))
 
+(defn- colors->lace [cs]
+  (->> cs
+       flatten
+       (map (partial * 255))
+       (map (partial clamp 0 255))
+       (map double)
+       (map round)
+       (str-wrap 70)))
+
 (defn ppm-body [c]
   (->> c
        :pixels
        (partition (:width c))
-       (map #(->> %
-                  flatten
-                  (map (partial * 255))
-                  (map (partial clamp 0 255))
-                  (map double)
-                  (map round)
-                  (str-wrap 70)))
+       (map colors->lace)
        (st/join "\n")))
 
 (defn canvas->ppm [c]
