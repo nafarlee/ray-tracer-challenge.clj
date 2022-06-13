@@ -33,10 +33,9 @@
        (map round)
        (str-wrap 70)))
 
-(defn ppm-body [c]
-  (->> c
-       :pixels
-       (partition (:width c))
+(defn ppm-body [{:keys [pixels width]}]
+  (->> pixels
+       (partition width)
        (map colors->lace)
        (st/join "\n")))
 
