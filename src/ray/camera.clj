@@ -1,6 +1,7 @@
 (ns ray.camera
   (:require
-   [ray.canvas :refer [->Canvas]]
+   [clojure.test :refer [is]]
+   [ray.canvas :refer [canvas? ->Canvas]]
    [ray.world :refer [color-at]]
    [ray.tuple :refer [normalize]]
    [ray.ray :refer [ray]]
@@ -52,7 +53,9 @@
     (ray origin direction)))
 
 (defn render [{:keys [hsize vsize] :as camera} world]
+  {:post [(is (canvas? %))]}
   (-> (for [x (range hsize)
             y (range vsize)]
         (color-at world (ray-for-pixel camera x y)))
+      vec
       (->Canvas hsize vsize)))
