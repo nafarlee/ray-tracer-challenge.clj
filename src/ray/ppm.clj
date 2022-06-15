@@ -1,6 +1,7 @@
 (ns ray.ppm
   (:require
     [clojure.string :as st]
+    [clojure.test :refer [is]]
     [ray.string :as rs]
     [ray.math :refer [clamp round]]))
 
@@ -34,6 +35,8 @@
        (str-wrap 70)))
 
 (defn ppm-body [{:keys [pixels width]}]
+  {:pre [(is (vector? pixels))
+         (is (number? width))]}
   (->> pixels
        (partition width)
        (map colors->lace)
