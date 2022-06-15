@@ -1,8 +1,15 @@
 (ns ray.canvas
   (:require
-    [ray.color :refer [color]]))
+    [ray.color :refer [color color?]]))
 
 (defrecord Canvas [pixels width height])
+
+(defn canvas? [{:keys [pixels width height]}]
+  (and
+   (vector? pixels)
+   (every? color? pixels)
+   (number? width)
+   (number? height)))
 
 (defn canvas [w h]
   (-> (* w h)
