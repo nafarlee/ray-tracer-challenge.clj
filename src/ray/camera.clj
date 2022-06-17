@@ -1,5 +1,6 @@
 (ns ray.camera
   (:require
+   [clojure.core.reducers :as r]
    [clojure.test :refer [is]]
    [ray.canvas :refer [canvas? ->Canvas]]
    [ray.world :refer [color-at]]
@@ -54,8 +55,11 @@
 
 (defn render [{:keys [hsize vsize] :as camera} world]
   {:post [(is (canvas? %))]}
-  (-> (for [x (range hsize)
-            y (range vsize)]
-        (color-at world (ray-for-pixel camera x y)))
-      vec
-      (->Canvas hsize vsize)))
+  (->Canvas
+   (->> (for [x (range hsize) y (range vsize)] [x y])
+        vec
+        (r/map (fn [[x y]] (color-at world (ray-for-pixel camera x y))))
+        r/foldcat
+        (into []))
+   hsize
+   vsize))
