@@ -1,12 +1,19 @@
 (ns ray.core
   (:require
+    [ray.camera :refer [camera render]]
+    [ray.transform :refer [view-transform]]
+    [ray.world :refer [->World]]
+    [ray.material :refer [material]]
     [ray.ray :refer [direction position ray]]
     [ray.shape :refer [intersect hit normal-at sphere]]
     [ray.matrix :refer [add
                         chain
                         negate
+                        rotation-x
+                        rotation-y
                         rotation-z
                         scalar-multiply
+                        scaling
                         subtract
                         translation]]
     [ray.math :refer [pi]]
@@ -89,4 +96,47 @@
          canvas->ppm
          (spit "output.ppm"))))
 
-(def -main chapter-5)
+(defn chapter-7 []
+  (let [wall-material (material :color (color 1 0.9 0.9) :specular 0)
+        floor (sphere :transform (scaling 10 0.01 10) :material wall-material)
+        left-wall (sphere
+                   :transform
+                   (chain
+                    (translation 0 0 5)
+                    (rotation-y (- (/ pi 4)))
+                    (rotation-x (/ pi 2))
+                    (scaling 10 0.01 10))
+                   :material
+                   wall-material)
+        right-wall (sphere
+                    :transform
+                    (chain
+                     (translation 0 0 5)
+                     (rotation-y (/ pi 4))
+                     (rotation-x (/ pi 2))
+                     (scaling 10 0.01 10))
+                    :material
+                    wall-material)
+        middle (sphere
+                :transform (translation -0.5 1 0.5)
+                :material
+                (material
+                 :color (color 0.1 1 0.5)
+                 :diffuse 0.7
+                 :specular 0.3))
+        world (->World
+               [floor left-wall right-wall middle]
+               (->PointLight
+                (point3 -10 10 -10)
+                (color 1 1 1)))
+        camera (camera
+                100
+                50
+                (/ pi 3)
+                (view-transform
+                 (point3 0 1.5 -5)
+                 (point3 0 1 0)
+                 (vector3 0 1 0)))]
+    (spit "output.ppm" (canvas->ppm (render camera world)))))
+
+(def -main chapter-7)
